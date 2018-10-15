@@ -71,44 +71,59 @@ VS_SCREEN Default_VS(in float2 UV : TEXCOORD0)
     return Out;
 }
 
+
+
 float4 BgImage_PS(VS_SCREEN In) : COLOR0
 {
 	// Multiply by -3 rather than 2 to mirror and scale down
+    //乘以-3而不是2来镜像和缩小
 	float2 coords = -3 * (In.UV - 0.5f);
 	// Compute polar coordinates with theta \in [0, 2pi)
+    //用[0,2pi]中的theta \计算极坐标
 	float2 coordsPolar = float2(length(coords), atan2(coords.y, coords.x) + PI);
 	// Compensate for different theta = 0 direction
+    //补偿对于不同的theta= 0方向
 	coordsPolar.y += 0.5f * PI;
 	
 	// Angular span covered by a single mount (e.g. if 4 mounts are shown, the span is 90 degrees)
+    //角度跨度由单个安装覆盖
 	float singleMountAngle = 2.f * PI / float(g_iMountCount);
     // Determine the local mount ID, making sure to wrap around
+    //确定本地安装ID，确保环绕
     int localMountId = (int) round(coordsPolar.y / singleMountAngle);
     if (localMountId >= g_iMountCount)
         localMountId -= g_iMountCount;
     bool isLocalMountHovered = localMountId == g_iMountHovered;
     
 	// Percentage along the mount's angular span: 0 is one edge, 1 is the other
+    //沿着坐骑角度范围的百分比：0是一个边缘，1是另一个边缘
 	// Must also compensate since the spans are centered, but we want to start at one edge
+    //必须补偿，因为跨度居中，但我们想从一个边缘开始
     float localCoordPercentage = fmod(coordsPolar.y + 0.5f * singleMountAngle, singleMountAngle) / singleMountAngle;
 	
 	// Generate a pseudorandom background
+    //生成伪随机背景
 	float2 smoothrandom = float2(snoise(3 * In.UV * cos(0.1f * g_fTimer) + g_fTimer * 0.37f), snoise(5 * In.UV * sin(0.13f * g_fTimer) + g_fTimer * 0.48f));
 	float4 color = tex2D(texBgImageSampler, In.UV + smoothrandom * 0.003f);
 	color.rgb *= lerp(0.9f, 1.3f, saturate((4 + smoothrandom.x + smoothrandom.y) / 8));
     color.rgb *= lerp(0.5f, 1.f, isLocalMountHovered ? g_fHoverTimer : 0.f);
 	// Compute luma value for desaturation effects
+    //计算亮度值以获得去饱和效果
 	float luma = dot(color.rgb, float3(0.2126, 0.7152, 0.0722));
 
 	// Fade out the background at the periphery of the circle
+    //淡出圆周边的背景
 	float edge_mask = lerp(1.f, 0.f, smoothstep(0.5f, 1.f, coordsPolar.x * (1 - luma * 0.2f)));
 	// Fade out the background in the dead zone at the center of the circle
+    //淡出圆圈中心死区的背景
 	float center_mask = lerp(0.f, 1.f, smoothstep(g_fDeadZoneScale - 0.025f, g_fDeadZoneScale + 0.025f, coordsPolar.x * (1 - luma * 0.2f)));
 	
 	// Increase brightness on hovered and edge regions of the circle
+    //增加圆圈的悬停和边缘区域的亮度
 	float border_mask = 1.f;
 
 	// Calculate edge regions (localCoordPercentage is near 0 or 1), but only for non-hovered mount spans
+    //计算边缘区域（localCoordPercentage 接近0 或 1），但仅适用于非悬停的安装跨度
     if (!isLocalMountHovered || g_fHoverTimer < 1)
 	{
 		float min_thickness = 0.003f / (0.001f + coordsPolar.x);
@@ -122,10 +137,12 @@ float4 BgImage_PS(VS_SCREEN In) : COLOR0
 	}
 
 	// Reduce brightening when starting to hover to fade in gracefully
+    //开始悬停以优雅地淡化时减少亮白
     if (isLocalMountHovered && g_fHoverTimer < 1)
 		border_mask = lerp(border_mask, 1.f, g_fHoverTimer);
 
 	// Also brighten when the dead zone is hovered and has an action assigned to it
+    //当死区悬停并分配给它时，也会变亮
 	if (g_bCenterGlow)
 	{
         if (isLocalMountHovered)
@@ -134,10 +151,12 @@ float4 BgImage_PS(VS_SCREEN In) : COLOR0
 	}
 	
 	// Add some flair to the inner region of the circle
+    //在圆圈的内部区域添加一些天赋
 	border_mask *= lerp(2.f, 1.f, smoothstep(g_fDeadZoneScale, g_fDeadZoneScale + 0.05f, coordsPolar.x));
 	border_mask *= lerp(1.5f, 1.f, smoothstep(g_fDeadZoneScale, min(0.5f, g_fDeadZoneScale * 4), coordsPolar.x));
 
 	// Combine all masks, ensuring that the edge and center masks never increase brightness when combined and that the border mask never darkens the circle
+    //组合所有蒙版，确保边缘和中心蒙版在组合时不会增加亮度，并且边框蒙版不会使圆圈变暗
 	return color * saturate(edge_mask * center_mask) * clamp(border_mask, 1.f, 2.f) * clamp(luma, 0.8f, 1.2f) * g_fFadeTimer;
 }
 
@@ -205,6 +224,26 @@ technique MountImage
 		PixelShader = compile ps_3_0 MountImage_PS();
 	}
 }
+
+
+
+technique MouseImage
+{
+    pass P0
+    {
+        ZEnable = false;
+        ZWriteEnable = false;
+        CullMode = None;
+        AlphaTestEnable = false;
+        AlphaBlendEnable = true;
+
+        SrcBlend = One;
+        DestBlend = InvSrcAlpha;
+        BlendOp = Add;
+    }
+}
+
+
 
 float4 Cursor_PS(VS_SCREEN In) : COLOR0
 {

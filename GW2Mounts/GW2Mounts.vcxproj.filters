@@ -62,6 +62,9 @@
     <ClCompile Include="xxhash\xxhash.c">
       <Filter>xxHash</Filter>
     </ClCompile>
+    <ClCompile Include="Timener.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imgui_internal.h">
@@ -121,6 +124,7 @@
     <ClInclude Include="xxhash\xxhash.h">
       <Filter>xxHash</Filter>
     </ClInclude>
+    <ClInclude Include="Timener.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="main.def">
@@ -142,5 +146,16 @@
     <ResourceCompile Include="Resource.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="art\Finals\Background.dds" />
+    <Image Include="art\Finals\Raptor.dds" />
+    <Image Include="art\Finals\Springer.dds" />
+    <Image Include="art\Finals\Skimmer.dds" />
+    <Image Include="art\Finals\Jackal.dds" />
+    <Image Include="art\Finals\Beetle.dds" />
+    <Image Include="art\Finals\Griffon.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

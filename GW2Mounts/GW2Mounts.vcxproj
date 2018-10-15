@@ -52,6 +52,7 @@
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(ProjectDir)imgui\;C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include;$(ProjectDir)beaengine\include\;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Lib\x64;$(LibraryPath)</LibraryPath>
+    <TargetName>d3d9_chainload</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -95,8 +96,8 @@ copy /Y $(OutDir)$(TargetName).pdb "C:\Program Files\Guild Wars 2\bin64\d3d9_cha
       <AdditionalDependencies>d3dx9.lib;Shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y $(TargetPath) "C:\Program Files\Guild Wars 2\bin64\d3d9_chainload.dll"
-copy /Y $(OutDir)$(TargetName).pdb "C:\Program Files\Guild Wars 2\bin64\d3d9_chainload.pdb"</Command>
+      <Command>copy /Y $(TargetPath) "D:\fpan\imgui\imgui测试\imgui-master\examples\directx9_example\Release\d3d9.dll"
+</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -110,6 +111,7 @@ copy /Y $(OutDir)$(TargetName).pdb "C:\Program Files\Guild Wars 2\bin64\d3d9_cha
     <ClCompile Include="imgui\imgui.cpp" />
     <ClCompile Include="imgui\imgui_demo.cpp" />
     <ClCompile Include="imgui\imgui_draw.cpp" />
+    <ClCompile Include="Timener.cpp" />
     <ClCompile Include="UnitQuad.cpp" />
     <ClCompile Include="Utility.cpp" />
     <ClCompile Include="vftable.c" />
@@ -129,6 +131,7 @@ copy /Y $(OutDir)$(TargetName).pdb "C:\Program Files\Guild Wars 2\bin64\d3d9_cha
     <ClInclude Include="inputs.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Timener.h" />
     <ClInclude Include="UnitQuad.h" />
     <ClInclude Include="simpleini\SimpleIni.h" />
     <ClInclude Include="Utility.h" />
@@ -162,6 +165,15 @@ copy /Y $(OutDir)$(TargetName).pdb "C:\Program Files\Guild Wars 2\bin64\d3d9_cha
     <ProjectReference Include="minhook\build\VC15\libMinHook.vcxproj">
       <Project>{f142a341-5ee0-442d-a15f-98ae9b48dbae}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="art\Finals\Background.dds" />
+    <Image Include="art\Finals\Beetle.dds" />
+    <Image Include="art\Finals\Griffon.png" />
+    <Image Include="art\Finals\Jackal.dds" />
+    <Image Include="art\Finals\Raptor.dds" />
+    <Image Include="art\Finals\Skimmer.dds" />
+    <Image Include="art\Finals\Springer.dds" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

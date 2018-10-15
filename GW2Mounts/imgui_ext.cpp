@@ -57,12 +57,12 @@ void ImGuiKeybindInput(const std::string& name, ImGuiKeybind& setting)
 
 	ImGui::SameLine();
 
-	if (!setting.IsBeingModified && ImGui::Button(("Set" + suffix).c_str(), ImVec2(windowWidth * 0.1f, 0.f)))
+	if (!setting.IsBeingModified && ImGui::Button((u8"…Ë÷√" + suffix).c_str(), ImVec2(windowWidth * 0.1f, 0.f)))
 	{
 		setting.IsBeingModified = true;
 		setting.DisplayString[0] = '\0';
 	}
-	else if (setting.IsBeingModified && ImGui::Button(("Clear" + suffix).c_str(), ImVec2(windowWidth * 0.1f, 0.f)))
+	else if (setting.IsBeingModified && ImGui::Button((u8"«Â≥˝" + suffix).c_str(), ImVec2(windowWidth * 0.1f, 0.f)))
 	{
 		setting.IsBeingModified = false;
 		setting.DisplayString[0] = '\0';

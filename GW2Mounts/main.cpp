@@ -14,6 +14,7 @@
 #include <d3d9.h>
 #include "inputs.h"
 #include "imgui_ext.h"
+#include "Timener.h"
 #define _USE_MATH_DEFINES
 #include <math.h>
 
@@ -27,6 +28,12 @@ HWND GameWindow = 0;
 // Active state
 bool DisplayMountOverlay = false;
 bool DisplayOptionsWindow = false;
+//-----鼠标跟随模块按键判断参数
+bool shubiaogensui = false;
+bool shubiao = true;
+
+bool jishiqiui = false;
+bool jishiqi = true;
 
 ImGuiKeybind MainKeybind;
 ImGuiKeybind MainLockedKeybind;
@@ -40,23 +47,23 @@ MountType CurrentMountHovered = MountType::NONE;
 
 const char* GetMountName(MountType m)
 {
-	switch (m)
-	{
-	case MountType::RAPTOR:
-		return "Raptor";
-	case MountType::SPRINGER:
-		return "Springer";
-	case MountType::SKIMMER:
-		return "Skimmer";
-	case MountType::JACKAL:
-		return "Jackal";
-	case MountType::BEETLE:
-		return "Beetle";
-	case MountType::GRIFFON:
-		return "Griffon";
-	default:
-		return "[Unknown]";
-	}
+    switch (m)
+    {
+    case MountType::RAPTOR:
+        return u8"肉龙";
+    case MountType::SPRINGER:
+        return u8"兔子";
+    case MountType::SKIMMER:
+        return u8"飞鱼";
+    case MountType::JACKAL:
+        return u8"沙狼";
+    case MountType::BEETLE:
+        return u8"甲虫";
+    case MountType::GRIFFON:
+        return u8"狮鹫";
+    default:
+        return "[Unknown]";
+    }
 }
 
 WNDPROC BaseWndProc;
@@ -69,16 +76,21 @@ ID3DXEffect* MainEffect = nullptr;
 IDirect3DTexture9* MountTextures[MountTypeCount] = { nullptr, nullptr, nullptr, nullptr, nullptr };
 IDirect3DTexture9* BgTexture = nullptr;
 
+IDirect3DTexture9* map;//图片
 void LoadMountTextures(IDirect3DDevice9* dev)
 {
+   // D3DXCreateTextureFromFile(dev, _T(".\\鼠标.png"), &map);//创建图片缓存 图片位置
 	D3DXCreateTextureFromResource(dev, DllModule, MAKEINTRESOURCE(IDR_BG), &BgTexture);
 	for (uint i = 0; i < MountTypeCount; i++)
 		D3DXCreateTextureFromResource(dev, DllModule, MAKEINTRESOURCE(IDR_MOUNTS + i), &MountTextures[i]);
+    
+
 }
 
 void UnloadMountTextures()
 {
-	COM_RELEASE(BgTexture);
+    COM_RELEASE(BgTexture);
+   // COM_RELEASE(map);//销毁图片
 	for (uint i = 0; i < MountTypeCount; i++)
 		COM_RELEASE(MountTextures[i]);
 }
@@ -288,15 +300,44 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		if (DisplayMountOverlay && msg == WM_MOUSEMOVE)
 			DetermineHoveredMount();
 
-		bool isMenuKeybind = false;
-
+        bool isMenuKeybind = false;
+        bool isMouseKeybind = false;
+        bool isjishiqiKeybind = false;
 		// Only run these for key down/key up (incl. mouse buttons) events
 		if (!eventKeys.empty())
 		{
 			// Very exclusive test: *only* consider the menu keybind to be activated if they're the *only* keys currently down
 			// This minimizes the likelihood of the menu randomly popping up when it shouldn't
 			isMenuKeybind = DownKeys == Cfg.SettingsKeybind();
+            isMouseKeybind = DownKeys == Cfg.MouseKeybind();//鼠标跟随模块按键
+            isjishiqiKeybind = DownKeys == Cfg.jishiqiKeybind();
+            if (isMouseKeybind)
+            {
+                if (shubiao)
+                {
+                    shubiaogensui = true;
+                    shubiao = false;
+                }
+                else
+                {
+                    shubiaogensui = false;
+                    shubiao = true;
+                }
+            }
 
+            if (isjishiqiKeybind)
+            {
+                if (jishiqi)
+                {
+                    jishiqiui = true;
+                    jishiqi = false;
+                }
+                else
+                {
+                    jishiqiui = false;
+                    jishiqi = true;
+                }
+            }
 			if (isMenuKeybind)
 				DisplayOptionsWindow = true;
 			else
@@ -515,12 +556,15 @@ void PreCreateDevice(HWND hFocusWindow)
 void PostCreateDevice(IDirect3DDevice9* temp_device, D3DPRESENT_PARAMETERS *pPresentationParameters)
 {
 	// Init ImGui
-	auto& imio = ImGui::GetIO();
-	imio.IniFilename = Cfg.ImGuiConfigLocation();
-
+    auto& imio = ImGui::GetIO();
+    imio.IniFilename = Cfg.ImGuiConfigLocation();
+    ImFont* font = imio.Fonts->AddFontFromFileTTF(".\\addons\\arcdps\\arcdps_font.ttf", 14.0f, NULL, imio.Fonts->GetGlyphRangesChineseFull());
+    // Setup ImGui binding
 	// Setup ImGui binding
 	ImGui_ImplDX9_Init(temp_device);
 	ImGui_ImplWin32_Init(GameWindow);
+    
+    
 
 	// Initialize graphics
 	ScreenWidth = pPresentationParameters->BackBufferWidth;
@@ -545,6 +589,7 @@ void PreReset()
 	Quad.reset();
 	UnloadMountTextures();
 	COM_RELEASE(MainEffect);
+    //map->Release();
 }
 
 void PostReset(IDirect3DDevice9* dev, D3DPRESENT_PARAMETERS *pPresentationParameters)
@@ -572,8 +617,10 @@ std::vector<const char*> FavoriteMountNames(MountTypeCount);
 void Draw(IDirect3DDevice9* dev, bool FrameDrawn, bool SceneEnded)
 {
 	// This is the closest we have to a reliable "update" function, so use it as one
-	SendQueuedInputs();
-
+    SendQueuedInputs();
+    ImGuiIO& io = ImGui::GetIO(); (void)io;
+    
+    
 	if (FrameDrawn)
 		return;
 
@@ -583,76 +630,112 @@ void Draw(IDirect3DDevice9* dev, bool FrameDrawn, bool SceneEnded)
 		// This unfortunately means that we have to call Begin/EndScene before Present so we can render things, but thankfully for modern GPUs that doesn't cause bugs
 		if (SceneEnded)
 			dev->BeginScene();
+        
+        if (DisplayOptionsWindow)
+        {
+            ImGui::Begin(u8"坐骑插件设置菜单_汉化BY激战2印度神油君", &DisplayOptionsWindow, ImGuiWindowFlags_AlwaysAutoResize);
 
-		if (DisplayOptionsWindow)
-		{
-			ImGui::Begin("Mounts Options Menu", &DisplayOptionsWindow);
+            if (ImGui::SliderInt(u8"界面延迟", &Cfg.OverlayDelayMilliseconds(), 0, 1000, "%d ms"))
+                Cfg.OverlayDelayMillisecondsSave();
 
-			if (ImGui::SliderInt("Pop-up Delay", &Cfg.OverlayDelayMilliseconds(), 0, 1000, "%d ms"))
-				Cfg.OverlayDelayMillisecondsSave();
+            if (ImGui::SliderFloat(u8"界面大小", &Cfg.OverlayScale(), 0.f, 4.f))
+                Cfg.OverlayScaleSave();
 
-			if (ImGui::SliderFloat("Overlay Scale", &Cfg.OverlayScale(), 0.f, 4.f))
-				Cfg.OverlayScaleSave();
+            if (ImGui::SliderFloat(u8"界面中心圆圈大小", &Cfg.OverlayDeadZoneScale(), 0.f, 0.25f))
+                Cfg.OverlayDeadZoneScaleSave();
 
-			if (ImGui::SliderFloat("Overlay Dead Zone Scale", &Cfg.OverlayDeadZoneScale(), 0.f, 0.25f))
-				Cfg.OverlayDeadZoneScaleSave();
+            ImGui::Text(u8"界面关闭后行为:");
+            int oldBehavior = Cfg.OverlayDeadZoneBehavior();
+            ImGui::RadioButton(u8"无", &Cfg.OverlayDeadZoneBehavior(), 0);
+            ImGui::RadioButton(u8"上次使用的坐骑", &Cfg.OverlayDeadZoneBehavior(), 1);
+            ImGui::RadioButton(u8"自定义固定坐骑", &Cfg.OverlayDeadZoneBehavior(), 2);
+            if (oldBehavior != Cfg.OverlayDeadZoneBehavior())
+                Cfg.OverlayDeadZoneBehaviorSave();
 
-			ImGui::Text("Overlay Dead Zone Behavior:");
-			int oldBehavior = Cfg.OverlayDeadZoneBehavior();
-			ImGui::RadioButton("Nothing", &Cfg.OverlayDeadZoneBehavior(), 0);
-			ImGui::RadioButton("Last Mount", &Cfg.OverlayDeadZoneBehavior(), 1);
-			ImGui::RadioButton("Favorite Mount", &Cfg.OverlayDeadZoneBehavior(), 2);
-			if (oldBehavior != Cfg.OverlayDeadZoneBehavior())
-				Cfg.OverlayDeadZoneBehaviorSave();
+            if (Cfg.OverlayDeadZoneBehavior() == 2)
+            {
+                if (FavoriteMountNames[0] == nullptr)
+                {
+                    auto mounts = GetAllMounts();
+                    for (uint i = 0; i < mounts.size(); i++)
+                        FavoriteMountNames[i] = GetMountName(mounts[i]);
+                }
 
-			if (Cfg.OverlayDeadZoneBehavior() == 2)
-			{
-				if (FavoriteMountNames[0] == nullptr)
-				{
-					auto mounts = GetAllMounts();
-					for (uint i = 0; i < mounts.size(); i++)
-						FavoriteMountNames[i] = GetMountName(mounts[i]);
-				}
+                if (ImGui::Combo(u8"坐骑列表", (int*)&Cfg.FavoriteMount(), FavoriteMountNames.data(), (int)FavoriteMountNames.size()))
+                    Cfg.FavoriteMountSave();
+            }
 
-				if (ImGui::Combo("Favorite Mount", (int*)&Cfg.FavoriteMount(), FavoriteMountNames.data(), (int)FavoriteMountNames.size()))
-					Cfg.FavoriteMountSave();
-			}
+            if (ImGui::Checkbox(u8"界面显示时锁定鼠标到中心", &Cfg.ResetCursorOnLockedKeybind()))
+                Cfg.ResetCursorOnLockedKeybindSave();
+            if (ImGui::Checkbox(u8"界面显示时锁定相机位置", &Cfg.LockCameraWhenOverlayed()))
+                Cfg.LockCameraWhenOverlayedSave();
 
-			if (ImGui::Checkbox("Reset cursor to center with Center Locked keybind", &Cfg.ResetCursorOnLockedKeybind()))
-				Cfg.ResetCursorOnLockedKeybindSave();
-			if (ImGui::Checkbox("Lock camera when overlay is displayed", &Cfg.LockCameraWhenOverlayed()))
-				Cfg.LockCameraWhenOverlayedSave();
+            ImGui::Separator();
 
-			ImGui::Separator();
+            ImGuiKeybindInput(u8"界面快捷键", MainKeybind);
+            ImGuiKeybindInput(u8"界面快捷键(中心锁定)", MainLockedKeybind);
 
-			ImGuiKeybindInput("Overlay Keybind", MainKeybind);
-			ImGuiKeybindInput("Overlay Keybind (Center Locked)", MainLockedKeybind);
+            ImGui::Separator();
+            ImGui::Text(u8"坐骑按键");
+            ImGui::Text(u8"(必须跟游戏内设置一样)");
 
-			ImGui::Separator();
-			ImGui::Text("Mount Keybinds");
-			ImGui::Text("(set to relevant game keybinds)");
+            for (uint i = 0; i < MountTypeCount; i++)
+                ImGuiKeybindInput(GetMountName((MountType)i), MountKeybinds[i]);
+            //--------------鼠标跟随模块设置
+            ImGui::Separator();
+            ImGui::Text(u8"鼠标跟随模块设置");
+            //float vec4f[4] = { *,*,0,0 };
 
-			for (uint i = 0; i < MountTypeCount; i++)
-				ImGuiKeybindInput(GetMountName((MountType)i), MountKeybinds[i]);
+            if (ImGui::InputFloat2(u8"方块大小", (&Cfg.shubiaoPOSY(), &Cfg.shubiaoPOSX()), "%.F"))
+            {
+                Cfg.shubiaoPOSSave(Cfg.shubiaoPOSX(), Cfg.shubiaoPOSY());
+            }
 
-			ImGui::End();
+            if (ImGui::ColorEdit4(u8"方块颜色", (&Cfg.shubiaoALH(), &Cfg.shubiaoBLU(), &Cfg.shubiaoGRE(), &Cfg.shubiaoRED()), ImGuiColorEditFlags_AlphaBar))
+            {
+                Cfg.shubiaoRGBASave(Cfg.shubiaoRED(), Cfg.shubiaoBLU(), Cfg.shubiaoGRE(), Cfg.shubiaoALH());
+            }
 
-			if (!Cfg.LastSaveError().empty() && !ImGui::IsPopupOpen("Configuration Update Error") && Cfg.LastSaveErrorChanged())
-				ImGui::OpenPopup("Configuration Update Error");
+            ImGui::End();
 
-			if (ImGui::BeginPopup("Configuration Update Error"))
-			{
-				ImGui::Text("Could not save addon configuration. Reason given was:");
-				ImGui::TextWrapped(Cfg.LastSaveError().c_str());
-				if (ImGui::Button("OK"))
-					ImGui::CloseCurrentPopup();
-				ImGui::EndPopup();
-			}
-		}
+            if (!Cfg.LastSaveError().empty() && !ImGui::IsPopupOpen(u8"配置更新失败") && Cfg.LastSaveErrorChanged())
+                ImGui::OpenPopup(u8"配置更新失败");
+
+            if (ImGui::BeginPopup(u8"配置更新失败"))
+            {
+                ImGui::Text(u8"无法保存配置,原因:");
+                ImGui::TextWrapped(Cfg.LastSaveError().c_str());
+                if (ImGui::Button(u8"确定"))
+                    ImGui::CloseCurrentPopup();
+                ImGui::EndPopup();
+            }
+        }
+
+        if (shubiaogensui)
+        {
+            ImGui::SetNextWindowPos(ImVec2(io.MousePos.x + 2, io.MousePos.y + 2), 0);
+            ImGui::SetNextWindowSize(ImVec2(Cfg.shubiaoPOSX(), Cfg.shubiaoPOSY()));
+            ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(Cfg.shubiaoRED(), Cfg.shubiaoGRE(), Cfg.shubiaoBLU(), Cfg.shubiaoALH()));
+            ImGui::Begin(u8"跟随", 0, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize);
+            ImGui::End();
+            ImGui::PopStyleColor(1);
+            //shubiaogensui = Timeners(u8"好", shubiaogensui);
+
+            //显示图片
+            //ImGui::GetOverlayDrawList()->AddImage(map, ImVec2(io.MousePos.x, io.MousePos.y), ImVec2(io.MousePos.x + Cfg.shubiaoPOSX(), io.MousePos.y+ Cfg.shubiaoPOSY()));
+        }
+
+        if (jishiqiui)
+        {
+            if (!Timeners(u8"好", jishiqiui))
+            {
+                jishiqi = true;
+            }
+        }
 
 		ImGui::Render();
 		ImGui_ImplDX9_RenderDrawData(ImGui::GetDrawData());
-
+        
 		if (DisplayMountOverlay && MainEffect && Quad)
 		{
 			Quad->Bind();
@@ -793,5 +876,6 @@ void Draw(IDirect3DDevice9* dev, bool FrameDrawn, bool SceneEnded)
 	ImGui_ImplDX9_NewFrame();
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
+    
 	FirstFrame = false;
 }
