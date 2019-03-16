@@ -6,15 +6,15 @@ namespace GW2Radial
 
 std::map<MarkerType, std::tuple<std::string, std::string, std::array<float, 4>>> data
 {
-	{ MarkerType::ARROW,    { "arrow",      "Arrow",        { 186 / 255.f, 237 / 255.f, 126 / 255.f, 1 } } },
-	{ MarkerType::CIRCLE,   { "circle",     "Circle",       { 107 / 255.f,  24 / 255.f, 181 / 255.f, 1 } } },
-	{ MarkerType::HEART,    { "heart",      "Heart",        { 222 / 255.f,  40 / 255.f,  41 / 255.f, 1 } } },
-	{ MarkerType::SQUARE,   { "square",     "Square",       {  57 / 255.f, 134 / 255.f, 231 / 255.f, 1 } } },
-	{ MarkerType::STAR,     { "star",       "Star",         {  27 / 255.f, 181 / 255.f,  68 / 255.f, 1 } } },
-	{ MarkerType::SPIRAL,   { "spiral",     "Spiral",       { 140 / 255.f, 239 / 255.f, 236 / 255.f, 1 } } },
-	{ MarkerType::TRIANGLE, { "triangle",   "Triangle",     { 239 / 255.f, 121 / 255.f, 214 / 255.f, 1 } } },
-	{ MarkerType::X,        { "x",          "X",            { 222 / 255.f, 182 / 255.f,  33 / 255.f, 1 } } },
-	{ MarkerType::CLEAR,    { "clear_all",  "Clear All",    { 128 / 255.f, 128 / 255.f, 128 / 255.f, 1 } } },
+	{ MarkerType::ARROW,    { "arrow",      u8"箭头",        { 186 / 255.f, 237 / 255.f, 126 / 255.f, 1 } } },
+	{ MarkerType::CIRCLE,   { "circle",     u8"圆圈",       { 107 / 255.f,  24 / 255.f, 181 / 255.f, 1 } } },
+	{ MarkerType::HEART,    { "heart",      u8"爱心",        { 222 / 255.f,  40 / 255.f,  41 / 255.f, 1 } } },
+	{ MarkerType::SQUARE,   { "square",     u8"方形",       {  57 / 255.f, 134 / 255.f, 231 / 255.f, 1 } } },
+	{ MarkerType::STAR,     { "star",       u8"星形",         {  27 / 255.f, 181 / 255.f,  68 / 255.f, 1 } } },
+	{ MarkerType::SPIRAL,   { "spiral",     u8"螺旋",       { 140 / 255.f, 239 / 255.f, 236 / 255.f, 1 } } },
+	{ MarkerType::TRIANGLE, { "triangle",   u8"三角",     { 239 / 255.f, 121 / 255.f, 214 / 255.f, 1 } } },
+	{ MarkerType::X,        { "x",          u8"X形",            { 222 / 255.f, 182 / 255.f,  33 / 255.f, 1 } } },
+	{ MarkerType::CLEAR,    { "clear_all",  u8"清除全部",    { 128 / 255.f, 128 / 255.f, 128 / 255.f, 1 } } },
 };
 
 Marker::Marker(MarkerType m, IDirect3DDevice9* dev)

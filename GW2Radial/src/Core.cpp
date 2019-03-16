@@ -13,11 +13,13 @@
 #include <imgui/imgui_internal.h>
 #include <Novelty.h>
 #include <shellapi.h>
-#include <UpdateCheck.h>
+//#include <UpdateCheck.h>
 #include <ImGuiPopup.h>
 #include <Marker.h>
 #include <MiscTab.h>
 #include <MumbleLink.h>
+#include <src/SkllsONE.h>
+//#include <src/SkllsTOW.h>
 
 namespace GW2Radial
 {
@@ -75,6 +77,7 @@ void Core::InternalInit()
 	Direct3D9Hooks::i()->drawUnderCallback([this](IDirect3DDevice9* d, bool frameDrawn, bool sceneEnded){ DrawUnder(d, frameDrawn, sceneEnded); });
 	
 	imguiContext_ = ImGui::CreateContext();
+	ImGui::StyleColorsClassic();//++
 }
 
 void Core::OnFocusLost()
@@ -118,35 +121,35 @@ void Core::PostCreateDevice(IDirect3DDevice9 *device, D3DPRESENT_PARAMETERS *pre
 	auto fontCfg = ImFontConfig();
 	fontCfg.FontDataOwnedByAtlas = false;
 
-	void *fontPtr, *fontBlackPtr, *fontItalicPtr;
-	size_t fontSize, fontBlackSize, fontItalicSize;
-	if(LoadFontResource(IDR_FONT, fontPtr, fontSize))
-		font_ = imio.Fonts->AddFontFromMemoryTTF(fontPtr, int(fontSize), 25.f, &fontCfg);
-	if(LoadFontResource(IDR_FONT_BLACK, fontBlackPtr, fontBlackSize))
-		fontBlack_ = imio.Fonts->AddFontFromMemoryTTF(fontBlackPtr, int(fontBlackSize), 35.f, &fontCfg);
-	if(LoadFontResource(IDR_FONT_ITALIC, fontItalicPtr, fontItalicSize))
-		fontItalic_ = imio.Fonts->AddFontFromMemoryTTF(fontItalicPtr, int(fontItalicSize), 25.f, &fontCfg);
+	//void *fontPtr, *fontBlackPtr, *fontItalicPtr;
+	//size_t fontSize, fontBlackSize, fontItalicSize;
+	//if(LoadFontResource(IDR_FONT, fontPtr, fontSize))
+	//	font_ = imio.Fonts->AddFontFromMemoryTTF(fontPtr, int(fontSize), 25.f, &fontCfg);
+	//if(LoadFontResource(IDR_FONT_BLACK, fontBlackPtr, fontBlackSize))
+	//	fontBlack_ = imio.Fonts->AddFontFromMemoryTTF(fontBlackPtr, int(fontBlackSize), 35.f, &fontCfg);
+	//if(LoadFontResource(IDR_FONT_ITALIC, fontItalicPtr, fontItalicSize))
+	//	fontItalic_ = imio.Fonts->AddFontFromMemoryTTF(fontItalicPtr, int(fontItalicSize), 25.f, &fontCfg);
 
-	if(font_)
-		imio.FontDefault = font_;
-
+	//if(font_)
+	//	imio.FontDefault = font_;
+	imio.Fonts->AddFontFromFileTTF(".\\addons\\arcdps\\arcdps_font.ttf", 14.0f, NULL, imio.Fonts->GetGlyphRangesChineseFull());
 	ImGui_ImplWin32_Init(gameWindow_);
 
 	firstMessageShown_ = std::make_unique<ConfigurationOption<bool>>("", "first_message_shown_v1", "Core", false);
-	ignoreRTSS_ = std::make_unique<ConfigurationOption<bool>>("", "ignore_rtss", "Core", false);
+	//ignoreRTSS_ = std::make_unique<ConfigurationOption<bool>>("", "ignore_rtss", "Core", false);
 
-	if(!ignoreRTSS_->value())
-	{
-		const auto rtss = GetModuleHandleA("RTSSHooks64.dll");
-		if(rtss)
-		{
-			const auto retval = MessageBox(nullptr, TEXT("WARNING: RivaTuner Statistics Server has been detected! GW2Radial is incompatible with RTSS, anomalous behavior may occur. Are you sure you want to continue? Continuing will prevent this message from showing again."), TEXT("RTSS Detected"), MB_ICONWARNING | MB_YESNO);
-			if(retval == IDNO)
-				exit(1);
-			else if(retval == IDYES)
-				ignoreRTSS_->value(true);
-		}
-	}
+	//if(!ignoreRTSS_->value())
+	//{
+	//	const auto rtss = GetModuleHandleA("RTSSHooks64.dll");
+	//	if(rtss)
+	//	{
+	//		const auto retval = MessageBox(nullptr, TEXT("WARNING: RivaTuner Statistics Server has been detected! GW2Radial is incompatible with RTSS, anomalous behavior may occur. Are you sure you want to continue? Continuing will prevent this message from showing again."), TEXT("RTSS Detected"), MB_ICONWARNING | MB_YESNO);
+	//		if(retval == IDNO)
+	//			exit(1);
+	//		else if(retval == IDYES)
+	//			ignoreRTSS_->value(true);
+	//	}
+	//}
 
 	OnDeviceSet(device, presentationParameters);
 }
@@ -166,14 +169,17 @@ void Core::OnDeviceSet(IDirect3DDevice9 *device, D3DPRESENT_PARAMETERS *presenta
 	                             &mainEffect_, &errorBuffer);
 	COM_RELEASE(errorBuffer);
 
-	UpdateCheck::i()->CheckForUpdates();
+	//UpdateCheck::i()->CheckForUpdates();
 	MiscTab::i();
 
-	wheels_.emplace_back(Wheel::Create<Mount>(IDR_BG, IDR_INK, "mounts", "Mounts", device));
-	wheels_.emplace_back(Wheel::Create<Novelty>(IDR_BG, IDR_INK, "novelties", "Novelties", device));
-	wheels_.emplace_back(Wheel::Create<Marker>(IDR_BG, IDR_INK, "markers", "Markers", device));
-	wheels_.emplace_back(Wheel::Create<ObjectMarker>(IDR_BG, IDR_INK, "object_markers", "Object Markers", device));
-
+	wheels_.emplace_back(Wheel::Create<Mount>(IDR_BG, IDR_INK, "mounts", u8"坐骑", device));
+	wheels_.emplace_back(Wheel::Create<Novelty>(IDR_BG, IDR_INK, "novelties", u8"新奇", device));
+	wheels_.emplace_back(Wheel::Create<Marker>(IDR_BG, IDR_INK, "markers", u8"标记", device));
+	wheels_.emplace_back(Wheel::Create<ObjectMarker>(IDR_BG, IDR_INK, "object_markers", u8"物品标记", device));
+	wheels_.emplace_back(Wheel::Create<SkllsONE>(IDR_BG, IDR_INK, "Sklls_ONE", u8"技能1", device));
+	//wheels_.emplace_back(Wheel::Create<SkllsTOW>(IDR_BG, IDR_INK, "Sklls_TOW", u8"技能2", device));
+	MouseSquare_ = std::make_unique<MouseSquare>();//++必须加
+	BossTime_ = std::make_unique<BossTime>();//++必须加
 	ImGui_ImplDX9_Init(device);
 }
 
@@ -182,6 +188,8 @@ void Core::OnDeviceUnset()
 	ImGui_ImplDX9_InvalidateDeviceObjects();
 	quad_.reset();
 	wheels_.clear();
+	MouseSquare_.reset();//++必须加
+	BossTime_.reset();//++必须加
 	COM_RELEASE(mainEffect_);
 }
 
@@ -217,7 +225,7 @@ void Core::DrawOver(IDirect3DDevice9* device, bool frameDrawn, bool sceneEnded)
 	Input::i()->OnUpdate();
 	ConfigurationFile::i()->OnUpdate();
 
-	UpdateCheck::i()->CheckForUpdates();
+	//UpdateCheck::i()->CheckForUpdates();
 
 	if (firstFrame_)
 	{
@@ -239,13 +247,16 @@ void Core::DrawOver(IDirect3DDevice9* device, bool frameDrawn, bool sceneEnded)
 				wheel->Draw(device, mainEffect_, quad_.get());
 
 		SettingsMenu::i()->Draw();
-
+		MouseSquare::i()->Draw();//++必须加
+		BossTime::i()->Draw();//++必须加
 		if(!firstMessageShown_->value())
-			ImGuiPopup("Welcome to GW2Radial!").Position({0.5f, 0.45f}).Size({0.35f, 0.2f}).Display([&](const ImVec2& windowSize)
+			ImGuiPopup(u8"欢迎使用GW2Radial插件!").Position({0.5f, 0.45f}).Size({0.35f, 0.2f}).Display([&](const ImVec2& windowSize)
 			{
-				ImGui::TextWrapped("Welcome to GW2Radial! This small addon shows a convenient, customizable radial menu overlay to select a mount or novelty on the fly for Guild Wars 2: Path of Fire. "
-				"To begin, use the shortcut Shift+Alt+M to open the settings menu and take a moment to bind your keys. If you ever need further assistance, please visit "
-				"this project's website at");
+				ImGui::TextWrapped(u8"欢迎使用GW2Radial!.\r\n "
+				"快捷键 Shift+Alt+M 打开设置菜单并绑定你的按键.\r\n "
+				"快捷键 F8 打开或关闭BOSS计时器.\r\n"
+				"快捷键 F9 打开或关闭鼠标跟随方块.\r\n "
+				"需要了解更多请访问项目网站,项目网站在这\r\n");
 				
 				ImGui::SetCursorPosX(windowSize.x * 0.1f);
 
@@ -254,24 +265,24 @@ void Core::DrawOver(IDirect3DDevice9* device, bool frameDrawn, bool sceneEnded)
 			}, [&]() { firstMessageShown_->value(true); });
 
 		if (!ConfigurationFile::i()->lastSaveError().empty() && ConfigurationFile::i()->lastSaveErrorChanged())
-			ImGuiPopup("Configuration could not be saved!").Position({0.5f, 0.45f}).Size({0.35f, 0.2f}).Display([&](const ImVec2&)
+			ImGuiPopup(u8"配置文件无法保存!").Position({0.5f, 0.45f}).Size({0.35f, 0.2f}).Display([&](const ImVec2&)
 			{
-				ImGui::Text("Could not save addon configuration. Reason given was:");
+				ImGui::Text(u8"配置文件无法保存,给出的原因是:");
 				ImGui::TextWrapped(ConfigurationFile::i()->lastSaveError().c_str());
 			}, []() { ConfigurationFile::i()->lastSaveErrorChanged(false); });
 
-		if(UpdateCheck::i()->updateAvailable() && !UpdateCheck::i()->updateDismissed())
-			ImGuiPopup("Update available!").Position({0.5f, 0.45f}).Size({0.35f, 0.2f}).Display([&](const ImVec2& windowSize)
-			{
-				ImGui::TextWrapped("A new version of GW2Radial has been released! "
-					"Please follow the link below to look at the changes and download the update. "
-					"Remember that you can always disable this version check in the settings.");
-				
-				ImGui::SetCursorPosX(windowSize.x * 0.1f);
+		//if(UpdateCheck::i()->updateAvailable() && !UpdateCheck::i()->updateDismissed())
+		//	ImGuiPopup("Update available!").Position({0.5f, 0.45f}).Size({0.35f, 0.2f}).Display([&](const ImVec2& windowSize)
+		//	{
+		//		ImGui::TextWrapped("A new version of GW2Radial has been released! "
+		//			"Please follow the link below to look at the changes and download the update. "
+		//			"Remember that you can always disable this version check in the settings.");
+		//		
+		//		ImGui::SetCursorPosX(windowSize.x * 0.1f);
 
-				if(ImGui::Button("https://github.com/Friendly0Fire/GW2Radial/releases/latest", ImVec2(windowSize.x * 0.8f, ImGui::GetFontSize() * 1.3f)))
-					ShellExecute(0, 0, L"https://github.com/Friendly0Fire/GW2Radial/releases/latest", 0, 0 , SW_SHOW );
-			}, []() { UpdateCheck::i()->updateDismissed(true); });
+		//		if(ImGui::Button("https://github.com/Friendly0Fire/GW2Radial/releases/latest", ImVec2(windowSize.x * 0.8f, ImGui::GetFontSize() * 1.3f)))
+		//			ShellExecute(0, 0, L"https://github.com/Friendly0Fire/GW2Radial/releases/latest", 0, 0 , SW_SHOW );
+		//	}, []() { UpdateCheck::i()->updateDismissed(true); });
 
 		ImGui::Render();
 		ImGui_ImplDX9_RenderDrawData(ImGui::GetDrawData());	

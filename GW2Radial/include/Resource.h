@@ -37,6 +37,18 @@
 #define IDR_MARKER8		238
 #define IDR_MARKER9		239
 
-#define IDR_FONT		300
-#define IDR_FONT_BLACK	301
-#define IDR_FONT_ITALIC	302
+
+#define IDR_SKLL1                    241
+#define IDR_SKLL2                    242
+#define IDR_SKLL3                    243
+#define IDR_SKLL4                    244
+#define IDR_SKLL5                    245
+#define IDR_SKLL6                    251
+#define IDR_SKLL7                    252
+#define IDR_SKLL8                    253
+#define IDR_SKLL9                    254
+#define IDR_SKLL0                    255
+
+//#define IDR_FONT		300
+//#define IDR_FONT_BLACK	301
+//#define IDR_FONT_ITALIC	302

@@ -37,7 +37,7 @@ int WheelElement::DrawPriority(int extremumIndicator)
 		ImGui::PushFont(Core::i()->fontItalic());
 	auto displayName = displayName_;
 	if(!keybind_.isSet())
-		displayName += " [No keybind]";
+		displayName += u8"[ÎÞ°´¼ü]";
 	ImGui::Text(displayName.c_str());
 	
 	int rv = 0;
