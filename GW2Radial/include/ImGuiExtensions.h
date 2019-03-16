@@ -25,7 +25,38 @@ void ImGuiConfigurationWrapper(F fct, GW2Radial::ConfigurationOption<T>& value, 
 	if(fct(value.displayName().c_str(), &value.value(), std::forward<Args>(args)...))
 		value.ForceSave();
 }
+//===================================================
+template<typename F, typename T, typename... Args>
+void ImGuiConfigurationWrapper(F fct, const char* name, GW2Radial::ConfigurationOption<T>& value1, GW2Radial::ConfigurationOption<T>& value2, Args&&... args)
+{
+	float vec4f[2];
+	vec4f[0] = value1.value();
+	vec4f[1] = value2.value();
+	if (fct(name, vec4f, std::forward<Args>(args)...))
+		value1.value() = vec4f[0], value1.ForceSave(),
+		value2.value() = vec4f[1], value2.ForceSave();
+}
 
+template<typename F, typename T, typename... Args>
+void ImGuiConfigurationWrapper(F fct, const char* name,
+	GW2Radial::ConfigurationOption<T>& value0,
+	GW2Radial::ConfigurationOption<T>& value1,
+	GW2Radial::ConfigurationOption<T>& value2,
+	GW2Radial::ConfigurationOption<T>& value3,
+	Args&&... args)
+{
+	float vec4f[4];
+	vec4f[0] = value0.value();
+	vec4f[1] = value1.value();
+	vec4f[2] = value2.value();
+	vec4f[3] = value3.value();
+	if (fct(name, vec4f, std::forward<Args>(args)...))
+		value0.value() = vec4f[0], value0.ForceSave(),
+		value1.value() = vec4f[1], value1.ForceSave(),
+		value2.value() = vec4f[2], value2.ForceSave(),
+		value3.value() = vec4f[3], value3.ForceSave();
+}
+//========================================================
 inline void ImGuiIndent()
 {
 	ImGui::Indent(ImGui::GetStyle().FramePadding.x * 2 + ImGui::GetFontSize());

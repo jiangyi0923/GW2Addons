@@ -26,7 +26,17 @@
 #define IDR_NOVELTY8		228
 #define IDR_NOVELTY9		229
 
+#define IDR_SKLL1                    231
+#define IDR_SKLL2                    232
+#define IDR_SKLL3                    233
+#define IDR_SKLL4                    234
+#define IDR_SKLL5                    235
+#define IDR_SKLL6                    241
+#define IDR_SKLL7                    242
+#define IDR_SKLL8                    243
+#define IDR_SKLL9                    244
+#define IDR_SKLL0                    245
 
-#define IDR_FONT		300
-#define IDR_FONT_BLACK	301
-#define IDR_FONT_ITALIC	302
+//#define IDR_FONT		300
+//#define IDR_FONT_BLACK	301
+//#define IDR_FONT_ITALIC	302

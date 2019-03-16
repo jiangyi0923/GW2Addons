@@ -281,6 +281,30 @@ void Direct3D9Hooks::OnD3DCreate()
 			_tcscat_s(path, TEXT("\\bin64\\ReShade64.dll"));
 		}
 
+		if (!FileExists(path))
+		{
+			GetCurrentDirectory(MAX_PATH, path);
+			_tcscat_s(path, TEXT("\\d3d9_chainload.dll"));
+		}
+
+		if (!FileExists(path))
+		{
+			GetCurrentDirectory(MAX_PATH, path);
+			_tcscat_s(path, TEXT("\\bin64\\d3d9_chainload.dll"));
+		}
+
+		if (!FileExists(path))
+		{
+			GetCurrentDirectory(MAX_PATH, path);
+			_tcscat_s(path, TEXT("\\d3d9_mchainload.dll"));
+		}
+
+		if (!FileExists(path))
+		{
+			GetCurrentDirectory(MAX_PATH, path);
+			_tcscat_s(path, TEXT("\\bin64\\d3d9_mchainload.dll"));
+		}
+
 		if (FileExists(path))
 			chainD3D9Module_ = LoadLibrary(path);
 	}

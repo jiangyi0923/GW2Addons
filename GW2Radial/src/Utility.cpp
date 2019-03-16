@@ -58,7 +58,7 @@ std::wstring GetKeyName(unsigned int virtualKey)
 	if (GetKeyNameTextW(scanCode << 16, keyName, sizeof(keyName)) != 0)
 		return keyName;
 	
-	return L"[Error]";
+	return L"[´íÎó]";
 }
 
 void SplitFilename(const tstring& str, tstring* folder, tstring* file)

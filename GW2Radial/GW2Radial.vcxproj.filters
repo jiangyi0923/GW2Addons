@@ -85,24 +85,23 @@
     <ClCompile Include="src\Novelty.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\UpdateCheck.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\ImGuiPopup.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\SkllsONE.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SkllsTOW.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_widgets.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="MouseSquare.cpp" />
+    <ClCompile Include="BossTime.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imgui_internal.h">
-      <Filter>imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="imgui\stb_rect_pack.h">
-      <Filter>imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="imgui\stb_textedit.h">
-      <Filter>imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="imgui\stb_truetype.h">
       <Filter>imgui</Filter>
     </ClInclude>
     <ClInclude Include="imgui\imconfig.h">
@@ -177,15 +176,20 @@
     <ClInclude Include="include\Novelty.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\UpdateCheck.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\Tag.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="include\ImGuiPopup.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\SkllsTOW.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SkllsONE.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseSquare.h" />
+    <ClInclude Include="BossTime.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="rt_rcdat.bin">
@@ -194,6 +198,7 @@
     <None Include="Main.def">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Resource.rc">

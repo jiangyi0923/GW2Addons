@@ -12,6 +12,7 @@ DEFINE_SINGLETON(ConfigurationFile);
 const wchar_t* g_configName = TEXT("config.ini");
 const wchar_t* g_imguiConfigName = TEXT("imgui_config.ini");
 
+
 ConfigurationFile::ConfigurationFile()
 {
 	Reload();
@@ -29,21 +30,24 @@ void ConfigurationFile::Reload()
 	if(FAILED(SHGetKnownFolderPath(FOLDERID_Documents, KF_FLAG_CREATE, nullptr, &myDocuments)))
 		myDocuments = nullptr;
 	
-	const auto programFilesLocation = exeFolder + L"\\addons\\gw2radial\\";
-	const auto myDocumentsLocation = std::wstring(myDocuments) + L"\\GUILD WARS 2\\addons\\gw2radial\\";
+	const auto programFilesLocation = exeFolder + L"\\addons\\gw2addons\\";
+	const auto myDocumentsLocation = std::wstring(myDocuments) + L"\\GUILD WARS 2\\addons\\gw2addons\\";
 	
 	auto [pfExists, pfWritable] = CheckFolder(programFilesLocation);
 	auto [mdExists, mdWritable] = CheckFolder(myDocumentsLocation);
 	
 	ini_.SetUnicode();
+
 	if(pfExists)
 	{
 		ini_.LoadFile((programFilesLocation + g_configName).c_str());
+
 		LoadImGuiSettings(programFilesLocation + g_imguiConfigName);
 	}
 	else if(mdExists)
 	{
 		ini_.LoadFile((myDocumentsLocation + g_configName).c_str());
+
 		LoadImGuiSettings(myDocumentsLocation + g_imguiConfigName);
 	}
 
@@ -53,7 +57,9 @@ void ConfigurationFile::Reload()
 		folder_ = myDocumentsLocation;
 	
 	location_ = folder_ + g_configName;
+
 	imguiLocation_ = folder_ + g_imguiConfigName;
+	
 }
 
 void ConfigurationFile::Save()
@@ -89,6 +95,8 @@ void ConfigurationFile::Save()
 		lastSaveError_.clear();
 		lastSaveErrorChanged_ = true;
 	}
+
+
 }
 
 void ConfigurationFile::OnUpdate() const

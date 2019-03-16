@@ -52,12 +52,12 @@ void ImGuiKeybindInput(GW2Radial::Keybind& setting)
 
 	ImGui::SameLine();
 
-	if (!setting.isBeingModified() && ImGui::Button(("Set" + suffix).c_str(), ImVec2(windowWidth * 0.1f, 0.f)))
+	if (!setting.isBeingModified() && ImGui::Button((u8"…Ë÷√" + suffix).c_str(), ImVec2(windowWidth * 0.13f, 0.f)))
 	{
 		setting.isBeingModified(true);
 		setting.keysDisplayStringArray().at(0) = '\0';
 	}
-	else if (setting.isBeingModified() && ImGui::Button(("Clear" + suffix).c_str(), ImVec2(windowWidth * 0.1f, 0.f)))
+	else if (setting.isBeingModified() && ImGui::Button((u8"«Â≥˝" + suffix).c_str(), ImVec2(windowWidth * 0.13f, 0.f)))
 	{
 		setting.isBeingModified(false);
 		setting.keysDisplayStringArray().at(0) = '\0';

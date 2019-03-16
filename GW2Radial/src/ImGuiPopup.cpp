@@ -49,7 +49,7 @@ namespace GW2Radial
 		
 		ImGui::SetCursorPosX(ImGui::GetWindowSize().x * 0.4f);
 		ImGui::SetCursorPosY(ImGui::GetWindowSize().y - ImGui::GetFontSize() * 2.5f);
-		if (ImGui::Button("OK", ImVec2(ImGui::GetWindowSize().x * 0.2f, ImGui::GetFontSize() * 1.5f)))
+		if (ImGui::Button(u8"È·¶¨", ImVec2(ImGui::GetWindowSize().x * 0.2f, ImGui::GetFontSize() * 1.5f)))
 			closeCallback();
 
 		ImGui::End();
