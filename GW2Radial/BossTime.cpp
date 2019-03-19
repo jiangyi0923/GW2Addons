@@ -1281,16 +1281,25 @@ namespace GW2Radial
 	{
 		if (ison)
 		{
-
+			//ImFontAtlas* atlas = ImGui::GetIO().Fonts;
 			ImGui::SetNextWindowBgAlpha(0.4f);
+			//ImGui::GetIO().FontGlobalScale = 1.5f;
+			
 			ImGui::Begin(u8"BOSS计时器", &ison, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_AlwaysAutoResize);
 			const float spacing = ImGui::GetStyle().ItemInnerSpacing.x;
 			static int lines = 3;
+		    float daxiao_ = MiscTab::i()->jiemiandaxiao();
+			//ImGui::SliderFloat("Value", &daxiao_, 1.0f, 3.0f);
+			ImGui::SetWindowFontScale(daxiao_); /////
+
+
+			//ImGui::GetIO().FontGlobalScale= 2.0f;
 			ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
 			ImGui::PushStyleVar(ImGuiStyleVar_ChildBorderSize, 0.0f);
 			ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(5, 5));
 			ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(1, 1));
-			ImGui::BeginChild("scrolling", ImVec2(247, 65), false);
+			ImGui::BeginChild("scrolling", ImVec2(247* daxiao_, 65* daxiao_), false);
+			ImGui::SetWindowFontScale(daxiao_);/////
 			for (int line = 0; line < lines; line++)
 			{
 				int num_buttons = 96;
@@ -1320,7 +1329,7 @@ namespace GW2Radial
 						if (s < 60)s = s + 15;
 						if (s == 60)h++, s = 0;
 					}
-					if (ImGui::Button(label, ImVec2(82.0f, 19)))
+					if (ImGui::Button(label, ImVec2(82.0f* daxiao_, 19 * daxiao_)))
 					{
 						ImGui::SetClipboardText(Bosstm(line, n));
 					}
@@ -1355,12 +1364,12 @@ namespace GW2Radial
 			if (ImGui::GetIO().WantCaptureMouse == 1)
 			{
 
-				ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(scroll_x / 82 * 0.02083f, 0.6f, 0.6f, 0.44f));
-				ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(scroll_x / 82 * 0.02083f, 0.6f, 0.6f, 0.44f));
-				ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(scroll_x / 82 * 0.02083f, 0.6f, 0.6f, 0.44f));
-				if (ImGui::SmallButton("<<------------------"))scroll_x_delta = -82; ImGui::SameLine();
+				ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(scroll_x / 82 / daxiao_ * 0.02083f, 0.6f, 0.6f, 0.44f));
+				ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(scroll_x / 82 / daxiao_ * 0.02083f, 0.6f, 0.6f, 0.44f));
+				ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(scroll_x / 82 / daxiao_ * 0.02083f, 0.6f, 0.6f, 0.44f));
+				if (ImGui::SmallButton("<<------------------"))scroll_x_delta = -82 * daxiao_; ImGui::SameLine();
 				if (ImGui::SmallButton(u8"关 闭")) ison = false; ImGui::SameLine();
-				if (ImGui::SmallButton("------------------>>"))scroll_x_delta = +82; ImGui::SameLine();
+				if (ImGui::SmallButton("------------------>>"))scroll_x_delta = +82 * daxiao_; ImGui::SameLine();
 				ImGui::PopStyleColor(3);
 				if (scroll_x_delta != 0.0f)ImGui::BeginChild("scrolling"), ImGui::SetScrollX(ImGui::GetScrollX() + scroll_x_delta), ImGui::EndChild();
 				//==
@@ -1379,10 +1388,10 @@ namespace GW2Radial
 
 
 						bool node_open = ImGui::TreeNode(u8"网页日常", u8"网页日常 : (%s)", W_time1);
-						ImGui::SameLine(180.0f, spacing);
-						ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(scroll_x / 82 * 0.02083f, 0.6f, 0.6f, 0.44f));
-						ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(scroll_x / 82 * 0.02083f, 0.6f, 0.6f, 0.44f));
-						ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(scroll_x / 82 * 0.02083f, 0.6f, 0.6f, 0.44f));
+						ImGui::SameLine(180.0f* daxiao_, spacing);
+						ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(scroll_x / 82/ daxiao_ * 0.02083f, 0.6f, 0.6f, 0.44f));
+						ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(scroll_x / 82 / daxiao_ * 0.02083f, 0.6f, 0.6f, 0.44f));
+						ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(scroll_x / 82 / daxiao_ * 0.02083f, 0.6f, 0.6f, 0.44f));
 						if (ImGui::SmallButton(u8"明天"))
 						{
 							if (wancheng)
@@ -1405,7 +1414,7 @@ namespace GW2Radial
 							}
 
 						}
-						ImGui::SameLine(210.0f, spacing);
+						ImGui::SameLine(210.0f* daxiao_, spacing);
 						if (ImGui::SmallButton(u8"复制"))
 						{
 							std::string arrc1 = u8" 的网页任务: ";
@@ -1537,11 +1546,11 @@ namespace GW2Radial
 				ImGui::BeginChild("scrolling");
 				if (now_time.tm_hour * 60 + now_time.tm_min < 30)
 				{
-					ImGui::SetScrollX(((now_time.tm_hour * 60 + now_time.tm_min) / 15) * 82.0f);
+					ImGui::SetScrollX(((now_time.tm_hour * 60 + now_time.tm_min) / 15) * 82.0f* daxiao_);
 				}
 				else
 				{
-					ImGui::SetScrollX(((now_time.tm_hour * 60 + now_time.tm_min) / 15 - 1) * 82.0f);
+					ImGui::SetScrollX(((now_time.tm_hour * 60 + now_time.tm_min) / 15 - 1) * 82.0f* daxiao_);
 				}
 				ImGui::EndChild();
 				if (MiscTab::i()->getweb())

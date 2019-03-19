@@ -9,7 +9,7 @@ namespace GW2Radial
 {
 DEFINE_SINGLETON(MiscTab);
 
-MiscTab::MiscTab():
+MiscTab::MiscTab() :
 	shubiaoPOSX_(u8"方块大小", "shubiaoPOSX", "shubiao", 50.0f),
 	shubiaoPOSY_(u8"方块大小", "shubiaoPOSY", "shubiao", 50.0f),
 	shubiaoRED_(u8"方块颜色", "shubiaoRED", "shubiao", 1.0f),
@@ -19,7 +19,8 @@ MiscTab::MiscTab():
 	showboostime_(u8"总是显示BOSS计时器", "showboostime", "shubiao", true),
 	//getmingtian_(u8"获取明天的游戏日常", "getmingtian", "shubiao", true)
 	getweb_(u8"获取网页日常", "getweb", "shubiao", true),
-	showfankuai_(u8"总是显示鼠标跟随方块", "showfankuai_", "shubiao", true)
+	showfankuai_(u8"总是显示鼠标跟随方块", "showfankuai_", "shubiao", true),
+	jiemiandaxiao_(u8"界面大小", "jiemiandaxiao_", "shubiao", 1.0f)
 {
 	SettingsMenu::i()->AddImplementer(this);
 }
@@ -42,7 +43,7 @@ void MiscTab::DrawMenu()
 	ImGuiConfigurationWrapper(cl, u8"方块颜色", shubiaoRED_, shubiaoGRE_, shubiaoBLU_, shubiaoALH_, ImGuiColorEditFlags_AlphaBar);
 	ImGuiConfigurationWrapper(&ImGui::Checkbox, showfankuai_);//总是现实鼠标方块
 	ImGui::Text(u8"BOSS计时器设置");
-
+	ImGuiConfigurationWrapper(&ImGui::SliderFloat, jiemiandaxiao_, 1.0f, 3.0f);
 	ImGuiConfigurationWrapper(&ImGui::Checkbox, showboostime_);//getmingtian_
 	//ImGuiConfigurationWrapper(&ImGui::Checkbox, getmingtian_);
 	ImGuiConfigurationWrapper(&ImGui::Checkbox, getweb_);

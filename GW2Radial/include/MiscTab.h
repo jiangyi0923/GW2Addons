@@ -37,6 +37,10 @@ public:
 	void shubiaoBLU(float value) { return shubiaoBLU_.value(value); }
 	float shubiaoALH() const { return shubiaoALH_.value(); }
 	void shubiaoALH(float value) { return shubiaoALH_.value(value); }
+
+	float jiemiandaxiao() const { return jiemiandaxiao_.value(); }
+	void jiemiandaxiao(float value) { return jiemiandaxiao_.value(value); }
+
 	//===================================================
 	uint vk_ = 0;
 protected:
@@ -54,6 +58,8 @@ protected:
 	ConfigurationOption<float> shubiaoGRE_;
 	ConfigurationOption<float> shubiaoBLU_;
 	ConfigurationOption<float> shubiaoALH_;
+
+	ConfigurationOption<float> jiemiandaxiao_;
 	//===================================================
 };
 
