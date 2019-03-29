@@ -36,6 +36,9 @@ void MiscTab::DrawMenu()
 	//	ImGuiConfigurationWrapper(ImGui::Checkbox, "Automatically check for updates", uc->checkEnabled_);
 
 	ImGui::PushItemWidth(0.8f * ImGui::GetWindowContentRegionWidth());
+	if (auto i = Input::iNoInit(); i)
+		ImGuiConfigurationWrapper(ImGui::Checkbox, u8"区分左右 SHIFT/CTRL/ALT", i->distinguishLeftRight_);
+
 	ImGui::Text(u8"鼠标跟随模块设置");
 	bool(*POS)(const char*, float*, float, float, const char*, float) = &ImGui::SliderFloat2;
 	ImGuiConfigurationWrapper(POS, u8"方块大小", shubiaoPOSX_, shubiaoPOSY_, 30.0f, 200.0f, "%.F", 1.0f);

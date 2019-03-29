@@ -7,10 +7,12 @@
 #include <sstream>
 #include <iostream>
 #include <boost/date_time/gregorian/gregorian.hpp>
+
 namespace GW2Radial
 {
-	
 
+	
+	
 	DEFINE_SINGLETON(BossTime);
 #pragma region 计时器数据
 	const char* Bosstm(int a, int b)
@@ -889,6 +891,7 @@ namespace GW2Radial
 			out[i] = strTime[i];
 		return out;
 	}
+
 	std::string* FetchReleaseData(const char * days)
 	{
 		wancheng = false;
