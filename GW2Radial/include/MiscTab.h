@@ -23,6 +23,10 @@ public:
 	void getweb(bool value) { return getweb_.value(value); }
 	bool showfankuai() const { return showfankuai_.value(); }
 	void showfankuai(bool value) { return showfankuai_.value(value); }
+
+	int shubiaofankuaiyangshi() const { return shubiaofankuaiyangshi_.value(); }
+	void shubiaofankuaiyangshi(int value) { return shubiaofankuaiyangshi_.value(value); }
+
 	//xy
 	float shubiaoPOSX() const { return shubiaoPOSX_.value(); }
 	void shubiaoPOSX(float value) { return shubiaoPOSX_.value(value); }
@@ -37,7 +41,7 @@ public:
 	void shubiaoBLU(float value) { return shubiaoBLU_.value(value); }
 	float shubiaoALH() const { return shubiaoALH_.value(); }
 	void shubiaoALH(float value) { return shubiaoALH_.value(value); }
-
+	
 	float jiemiandaxiao() const { return jiemiandaxiao_.value(); }
 	void jiemiandaxiao(float value) { return jiemiandaxiao_.value(value); }
 
@@ -50,6 +54,8 @@ protected:
 	//ConfigurationOption<bool> getmingtian_;
 	ConfigurationOption<bool> getweb_;
 	ConfigurationOption<bool> showfankuai_;
+	//·½¿éÑùÊ½
+	ConfigurationOption<int> shubiaofankuaiyangshi_;
 	//xy
 	ConfigurationOption<float> shubiaoPOSX_;
 	ConfigurationOption<float> shubiaoPOSY_;
@@ -60,6 +66,7 @@ protected:
 	ConfigurationOption<float> shubiaoALH_;
 
 	ConfigurationOption<float> jiemiandaxiao_;
+
 	//===================================================
 };
 

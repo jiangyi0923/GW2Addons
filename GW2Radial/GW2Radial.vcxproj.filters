@@ -105,6 +105,8 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="BossTime.cpp" />
+    <ClCompile Include="DBINGtool.cpp" />
+    <ClCompile Include="DBuido.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imgui_internal.h">
@@ -214,6 +216,8 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="BossTime.h" />
+    <ClInclude Include="DBINGtool.h" />
+    <ClInclude Include="DBuido.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="rt_rcdat.bin">

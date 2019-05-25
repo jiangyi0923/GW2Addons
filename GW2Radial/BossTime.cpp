@@ -7,6 +7,7 @@
 #include <sstream>
 #include <iostream>
 #include <boost/date_time/gregorian/gregorian.hpp>
+#include <DBINGtool.h>
 
 namespace GW2Radial
 {
@@ -931,7 +932,7 @@ namespace GW2Radial
 		InternetCloseHandle(handle);
 		retVal = response_data;
 
-		if (response_length > 200)
+		if (response_length > 150)
 		{
 			std::string beginFlag = u8"task_name";
 			std::string endFlag = u8",";
@@ -1067,7 +1068,7 @@ namespace GW2Radial
 	//	{
 	//		//std::cout << " retVal.size is " << retVal.size() << std::endl;
 	//		pve = Gettmpstring(retVal, pvebeginFlag, pvpbeginFlag);
-	//		//std::cout << " pve.size is " << pve.size() << std::endl;
+	//		std::cout << " pve.size is " << pve.size() << std::endl;
 	//		pvp = Gettmpstring(retVal, pvpbeginFlag, wvwbeginFlag);
 	//		//std::cout << " pvp.size is " << pvp.size() << std::endl;
 	//		wvw = Gettmpstring(retVal, wvwbeginFlag, ftsbeginFlag);
@@ -1287,7 +1288,7 @@ namespace GW2Radial
 			//ImFontAtlas* atlas = ImGui::GetIO().Fonts;
 			ImGui::SetNextWindowBgAlpha(0.4f);
 			//ImGui::GetIO().FontGlobalScale = 1.5f;
-			
+
 			ImGui::Begin(u8"BOSS¼ÆÊ±Æ÷", &ison, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_AlwaysAutoResize);
 			const float spacing = ImGui::GetStyle().ItemInnerSpacing.x;
 			static int lines = 3;
@@ -1362,9 +1363,19 @@ namespace GW2Radial
 			//	}
 			//}
 
-
+			//if (ImGui::SmallButton(u8"²âÊÔ1"))
+			//{
+			//	DBINGtool::i()->getitim();
+			//}
+			//if (ImGui::SmallButton(u8"²âÊÔ2"))
+			//{
+			//	DBINGtool::i()->getitim2();
+			//}
 			float scroll_x_delta = 0.0f;
+			ImGui::IsItemHovered();
+			//ImGui::IsWindowHovered();
 			if (ImGui::GetIO().WantCaptureMouse == 1)
+			//if (ImGui::IsWindowFocused()&& ImGui::GetIO().WantCaptureMouse)
 			{
 
 				ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(scroll_x / 82 / daxiao_ * 0.02083f, 0.6f, 0.6f, 0.44f));
@@ -1601,6 +1612,7 @@ namespace GW2Radial
 					//}
 				}
 			}
+			
 			ImGui::End();
 			ImGui::PopStyleVar(4);
 		}

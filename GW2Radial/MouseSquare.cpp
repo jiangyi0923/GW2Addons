@@ -24,14 +24,38 @@ namespace GW2Radial
 		ImGuiIO& io = ImGui::GetIO();
 		if (Do)
 		{
-			ImGui::SetNextWindowPos(ImVec2(io.MousePos.x + 2, io.MousePos.y + 2), 0);
-			ImGui::SetNextWindowSize(ImVec2(MiscTab::i()->shubiaoPOSX(), MiscTab::i()->shubiaoPOSY()));
-			ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(MiscTab::i()->shubiaoRED(), MiscTab::i()->shubiaoGRE(), MiscTab::i()->shubiaoBLU(), MiscTab::i()->shubiaoALH()));
-			//ImGui::SetNextWindowSize(ImVec2(30.0f, 30.0f));//²âÊÔ
-			//ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.1f, 0.1f, 0.1f, 1.0f));//²âÊÔ
-			ImGui::Begin(u8"¸úËæ", 0, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoInputs);
-			ImGui::End();
-			ImGui::PopStyleColor(1);
+			//ImGui::SetNextWindowPos(ImVec2(io.MousePos.x + 2, io.MousePos.y + 2), 0);
+			//ImGui::SetNextWindowSize(ImVec2(MiscTab::i()->shubiaoPOSX(), MiscTab::i()->shubiaoPOSY()));
+			//ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(MiscTab::i()->shubiaoRED(), MiscTab::i()->shubiaoGRE(), MiscTab::i()->shubiaoBLU(), MiscTab::i()->shubiaoALH()));
+			////ImGui::SetNextWindowSize(ImVec2(30.0f, 30.0f));//²âÊÔ
+			////ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.1f, 0.1f, 0.1f, 1.0f));//²âÊÔ
+			//ImGui::Begin(u8"¸úËæ", 0, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoInputs);
+			//ImGui::End();
+			//ImGui::PopStyleColor(1);
+
+			if (MiscTab::i()->shubiaofankuaiyangshi()==0)//·½¿é
+			{
+				ImGui::GetOverlayDrawList()->AddRectFilled(ImVec2(io.MousePos.x, io.MousePos.y), ImVec2(io.MousePos.x + MiscTab::i()->shubiaoPOSX(), io.MousePos.y+ MiscTab::i()->shubiaoPOSY()), ImGui::GetColorU32(ImVec4(MiscTab::i()->shubiaoRED(), MiscTab::i()->shubiaoGRE(), MiscTab::i()->shubiaoBLU(), MiscTab::i()->shubiaoALH())), 10.0f);
+			}
+			if (MiscTab::i()->shubiaofankuaiyangshi() == 1)//Ê®×Ö¼Ü
+			{
+				ImGui::GetOverlayDrawList()->AddLine(ImVec2(io.MousePos.x - MiscTab::i()->shubiaoPOSX(), io.MousePos.y), ImVec2(io.MousePos.x + MiscTab::i()->shubiaoPOSX(), io.MousePos.y), ImGui::GetColorU32(ImVec4(MiscTab::i()->shubiaoRED(), MiscTab::i()->shubiaoGRE(), MiscTab::i()->shubiaoBLU(), MiscTab::i()->shubiaoALH())), MiscTab::i()->shubiaoPOSY());//Ê®×Ö¼Ü
+				ImGui::GetOverlayDrawList()->AddLine(ImVec2(io.MousePos.x, io.MousePos.y - MiscTab::i()->shubiaoPOSX()), ImVec2(io.MousePos.x, io.MousePos.y + MiscTab::i()->shubiaoPOSX()), ImGui::GetColorU32(ImVec4(MiscTab::i()->shubiaoRED(), MiscTab::i()->shubiaoGRE(), MiscTab::i()->shubiaoBLU(), MiscTab::i()->shubiaoALH())), MiscTab::i()->shubiaoPOSY());//Ê®×Ö¼Ü
+			}
+
+			if (MiscTab::i()->shubiaofankuaiyangshi() == 2)//Ô²ÐÎ
+			{
+				ImGui::GetOverlayDrawList()->AddCircleFilled(ImVec2(io.MousePos.x , io.MousePos.y ), MiscTab::i()->shubiaoPOSX(),ImGui::GetColorU32(ImVec4(MiscTab::i()->shubiaoRED(), MiscTab::i()->shubiaoGRE(), MiscTab::i()->shubiaoBLU(), MiscTab::i()->shubiaoALH())), 32);
+			}
+
+
+
+
+
+
+
+
+
 		}
 		return Do;
 	}

@@ -167,6 +167,7 @@ void Core::OnDeviceSet(IDirect3DDevice9 *device, D3DPRESENT_PARAMETERS *presenta
 	ID3DXBuffer *errorBuffer = nullptr;
 	D3DXCreateEffectFromResource(device, dllModule_, MAKEINTRESOURCE(IDR_SHADER), nullptr, nullptr, 0, nullptr,
 	                             &mainEffect_, &errorBuffer);
+	dive_ = device;
 	COM_RELEASE(errorBuffer);
 
 	//UpdateCheck::i()->CheckForUpdates();
@@ -180,6 +181,7 @@ void Core::OnDeviceSet(IDirect3DDevice9 *device, D3DPRESENT_PARAMETERS *presenta
 	//wheels_.emplace_back(Wheel::Create<SkllsTOW>(IDR_BG, IDR_INK, "Sklls_TOW", u8"技能2", device));
 	MouseSquare_ = std::make_unique<MouseSquare>();//++必须加
 	BossTime_ = std::make_unique<BossTime>();//++必须加
+	//DBINGtool_ = std::make_unique<DBINGtool>();//++
 	ImGui_ImplDX9_Init(device);
 }
 
@@ -190,6 +192,7 @@ void Core::OnDeviceUnset()
 	wheels_.clear();
 	MouseSquare_.reset();//++必须加
 	BossTime_.reset();//++必须加
+	//DBINGtool_.reset();
 	COM_RELEASE(mainEffect_);
 }
 
@@ -249,6 +252,7 @@ void Core::DrawOver(IDirect3DDevice9* device, bool frameDrawn, bool sceneEnded)
 		SettingsMenu::i()->Draw();
 		MouseSquare::i()->Draw();//++必须加
 		BossTime::i()->Draw();//++必须加
+		//DBINGtool::i()->Draw();
 		if(!firstMessageShown_->value())
 			ImGuiPopup(u8"欢迎使用GW2Radial插件!").Position({0.5f, 0.45f}).Size({0.35f, 0.2f}).Display([&](const ImVec2& windowSize)
 			{

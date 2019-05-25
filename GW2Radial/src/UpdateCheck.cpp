@@ -55,7 +55,7 @@ void UpdateCheck::CheckForUpdates()
 // Retrieving Headers Using a Constant
 BOOL DumpHeaders(HINTERNET hRequest)
 {
-   char* lpOutBuffer=NULL;
+   char* lpOutBuffer = NULL;
    DWORD dwSize = 0;
 
 retry:

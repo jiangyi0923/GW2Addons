@@ -48,7 +48,8 @@
 #define IDR_SKLL8                    253
 #define IDR_SKLL9                    254
 #define IDR_SKLL0                    255
-
+#define IDR_DBTOOLBG                    256
+#define IDR_DBTOOLLOD                    257
 //#define IDR_FONT		300
 //#define IDR_FONT_BLACK	301
 //#define IDR_FONT_ITALIC	302

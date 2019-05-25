@@ -4,6 +4,8 @@
 #include <Keybind.h>
 #include <Input.h>
 #include <boost/thread.hpp>
+
+
 namespace GW2Radial
 {
 	class BossTime :public Singleton<BossTime>
@@ -15,7 +17,7 @@ namespace GW2Radial
 		void Draw();
 		const Keybind& showKeybindweb() const { return showKeybindweb_; }
 
-		bool _DoUI(bool &ison);
+		bool _DoUI(bool& ison);
 
 	protected:
 		int ass[96] = {};
@@ -28,7 +30,7 @@ namespace GW2Radial
 		bool isVisibleweb_ = false;
 		Keybind showKeybindweb_;
 
-		
+
 		int days = 0;
 		bool ghen = false;
 
@@ -37,9 +39,10 @@ namespace GW2Radial
 		InputResponse OnInputChangeweb(bool changed, const std::set<uint>& keys, const std::list<EventKey>& changedKeys);
 
 
-		
+
 	};
 }
+
 
 
 

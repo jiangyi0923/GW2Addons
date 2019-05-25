@@ -7,6 +7,8 @@
 #include <UnitQuad.h>
 #include <MouseSquare.h>
 #include <BossTime.h>
+//#include <DBINGtool.h>
+
 namespace GW2Radial
 {
 
@@ -31,7 +33,7 @@ public:
 	ImFont* font() const { return font_; }
 	ImFont* fontBlack() const { return fontBlack_; }
 	ImFont* fontItalic() const { return fontItalic_; }
-
+	IDirect3DDevice9* dive_;
 protected:
 	void InternalInit();
 	void OnFocusLost();
@@ -66,6 +68,8 @@ protected:
 	std::unique_ptr<ConfigurationOption<bool>> firstMessageShown_;
 	//std::unique_ptr<ConfigurationOption<bool>> ignoreRTSS_;
 	std::unique_ptr<BossTime> BossTime_;//
+	//std::unique_ptr<DBINGtool> DBINGtool_;//
+
 	ImGuiContext* imguiContext_ = nullptr;
 };
 }

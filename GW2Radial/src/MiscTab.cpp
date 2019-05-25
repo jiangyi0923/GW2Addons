@@ -20,7 +20,8 @@ MiscTab::MiscTab() :
 	//getmingtian_(u8"获取明天的游戏日常", "getmingtian", "shubiao", true)
 	getweb_(u8"获取网页日常", "getweb", "shubiao", true),
 	showfankuai_(u8"总是显示鼠标跟随方块", "showfankuai_", "shubiao", true),
-	jiemiandaxiao_(u8"界面大小", "jiemiandaxiao_", "shubiao", 1.0f)
+	jiemiandaxiao_(u8"界面大小", "jiemiandaxiao_", "shubiao", 1.0f),
+	shubiaofankuaiyangshi_(u8"方块样式", "shubiaofankuaiyangshi_", "shubiao",0)
 {
 	SettingsMenu::i()->AddImplementer(this);
 }
@@ -40,8 +41,27 @@ void MiscTab::DrawMenu()
 		ImGuiConfigurationWrapper(ImGui::Checkbox, u8"区分左右 SHIFT/CTRL/ALT", i->distinguishLeftRight_);
 
 	ImGui::Text(u8"鼠标跟随模块设置");
-	bool(*POS)(const char*, float*, float, float, const char*, float) = &ImGui::SliderFloat2;
-	ImGuiConfigurationWrapper(POS, u8"方块大小", shubiaoPOSX_, shubiaoPOSY_, 30.0f, 200.0f, "%.F", 1.0f);
+	std::vector<const char*> shubiaoyanhgsh(3);
+
+	shubiaoyanhgsh[0] = u8"方块";
+	shubiaoyanhgsh[1] = u8"十字";
+	shubiaoyanhgsh[2] = u8"圆形";
+
+
+	bool (*cmsb)(const char*, int*, const char* const*, int, int) = &ImGui::Combo;
+	ImGuiConfigurationWrapper(cmsb, shubiaofankuaiyangshi_, shubiaoyanhgsh.data(), 3, -1);
+
+	if (shubiaofankuaiyangshi_.value() == 2)
+	{
+		bool(*POS)(const char*, float*, float, float, const char*, float) = &ImGui::SliderFloat;
+		ImGuiConfigurationWrapper(POS, u8"方块大小", shubiaoPOSX_, 20.0f, 100.0f, "%.F", 1.0f);
+	}
+	else
+	{
+		bool(*POS)(const char*, float*, float, float, const char*, float) = &ImGui::SliderFloat2;
+		ImGuiConfigurationWrapper(POS, u8"方块大小", shubiaoPOSX_, shubiaoPOSY_, 5.0f, 200.0f, "%.F", 1.0f);
+	}
+
 	bool(*cl)(const char*, float*, ImGuiInputTextFlags) = &ImGui::ColorEdit4;
 	ImGuiConfigurationWrapper(cl, u8"方块颜色", shubiaoRED_, shubiaoGRE_, shubiaoBLU_, shubiaoALH_, ImGuiColorEditFlags_AlphaBar);
 	ImGuiConfigurationWrapper(&ImGui::Checkbox, showfankuai_);//总是现实鼠标方块

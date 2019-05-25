@@ -106,7 +106,8 @@ copy /Y $(OutDir)$(TargetName).pdb "C:\Program Files\Guild Wars 2\bin64\d3d9_cha
       <AdditionalDependencies>Wininet.lib;d3dx9.lib;Shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y $(TargetPath) "D:\15252\d3d9.dll"</Command>
+      <Command>copy /Y $(TargetPath) "D:\15252\d3d9.dll"
+copy /Y $(TargetPath) "D:\15252\d3d9_chainload.dll"</Command>
     </PostBuildEvent>
     <FxCompile>
       <ObjectFileOutput>$(ProjectDir)int\%(Filename).cso</ObjectFileOutput>
@@ -115,6 +116,8 @@ copy /Y $(OutDir)$(TargetName).pdb "C:\Program Files\Guild Wars 2\bin64\d3d9_cha
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BossTime.cpp" />
+    <ClCompile Include="DBINGtool.cpp" />
+    <ClCompile Include="DBuido.cpp" />
     <ClCompile Include="imgui\examples\imgui_impl_dx9.cpp" />
     <ClCompile Include="imgui\examples\imgui_impl_win32.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
@@ -146,6 +149,8 @@ copy /Y $(OutDir)$(TargetName).pdb "C:\Program Files\Guild Wars 2\bin64\d3d9_cha
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BossTime.h" />
+    <ClInclude Include="DBINGtool.h" />
+    <ClInclude Include="DBuido.h" />
     <ClInclude Include="imgui\examples\imgui_impl_dx9.h" />
     <ClInclude Include="imgui\examples\imgui_impl_win32.h" />
     <ClInclude Include="imgui\imconfig.h" />

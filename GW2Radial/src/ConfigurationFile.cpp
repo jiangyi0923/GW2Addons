@@ -25,6 +25,7 @@ void ConfigurationFile::Reload()
 	tstring exeFolder;
 	SplitFilename(exeFullPath, &exeFolder, nullptr);
 
+
 	wchar_t* myDocuments;
 	if(FAILED(SHGetKnownFolderPath(FOLDERID_Documents, KF_FLAG_CREATE, nullptr, &myDocuments)))
 		myDocuments = nullptr;
