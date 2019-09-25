@@ -35,21 +35,21 @@ protected:
 		switch (m)
 		{
 		case MountType::RAPTOR:
-			return "Raptor";
+			return u8"ÄñÁú";
 		case MountType::SPRINGER:
-			return "Springer";
+			return u8"ÍÃ×Ó";
 		case MountType::SKIMMER:
-			return "Skimmer";
+			return u8"·ÉÓã";
 		case MountType::JACKAL:
-			return "Jackal";
+			return u8"É³ÀÇ";
 		case MountType::BEETLE:
-			return "Roller Beetle";
+			return u8"¼×³æ";
 		case MountType::GRIFFON:
-			return "Griffon";
-        case MountType::WARCLAW:
-            return "Warclaw";
-        case MountType::SKYSCALE:
-            return "Skyscale";
+			return u8"Ê¨ðÕ";
+		case MountType::WARCLAW:
+			return u8"Õ½×¦";
+		case MountType::SKYSCALE:
+			return u8"ÁÛÁú";
 		default:
 			return "[Unknown]";
 		}

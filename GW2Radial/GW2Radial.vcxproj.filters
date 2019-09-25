@@ -112,6 +112,8 @@
     <ClCompile Include="src\Effect_dx12.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BossTime.cpp" />
+    <ClCompile Include="MouseSquare.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imgui_internal.h">
@@ -231,6 +233,8 @@
     <ClInclude Include="resource.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
+    <ClInclude Include="BossTime.h" />
+    <ClInclude Include="MouseSquare.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="rt_rcdat.bin">
@@ -248,6 +252,7 @@
     <None Include="int\Shader_ps.cso">
       <Filter>Assets</Filter>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Resource.rc">

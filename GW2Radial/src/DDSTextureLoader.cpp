@@ -57,7 +57,7 @@ static HRESULT LoadTextureDataFromMemory(size_t FileSize, BYTE** ppHeapData,
 	INT offset = sizeof(DWORD) + sizeof(DDS_HEADER)
 		+ (bDXT10Header ? sizeof(DDS_HEADER_DXT10) : 0);
 	*ppBitData = *ppHeapData + offset;
-	*pBitSize = FileSize - offset;
+	*pBitSize = (int)FileSize - offset;
 
 	return S_OK;
 }
@@ -414,7 +414,7 @@ static void GetSurfaceInfo( UINT width, UINT height, D3DFORMAT fmt, UINT* pNumBy
     //     When computing DXTn compressed sizes for non-square textures, the 
     //     following formula should be used at each mipmap level:
     //
-    //         max(1, width ÷ 4) x max(1, height ÷ 4) x 8(DXT1) or 16(DXT2-5)
+    //         max(1, width ?4) x max(1, height ?4) x 8(DXT1) or 16(DXT2-5)
     //
     //     The pitch for DXTn formats is different from what was returned in 
     //     Microsoft DirectX 7.0. It now refers the pitch of a row of blocks. 

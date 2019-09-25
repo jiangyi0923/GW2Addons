@@ -29,8 +29,8 @@ void ConfigurationFile::Reload()
 	if(FAILED(SHGetKnownFolderPath(FOLDERID_Documents, KF_FLAG_CREATE, nullptr, &myDocuments)))
 		myDocuments = nullptr;
 	
-	const auto programFilesLocation = exeFolder + L"\\addons\\gw2radial\\";
-	const auto myDocumentsLocation = std::wstring(myDocuments) + L"\\GUILD WARS 2\\addons\\gw2radial\\";
+	const auto programFilesLocation = exeFolder + L"\\addons\\gw2addons\\";
+	const auto myDocumentsLocation = std::wstring(myDocuments) + L"\\GUILD WARS 2\\addons\\gw2addons\\";
 	
 	auto [pfExists, pfWritable] = CheckFolder(programFilesLocation);
 	auto [mdExists, mdWritable] = CheckFolder(myDocumentsLocation);

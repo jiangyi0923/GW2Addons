@@ -78,12 +78,12 @@ void ImGuiKeybindInput(GW2Radial::Keybind& setting)
 	}
 #endif
 
-	if (!setting.isBeingModified() && ImGui::Button(("Set" + suffix).c_str(), ImVec2(windowWidth * 0.1f, 0.f)))
+	if (!setting.isBeingModified() && ImGui::Button((u8"…Ë÷√" + suffix).c_str(), ImVec2(windowWidth * 0.1f, 0.f)))
 	{
 		setting.isBeingModified(true);
 		setting.keysDisplayStringArray().at(0) = '\0';
 	}
-	else if (setting.isBeingModified() && ImGui::Button(("Clear" + suffix).c_str(), ImVec2(windowWidth * 0.1f, 0.f)))
+	else if (setting.isBeingModified() && ImGui::Button((u8"«Â≥˝" + suffix).c_str(), ImVec2(windowWidth * 0.1f, 0.f)))
 	{
 		setting.isBeingModified(false);
 		setting.keys(std::set<uint>());
@@ -96,7 +96,7 @@ void ImGuiKeybindInput(GW2Radial::Keybind& setting)
 	if(setting.isConflicted())
 	{
 		ImGui::PushStyleColor(ImGuiCol_Text, 0xFF0000FF);
-		ImGui::Text((setting.displayName() + "[!]").c_str());
+		ImGui::Text((setting.displayName() + u8"[¥ÌŒÛ]").c_str());
 		ImGui::PopStyleColor();
 	}
 	else

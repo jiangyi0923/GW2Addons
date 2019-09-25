@@ -15,19 +15,20 @@ namespace GW2Radial
 
 Wheel::Wheel(uint bgResourceId, uint inkResourceId, std::string nickname, std::string displayName, IDirect3DDevice9 * dev)
 	: nickname_(std::move(nickname)), displayName_(std::move(displayName)),
-	  keybind_(nickname_, "Show on mouse"), centralKeybind_(nickname_ + "_cl", "Show in center"),
-	  centerBehaviorOption_("Center behavior", "center_behavior", "wheel_" + nickname_),
-	  centerFavoriteOption_("Favorite choice##Center", "center_favorite", "wheel_" + nickname_),
-	  delayFavoriteOption_("Favorite choice##Delay", "delay_favorite", "wheel_" + nickname_),
-	  scaleOption_("Scale", "scale", "wheel_" + nickname_, 1.f),
-	  centerScaleOption_("Center scale", "center_scale", "wheel_" + nickname_, 0.2f),
-	  displayDelayOption_("Pop-up delay", "delay", "wheel_" + nickname_),
-	  animationTimeOption_("Fade-in time", "anim_time", "wheel_" + nickname_, 750),
-	  resetCursorOnLockedKeybindOption_("Reset cursor to center with Center Locked keybind", "reset_cursor_cl", "wheel_" + nickname_, true),
-	  lockCameraWhenOverlayedOption_("Lock camera when overlay is displayed", "lock_camera", "wheel_" + nickname_, true),
-	  showOverGameUIOption_("Show on top of game UI", "show_over_ui", "wheel_" + nickname_, true),
-	  noHoldOption_("Activate first hovered option without holding down", "no_hold", "wheel_" + nickname_, false),
-	  behaviorOnReleaseBeforeDelay_("Behavior when released before delay has lapsed", "behavior_before_delay", "wheel_" + nickname_)
+	  keybind_(nickname_, u8"在鼠标位置显示"),
+	  centralKeybind_(nickname_ + "_cl", u8"在屏幕中心显示"),
+	  centerBehaviorOption_(u8"中心的行为", "center_behavior", "wheel_" + nickname_),
+	  centerFavoriteOption_(u8"喜好选择##Center", "center_favorite", "wheel_" + nickname_),
+	  delayFavoriteOption_(u8"喜好选择##Delay", "delay_favorite", "wheel_" + nickname_),
+	  scaleOption_(u8"大小", "scale", "wheel_" + nickname_, 1.f),
+	  centerScaleOption_(u8"中心大小", "center_scale", "wheel_" + nickname_, 0.2f),
+	  displayDelayOption_(u8"弹出延迟", "delay", "wheel_" + nickname_),
+	  animationTimeOption_(u8"淡入时间", "anim_time", "wheel_" + nickname_, 750),
+	  resetCursorOnLockedKeybindOption_(u8"显示界面时将鼠标重置到中心", "reset_cursor_cl", "wheel_" + nickname_, true),
+	  lockCameraWhenOverlayedOption_(u8"显示界面时锁定相机", "lock_camera", "wheel_" + nickname_, true),
+	  showOverGameUIOption_(u8"显示在游戏UI之上", "show_over_ui", "wheel_" + nickname_, true),
+	  noHoldOption_(u8"不按住激活第一个悬停选项", "no_hold", "wheel_" + nickname_, false),
+	  behaviorOnReleaseBeforeDelay_(u8"在延迟失效之前释放的行为", "behavior_before_delay", "wheel_" + nickname_)
 {
 	backgroundTexture_ = CreateTextureFromResource(dev, Core::i()->dllModule(), bgResourceId);
 	inkTexture_ = CreateTextureFromResource(dev, Core::i()->dllModule(), inkResourceId);
@@ -102,7 +103,7 @@ void Wheel::DrawMenu()
 	ImGui::PushID((nickname_ + "Elements").c_str());
 	ImGui::BeginGroup();
 
-	ImGui::TextUnformatted("Set the following to your in-game keybinds:");
+	ImGui::TextUnformatted(u8"需要跟游戏内按键设置必须一样:");
 
 	for(auto& we : wheelElements_)
 		ImGuiKeybindInput(we->keybind());
@@ -131,13 +132,13 @@ void Wheel::DrawMenu()
 
 		ImGuiIndent();
 		bool (*rb)(const char*, int*, int) = &ImGui::RadioButton;
-		ImGuiConfigurationWrapper(rb, "Nothing##ReleaseBeforeDelay", behaviorOnReleaseBeforeDelay_, int(BehaviorBeforeDelay::NOTHING));
+		ImGuiConfigurationWrapper(rb, u8"无##ReleaseBeforeDelay", behaviorOnReleaseBeforeDelay_, int(BehaviorBeforeDelay::NOTHING));
 		ImGui::SameLine();
-		ImGuiConfigurationWrapper(rb, "Previous##ReleaseBeforeDelay", behaviorOnReleaseBeforeDelay_, int(BehaviorBeforeDelay::PREVIOUS));
+		ImGuiConfigurationWrapper(rb, u8"上一个##ReleaseBeforeDelay", behaviorOnReleaseBeforeDelay_, int(BehaviorBeforeDelay::PREVIOUS));
 		ImGui::SameLine();
-		ImGuiConfigurationWrapper(rb, "Favorite##ReleaseBeforeDelay", behaviorOnReleaseBeforeDelay_, int(BehaviorBeforeDelay::FAVORITE));
+		ImGuiConfigurationWrapper(rb, u8"自定义##ReleaseBeforeDelay", behaviorOnReleaseBeforeDelay_, int(BehaviorBeforeDelay::FAVORITE));
 		ImGui::SameLine();
-		ImGuiConfigurationWrapper(rb, "As if opened##ReleaseBeforeDelay", behaviorOnReleaseBeforeDelay_, int(BehaviorBeforeDelay::DIRECTION));
+		ImGuiConfigurationWrapper(rb, u8"在打开后##ReleaseBeforeDelay", behaviorOnReleaseBeforeDelay_, int(BehaviorBeforeDelay::DIRECTION));
 		ImGuiUnindent();
 		
 		ImGui::PopItemWidth();
@@ -168,11 +169,11 @@ void Wheel::DrawMenu()
 		ImGui::PushItemWidth(0.25f * ImGui::GetWindowContentRegionWidth());
 
 		bool (*rb)(const char*, int*, int) = &ImGui::RadioButton;
-		ImGuiConfigurationWrapper(rb, "Nothing##CenterBehavior", centerBehaviorOption_, int(CenterBehavior::NOTHING));
+		ImGuiConfigurationWrapper(rb, u8"无##CenterBehavior", centerBehaviorOption_, int(CenterBehavior::NOTHING));
 		ImGui::SameLine();
-		ImGuiConfigurationWrapper(rb, "Previous##CenterBehavior", centerBehaviorOption_, int(CenterBehavior::PREVIOUS));
+		ImGuiConfigurationWrapper(rb, u8"上一个##CenterBehavior", centerBehaviorOption_, int(CenterBehavior::PREVIOUS));
 		ImGui::SameLine();
-		ImGuiConfigurationWrapper(rb, "Favorite##CenterBehavior", centerBehaviorOption_, int(CenterBehavior::FAVORITE));
+		ImGuiConfigurationWrapper(rb, u8"自定义##CenterBehavior", centerBehaviorOption_, int(CenterBehavior::FAVORITE));
 		
 		ImGui::PopItemWidth();
 	
@@ -201,7 +202,7 @@ void Wheel::DrawMenu()
 
 	ImGui::Separator();
 	ImGuiSpacing();
-	ImGui::Text("Visibility and order (clockwise from the top):");
+	ImGui::Text(u8"可见及顺序(顺时针排序):");
 
 	for(auto it = wheelElements_.begin(); it != wheelElements_.end(); ++it)
 	{

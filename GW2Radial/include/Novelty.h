@@ -30,15 +30,15 @@ protected:
 		switch (m)
 		{
 		case NoveltyType::CHAIR:
-			return "Chair";
+			return u8"椅子";
 		case NoveltyType::MUSICAL_INSTRUMENT:
-			return "Musical instrument";
+			return u8"乐器";
 		case NoveltyType::HELD_ITEM:
-			return "Held item";
+			return u8"手持";
 		case NoveltyType::TRAVEL_TOY:
-			return "Travel toy";
+			return u8"玩具";
 		case NoveltyType::TONIC:
-			return "Tonic";
+			return u8"合剂";
 		default:
 			return "[Unknown]";
 		}

@@ -18,7 +18,7 @@ void SettingsMenu::Draw()
 	if (isVisible_)
 	{
 		ImGui::SetNextWindowSize({ 750, 600 }, ImGuiCond_::ImGuiCond_FirstUseEver);
-		if(!ImGui::Begin("GW2Radial Options Menu", &isVisible_))
+		if(!ImGui::Begin(u8"GW2Radial设置菜单,汉化BY印度神油,id维爵爷.7046", &isVisible_))
 		{
 			ImGui::End();
 			return;
