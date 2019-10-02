@@ -172,13 +172,14 @@ void Core::OnDeviceSet(IDirect3DDevice9 *device, D3DPRESENT_PARAMETERS *presenta
 	if (!mainEffect_->Load())
 		abort();
 
-	//UpdateCheck::i()->CheckForUpdates();
+	//UpdateCheck::i()->CheckForUpdates();BdMarker
 	MiscTab::i();
 
 	wheels_.emplace_back(Wheel::Create<Mount>(IDR_BG, IDR_INK, "mounts", u8"坐骑", device));
 	wheels_.emplace_back(Wheel::Create<Novelty>(IDR_BG, IDR_INK, "novelties", u8"新奇", device));
 	wheels_.emplace_back(Wheel::Create<Marker>(IDR_BG, IDR_INK, "markers", u8"标记", device));
 	wheels_.emplace_back(Wheel::Create<ObjectMarker>(IDR_BG, IDR_INK, "object_markers", u8"物品标记", device));
+	wheels_.emplace_back(Wheel::Create<BdMarker>(IDR_BG, IDR_INK, "Bd_markers", u8"装备模版", device));
 	MouseSquare_ = std::make_unique<MouseSquare>();//++必须加
 	BossTime_ = std::make_unique<BossTime>();//++必须加
 	ImGui_ImplDX9_Init(device);

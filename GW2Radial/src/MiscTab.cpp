@@ -21,7 +21,9 @@ showboostime_(u8"总是显示BOSS计时器", "showboostime", "shubiao", true),
 getweb_(u8"获取网页日常", "getweb", "shubiao", true),
 showfankuai_(u8"总是显示鼠标跟随方块", "showfankuai_", "shubiao", true),
 jiemiandaxiao_(u8"界面大小", "jiemiandaxiao_", "shubiao", 1.0f),
-shubiaofankuaiyangshi_(u8"方块样式", "shubiaofankuaiyangshi_", "shubiao", 0)
+shubiaofankuaiyangshi_(u8"方块样式", "shubiaofankuaiyangshi_", "shubiao", 0),
+zhengtitoumingdu_(u8"透明度", "toumingdu_", "shubiao", 0.44f),
+jianyimoshi_(u8"简易模式(只显示前两行BOSS)", "showfankuai_", "shubiao", true)
 {
 	SettingsMenu::i()->AddImplementer(this);
 }
@@ -63,7 +65,9 @@ void MiscTab::DrawMenu()
 	ImGuiConfigurationWrapper(cl, u8"方块颜色", shubiaoRED_, shubiaoGRE_, shubiaoBLU_, shubiaoALH_, ImGuiColorEditFlags_AlphaBar);
 	ImGuiConfigurationWrapper(&ImGui::Checkbox, showfankuai_);//总是现实鼠标方块
 	ImGui::Text(u8"BOSS计时器设置");
-	ImGuiConfigurationWrapper(&ImGui::SliderFloat, jiemiandaxiao_, 1.0f, 3.0f);
+	ImGuiConfigurationWrapper(&ImGui::SliderFloat, jiemiandaxiao_, 0.52f, 3.0f, "%.2f", 1.0f);
+	ImGuiConfigurationWrapper(&ImGui::SliderFloat, zhengtitoumingdu_, 0.01f, 1.0f,"%.2f",1.0f);
+	ImGuiConfigurationWrapper(&ImGui::Checkbox, jianyimoshi_);//getmingtian_
 	ImGuiConfigurationWrapper(&ImGui::Checkbox, showboostime_);//getmingtian_
 	//ImGuiConfigurationWrapper(&ImGui::Checkbox, getmingtian_);
 	ImGuiConfigurationWrapper(&ImGui::Checkbox, getweb_);

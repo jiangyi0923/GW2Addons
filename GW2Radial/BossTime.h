@@ -33,7 +33,11 @@ namespace GW2Radial
 		const char* BossName(int xuhao);
 		const char* BossPost(int xuhao);
 
+		void Button_showit(int bosspaixuid, int showsidh, int showsidL, int h, int s);
 
+
+		float daxiao_ =1.0f;
+		float touming_ =0.44f;
 		int kput = 0;
 		float scroll_x = 0;
 		bool isVisibleweb_ = false;

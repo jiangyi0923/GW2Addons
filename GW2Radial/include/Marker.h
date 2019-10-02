@@ -18,6 +18,16 @@ enum class MarkerType : uint
 	CLEAR       = IDR_MARKER9,
 };
 
+enum class BdMarkerType : uint
+{
+	Damage1 = IDR_BD1,
+	Damage2 = IDR_BD2,
+	Symptoms1 = IDR_BD3,
+	Symptoms2 = IDR_BD4,
+	Mixture1 = IDR_BD5,
+	Mixture2 = IDR_BD6,
+};
+
 class Marker : public WheelElement
 {
 public:
@@ -30,6 +40,14 @@ class ObjectMarker : public WheelElement
 {
 public:
 	ObjectMarker(MarkerType m, IDirect3DDevice9* dev);
+
+	std::array<float, 4> color() override;
+};
+
+class BdMarker : public WheelElement
+{
+public:
+	BdMarker(BdMarkerType m, IDirect3DDevice9* dev);
 
 	std::array<float, 4> color() override;
 };

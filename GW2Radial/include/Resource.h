@@ -27,6 +27,14 @@
 #define IDR_NOVELTY8		228
 #define IDR_NOVELTY9		229
 
+#define IDR_BDS		241
+#define IDR_BD1		241
+#define IDR_BD2		242
+#define IDR_BD3		243
+#define IDR_BD4		244
+#define IDR_BD5		245
+#define IDR_BD6		246
+
 #define IDR_MARKERS		231
 #define IDR_MARKER1		231
 #define IDR_MARKER2		232

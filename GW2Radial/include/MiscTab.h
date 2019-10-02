@@ -45,6 +45,13 @@ public:
 	float jiemiandaxiao() const { return jiemiandaxiao_.value(); }
 	void jiemiandaxiao(float value) { return jiemiandaxiao_.value(value); }
 
+	float zhengtitoumingdu() const { return zhengtitoumingdu_.value(); }
+	void zhengtitoumingdu(float value) { return zhengtitoumingdu_.value(value); }
+
+	bool jianyimoshi() const { return jianyimoshi_.value(); }
+	void jianyimoshi(bool value) { return jianyimoshi_.value(value); }
+
+	//zhengtitoumingdu_ jianyimoshi_
 	//===================================================
 	uint vk_ = 0;
 protected:
@@ -66,7 +73,8 @@ protected:
 	ConfigurationOption<float> shubiaoALH_;
 
 	ConfigurationOption<float> jiemiandaxiao_;
-
+	ConfigurationOption<float> zhengtitoumingdu_;
+	ConfigurationOption<bool> jianyimoshi_;
 	//===================================================
 };
 
