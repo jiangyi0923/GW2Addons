@@ -26,6 +26,10 @@ enum class BdMarkerType : uint
 	Symptoms2 = IDR_BD4,
 	Mixture1 = IDR_BD5,
 	Mixture2 = IDR_BD6,
+	Auxiliary1 = IDR_BD7,
+	Auxiliary2 = IDR_BD8,
+	Treatment1 = IDR_BD9,
+	Treatment2 = IDR_BD10,
 };
 
 class Marker : public WheelElement

@@ -19,7 +19,7 @@ shubiaoALH_(u8"方块颜色", "shubiaoALH", "shubiao", 1.0f),
 showboostime_(u8"总是显示BOSS计时器", "showboostime", "shubiao", true),
 //getmingtian_(u8"获取明天的游戏日常", "getmingtian", "shubiao", true)
 getweb_(u8"获取网页日常", "getweb", "shubiao", true),
-showfankuai_(u8"总是显示鼠标跟随方块", "showfankuai_", "shubiao", true),
+showfankuai_(u8"总是显示鼠标跟随方块", "showfankuai_", "shubiao", false),
 jiemiandaxiao_(u8"界面大小", "jiemiandaxiao_", "shubiao", 1.0f),
 shubiaofankuaiyangshi_(u8"方块样式", "shubiaofankuaiyangshi_", "shubiao", 0),
 zhengtitoumingdu_(u8"透明度", "toumingdu_", "shubiao", 0.44f),

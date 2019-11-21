@@ -34,6 +34,10 @@
 #define IDR_BD4		244
 #define IDR_BD5		245
 #define IDR_BD6		246
+#define IDR_BD7		247
+#define IDR_BD8		248
+#define IDR_BD9		249
+#define IDR_BD10		250
 
 #define IDR_MARKERS		231
 #define IDR_MARKER1		231

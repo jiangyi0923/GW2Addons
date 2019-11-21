@@ -19,12 +19,16 @@ std::map<MarkerType, std::tuple<std::string, std::string, std::array<float, 4>>>
 ///+++++++++++
 std::map<BdMarkerType, std::tuple<std::string, std::string, std::array<float, 4>>> data2
 {
-	{ BdMarkerType::Damage1,    { "damage1",      u8"÷±…À1",			{ 186 / 255.f, 237 / 255.f, 126 / 255.f, 1 } } },
-	{ BdMarkerType::Damage2,   { "damage2",     u8"÷±…À2",			{ 107 / 255.f,  24 / 255.f, 181 / 255.f, 1 } } },
-	{ BdMarkerType::Symptoms1,    { "symptoms1",      u8"÷¢◊¥1",			{ 222 / 255.f,  40 / 255.f,  41 / 255.f, 1 } } },
-	{ BdMarkerType::Symptoms2,   { "symptoms2",     u8"÷¢◊¥2",			{  57 / 255.f, 134 / 255.f, 231 / 255.f, 1 } } },
-	{ BdMarkerType::Mixture1,     { "mixture1",       u8"ªÏ…À1",			{  27 / 255.f, 181 / 255.f,  68 / 255.f, 1 } } },
-	{ BdMarkerType::Mixture2,   { "mixture2",     u8"ªÏ…À2",			{ 140 / 255.f, 239 / 255.f, 236 / 255.f, 1 } } },
+	{ BdMarkerType::Damage1,		{ "damage1",		u8"÷±…À1",			{ 186 / 255.f, 237 / 255.f, 126 / 255.f, 1 } } },
+	{ BdMarkerType::Damage2,		{ "damage2",		u8"÷±…À2",			{ 107 / 255.f,  24 / 255.f, 181 / 255.f, 1 } } },
+	{ BdMarkerType::Symptoms1,		{ "symptoms1",      u8"÷¢◊¥1",			{ 222 / 255.f,  40 / 255.f,  41 / 255.f, 1 } } },
+	{ BdMarkerType::Symptoms2,		{ "symptoms2",		u8"÷¢◊¥2",			{  57 / 255.f, 134 / 255.f, 231 / 255.f, 1 } } },
+	{ BdMarkerType::Mixture1,		{ "mixture1",       u8"ªÏ…À1",			{  27 / 255.f, 181 / 255.f,  68 / 255.f, 1 } } },
+	{ BdMarkerType::Mixture2,		{ "mixture2",		u8"ªÏ…À2",			{ 140 / 255.f, 239 / 255.f, 236 / 255.f, 1 } } },
+	{ BdMarkerType::Auxiliary1,		{ "auxiliary1",		u8"∏®÷˙1",			{ 239 / 255.f, 121 / 255.f, 214 / 255.f, 1 } } },
+	{ BdMarkerType::Auxiliary2,		{ "auxiliary2",		u8"∏®÷˙2",          { 222 / 255.f, 182 / 255.f,  33 / 255.f, 1 } } },
+	{ BdMarkerType::Treatment1,		{ "treatment1",		u8"÷Œ¡∆1",			{ 128 / 255.f, 128 / 255.f, 128 / 255.f, 1 } } },
+	{ BdMarkerType::Treatment2,		{ "treatment2",		u8"÷Œ¡∆2",			{ 137 / 255.f, 151 / 255.f, 18 / 255.f, 1 } } },
 };
 ///+++++++++++
 Marker::Marker(MarkerType m, IDirect3DDevice9* dev)
