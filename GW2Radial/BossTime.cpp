@@ -55,6 +55,7 @@ namespace GW2Radial
 		case 33:tmp = u8"厄运传说圣坛"; break;
 		case 34:tmp = u8"软泥坑"; break;
 		case 35:tmp = u8"金属音乐会"; break;
+		case 36:tmp = u8"冰巢挑战前置"; break;
 		default:break;
 		}
 		return tmp;
@@ -100,6 +101,7 @@ namespace GW2Radial
 		case 33:tmp = u8"[&BAEMAAA=]"; break;
 		case 34:tmp = u8"[&BP0LAAA=]"; break;
 		case 35:tmp = u8"[&BBkMAAA=]"; break;
+		case 36:tmp = u8"[&BCcMAAA=]"; break;
 		default:break;
 		}
 		return tmp;
@@ -443,9 +445,14 @@ namespace GW2Radial
 							{
 								s = 20;
 							}
+							if (BSPX3[i] == 36)
+							{
+								s = 40;
+							}
 							Button_showit(BSPX3[i], t, i, h, s);
 							if (s == 10) s = s - 10;
 							if (s == 20) s = s - 5;
+							if (s == 40) s = s + 5;
 							if (s < 60) s = s + 15;
 							if (s == 60) h++, s = 0;
 							if (h == 24)	  h = 0;
