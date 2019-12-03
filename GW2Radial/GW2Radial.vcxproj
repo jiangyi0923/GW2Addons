@@ -120,6 +120,7 @@ copy /Y $(OutDir)$(TargetName).pdb "C:\Program Files\Guild Wars 2\bin64\d3d9_cha
     <ClCompile Include="imgui\imgui.cpp" />
     <ClCompile Include="imgui\imgui_demo.cpp" />
     <ClCompile Include="imgui\imgui_draw.cpp" />
+    <ClCompile Include="LoopPrompt.cpp" />
     <ClCompile Include="MouseSquare.cpp" />
     <ClCompile Include="src\ConfigurationFile.cpp" />
     <ClCompile Include="src\Core.cpp" />
@@ -185,6 +186,7 @@ copy /Y $(OutDir)$(TargetName).pdb "C:\Program Files\Guild Wars 2\bin64\d3d9_cha
     <ClInclude Include="include\Utility.h" />
     <ClInclude Include="include\Wheel.h" />
     <ClInclude Include="include\WheelElement.h" />
+    <ClInclude Include="LoopPrompt.h" />
     <ClInclude Include="MouseSquare.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="simpleini\SimpleIni.h" />

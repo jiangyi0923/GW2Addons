@@ -17,6 +17,7 @@ WheelElement::WheelElement(uint id, const std::string &nickname, const std::stri
 	appearance_ = CreateTextureFromResource(dev, Core::i()->dllModule(), elementId_);
 }
 
+
 WheelElement::~WheelElement()
 {
 	COM_RELEASE(appearance_);

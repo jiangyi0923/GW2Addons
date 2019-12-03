@@ -22,7 +22,7 @@ namespace GW2Radial
 		{
 		case  1:tmp = u8"碎裂巨兽";	break;
 		case  2:tmp = u8"冰萨满";		break;
-		case  3:tmp = u8"人马王";		break;
+		case  3:tmp = u8"人马王莫迪尔";		break;
 		case  4:tmp = u8"火元素";		break;
 		case  5:tmp = u8"马克魔像";	break;
 		case  6:tmp = u8"巨型林地虫"; break;
@@ -55,7 +55,7 @@ namespace GW2Radial
 		case 33:tmp = u8"厄运传说圣坛"; break;
 		case 34:tmp = u8"软泥坑"; break;
 		case 35:tmp = u8"金属音乐会"; break;
-		case 36:tmp = u8"冰巢挑战前置"; break;
+		case 36:tmp = u8"冬季风暴"; break;
 		default:break;
 		}
 		return tmp;
@@ -240,51 +240,64 @@ namespace GW2Radial
 		boost::gregorian::date d2 = nowday + boost::gregorian::days(day);
 		boost::gregorian::day_iterator d_iter(d2);
 		std::string strTime = boost::gregorian::to_iso_extended_string(*d_iter);
-		char* out = new char[strTime.length()];
-		for (int i = 0; i <= strTime.length(); ++i)
-			out[i] = strTime[i];
-		return out;
+		//char* out = new char[strTime.length()];
+		//for (int i = 0; i <= strTime.length(); ++i)
+		//	out[i] = strTime[i];
+		char * out2 = new char[strTime.length()];
+		strTime.copy(out2, strTime.length(), 0);//这里5，代表复制几个字符，0代表复制的位置  
+		*(out2 + strTime.length()) = '\0';//要手动加上结束符
+		return out2;
 	}
-
-	std::string* FetchReleaseData(const char * days)
+	std::string* FetchReleaseData(const char* days)
 	{
 		wancheng = false;
 		std::string retVal;
-		const auto handle = InternetOpen(L"getwebname", INTERNET_OPEN_TYPE_PRECONFIG, nullptr, nullptr, 0);
-		if (handle == nullptr)
-		{
-			InternetCloseHandle(handle);
-			result[0] = "0";
-			geting = false;
-			wancheng = true;
-		}
 		std::string _a = "http://do.gw2.kongzhong.com/task/completes?date=";
 		std::string _b = days;
 		std::string _tmp = _a + _b;
+		DWORD response_length = 0;
 		LPCWSTR ul = stringToLPCWSTR(_tmp);
-
-		const auto request = InternetOpenUrl(handle, ul, nullptr, 0, INTERNET_FLAG_RELOAD | INTERNET_FLAG_PRAGMA_NOCACHE | INTERNET_FLAG_NO_CACHE_WRITE, 0);
-		delete(ul);
-
-		if (request == nullptr)
+		HINTERNET hSession = InternetOpen(L"RookIE/1.0", INTERNET_OPEN_TYPE_PRECONFIG, NULL, NULL, 0);
+		if (hSession != NULL)
 		{
-			InternetCloseHandle(request);
+			HINTERNET handle2 = InternetOpenUrl(hSession, ul, NULL, 0, INTERNET_FLAG_RELOAD | INTERNET_FLAG_PRAGMA_NOCACHE | INTERNET_FLAG_NO_CACHE_WRITE, 0);
+			if (handle2 != NULL)
+			{
+				char response_data[8000];//缓冲区
+				if (InternetReadFile(handle2, response_data, sizeof(response_data) - 1, &response_length) && response_length > 0)
+				{
+					response_data[response_length] = '\0';
+					response_length++;
+				}
+				if (response_length>0)
+				{
+					response_data[response_length] = '\0';
+				}
+				else
+				{
+					response_data[0] = '\0';
+				}
+				retVal = response_data;
+				InternetCloseHandle(handle2);
+				handle2 = NULL;
+			}
+			else
+			{
+				result[0] = "0";
+				geting = false;
+				wancheng = true;
+				return result;
+			}
+			InternetCloseHandle(hSession);
+			hSession = NULL;
+		}
+		else
+		{
 			result[0] = "0";
 			geting = false;
 			wancheng = true;
+			return result;
 		}
-		char response_data[8000];//缓冲区
-		DWORD response_length = 0;
-
-		if (InternetReadFile(request, response_data, sizeof(response_data) - 1, &response_length) && response_length > 0)
-		{
-			response_data[response_length] = '\0';
-			response_length++;
-		}
-		InternetCloseHandle(request);
-		InternetCloseHandle(handle);
-		retVal = response_data;
-
 		if (response_length > 350)
 		{
 			std::string beginFlag = u8"task_name";
@@ -319,9 +332,90 @@ namespace GW2Radial
 			result[0] = "0";
 			wancheng = true;
 		}
-
 		return result;
 	}
+
+
+
+
+
+	//std::string* FetchReleaseData(const char * days)
+	//{
+	//	wancheng = false;
+	//	std::string retVal;
+	//	HINTERNET handle = InternetOpen(L"RookIE/1.0", INTERNET_OPEN_TYPE_PRECONFIG, NULL, NULL, 0);
+	//	if (handle == nullptr)
+	//	{
+	//		InternetCloseHandle(handle);
+	//		result[0] = "0";
+	//		geting = false;
+	//		wancheng = true;
+	//	}
+	//	
+	//	std::string _a = "http://do.gw2.kongzhong.com/task/completes?date=";
+	//	std::string _b = days;
+	//	std::string _tmp = _a + _b;
+	//	LPCWSTR ul = stringToLPCWSTR(_tmp);
+
+	//	const auto request = InternetOpenUrl(handle, ul, NULL, 0, INTERNET_FLAG_RELOAD | INTERNET_FLAG_PRAGMA_NOCACHE | INTERNET_FLAG_NO_CACHE_WRITE, 0);
+	//	delete(ul);
+
+	//	if (request == nullptr)
+	//	{
+	//		InternetCloseHandle(request);
+	//		result[0] = "0";
+	//		geting = false;
+	//		wancheng = true;
+	//	}
+	//	char response_data[8000];//缓冲区
+	//	DWORD response_length = 0;
+
+	//	if (InternetReadFile(request, response_data, sizeof(response_data) - 1, &response_length) && response_length > 0)
+	//	{
+	//		response_data[response_length] = '\0';
+	//		response_length++;
+	//	}
+	//	InternetCloseHandle(request);
+	//	InternetCloseHandle(handle);
+	//	retVal = response_data;
+
+	//	if (response_length > 350)
+	//	{
+	//		std::string beginFlag = u8"task_name";
+	//		std::string endFlag = u8",";
+	//		std::string end = u8"}";
+	//		int startPos = 0;
+	//		int endPos = 0;
+	//		int beginPos = 0;
+	//		int endingpos = 0;
+	//		for (int i = 0; i < 6; i++)
+	//		{
+	//			startPos = (int)retVal.find(beginFlag, startPos);
+	//			endPos = (int)retVal.find(endFlag, startPos);
+	//			beginPos = startPos + (int)beginFlag.length() + 2;
+	//			endingpos = endPos - startPos - (int)beginFlag.length() - 2;
+	//			result[i] = retVal.substr(beginPos, endingpos);
+	//			if ((int)result[i].find(end) > 0)
+	//			{
+	//				result[i].replace(result[i].size() - 1, result[i].size(), "");
+	//				if ((int)result[i].find(end) > 0)
+	//				{
+	//					result[i].replace(result[i].size() - 1, result[i].size(), "");
+	//				}
+	//			}
+	//			startPos++;
+	//			endPos++;
+	//		}
+	//		wancheng = true;
+	//	}
+	//	else
+	//	{
+	//		result[0] = "0";
+	//		wancheng = true;
+	//	}
+
+	//	return result;
+	//}
 
 	void getsting(const char *  days)
 	{
@@ -365,6 +459,7 @@ namespace GW2Radial
 		}
 		ImGui::PopStyleColor(3);
 		ImGui::PopID();
+		
 	}
 
 	bool BossTime::_DoUI(bool &ison)
@@ -447,12 +542,12 @@ namespace GW2Radial
 							}
 							if (BSPX3[i] == 36)
 							{
-								s = 40;
+								s = 35;
 							}
 							Button_showit(BSPX3[i], t, i, h, s);
 							if (s == 10) s = s - 10;
 							if (s == 20) s = s - 5;
-							if (s == 40) s = s + 5;
+							if (s == 35) s = s + 10;
 							if (s < 60) s = s + 15;
 							if (s == 60) h++, s = 0;
 							if (h == 24)	  h = 0;
@@ -506,7 +601,8 @@ namespace GW2Radial
 				if (geting)
 				{
 					W_time1 = GetTime(0);
-					boost::thread(&getsting, W_time1);
+					//boost::thread(&getsting, W_time1);
+					boost::thread thServer(getsting, W_time1);
 				}
 			}
 			float scroll_x_delta = 0.0f;
@@ -565,7 +661,8 @@ namespace GW2Radial
 							days++;
 							const char* addday = GetTime(days);
 							W_time1 = addday;
-							boost::thread(&getsting, addday);
+							//boost::thread(&getsting, addday);
+							boost::thread thServer(getsting, addday);
 						}
 
 					}
@@ -652,7 +749,8 @@ namespace GW2Radial
 							if (W_time1 != adddayend)
 							{
 								W_time1 = adddayend;
-								boost::thread(&getsting, adddayend);
+								//boost::thread(&getsting, adddayend);
+								boost::thread thServer(getsting, adddayend);
 							}
 						}
 					}

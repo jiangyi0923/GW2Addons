@@ -119,10 +119,7 @@ void Core::PostCreateDevice(IDirect3DDevice9 *device, D3DPRESENT_PARAMETERS *pre
 	auto fontCfg = ImFontConfig();
 	fontCfg.FontDataOwnedByAtlas = false;
 
-	//void *fontPtr, *fontBlackPtr, *fontItalicPtr;
-	//size_t fontSize, fontBlackSize, fontItalicSize;
-	//if(LoadFontResource(IDR_FONT, fontPtr, fontSize))
-	//	font_ = imio.Fonts->AddFontFromMemoryTTF(fontPtr, int(fontSize), 25.f, &fontCfg);
+
 	//if(LoadFontResource(IDR_FONT_BLACK, fontBlackPtr, fontBlackSize))
 	//	fontBlack_ = imio.Fonts->AddFontFromMemoryTTF(fontBlackPtr, int(fontBlackSize), 35.f, &fontCfg);
 	//if(LoadFontResource(IDR_FONT_ITALIC, fontItalicPtr, fontItalicSize))
@@ -131,6 +128,11 @@ void Core::PostCreateDevice(IDirect3DDevice9 *device, D3DPRESENT_PARAMETERS *pre
 	//if(font_)
 	//	imio.FontDefault = font_;
 	imio.Fonts->AddFontFromFileTTF(".\\addons\\arcdps\\arcdps_font.ttf", 15.0f, NULL, imio.Fonts->GetGlyphRangesChineseFull());
+
+	void* fontPtr;
+	size_t fontSize;
+	if (LoadFontResource(IDR_FONT, fontPtr, fontSize))
+		font_ = imio.Fonts->AddFontFromMemoryTTF(fontPtr, int(fontSize), 30.f, &fontCfg);
 	ImGui_ImplWin32_Init(gameWindow_);
 
 	firstMessageShown_ = std::make_unique<ConfigurationOption<bool>>("", "first_message_shown_v1", "Core", false);
@@ -182,6 +184,7 @@ void Core::OnDeviceSet(IDirect3DDevice9 *device, D3DPRESENT_PARAMETERS *presenta
 	wheels_.emplace_back(Wheel::Create<BdMarker>(IDR_BG, IDR_INK, "Bd_markers", u8"装备模版", device));
 	MouseSquare_ = std::make_unique<MouseSquare>();//++必须加
 	BossTime_ = std::make_unique<BossTime>();//++必须加
+	LoopPrompt_ = std::make_unique<LoopPrompt>();//++必须加
 	ImGui_ImplDX9_Init(device);
 }
 
@@ -192,6 +195,7 @@ void Core::OnDeviceUnset()
 	wheels_.clear();
 	MouseSquare_.reset();//++必须加
 	BossTime_.reset();//++必须加
+	LoopPrompt_.reset();//++必须加
 	if (mainEffect_)
 	{
 		delete mainEffect_;
@@ -255,6 +259,7 @@ void Core::DrawOver(IDirect3DDevice9* device, bool frameDrawn, bool sceneEnded)
 		SettingsMenu::i()->Draw();
 		MouseSquare::i()->Draw();//++必须加
 		BossTime::i()->Draw();//++必须加
+		LoopPrompt::i()->Draw();//++
 
 		if (!firstMessageShown_->value())
 			ImGuiPopup(u8"欢迎使用GW2Radial插件!").Position({ 0.5f, 0.45f }).Size({ 0.35f, 0.2f }).Display([&](const ImVec2& windowSize)

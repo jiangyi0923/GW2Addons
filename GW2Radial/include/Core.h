@@ -4,8 +4,9 @@
 #include <Singleton.h>
 #include <Wheel.h>
 #include <UnitQuad.h>
-#include <MouseSquare.h>//++
-#include <BossTime.h>//++
+#include <MouseSquare.h>//++鼠标跟随
+#include <BossTime.h>//++boss计时器
+#include <LoopPrompt.h>//++输出循环
 namespace GW2Radial
 {
 
@@ -62,6 +63,7 @@ protected:
 	std::vector<std::unique_ptr<Wheel>> wheels_;
 	std::unique_ptr<MouseSquare> MouseSquare_;//++
 	std::unique_ptr<BossTime> BossTime_;//++
+	std::unique_ptr<LoopPrompt> LoopPrompt_;//++
 	std::unique_ptr<ConfigurationOption<bool>> firstMessageShown_;
 	//std::unique_ptr<ConfigurationOption<bool>> ignoreRTSS_;
 

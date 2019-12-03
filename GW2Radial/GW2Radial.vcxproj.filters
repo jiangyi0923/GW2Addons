@@ -114,6 +114,7 @@
     </ClCompile>
     <ClCompile Include="BossTime.cpp" />
     <ClCompile Include="MouseSquare.cpp" />
+    <ClCompile Include="LoopPrompt.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imgui_internal.h">
@@ -235,6 +236,7 @@
     </ClInclude>
     <ClInclude Include="BossTime.h" />
     <ClInclude Include="MouseSquare.h" />
+    <ClInclude Include="LoopPrompt.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="rt_rcdat.bin">
