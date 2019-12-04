@@ -19,7 +19,7 @@ namespace GW2Radial
 
 	LoopPrompt::LoopPrompt() : showKeybindLoopPrompt_("show_LoopPrompt", "Show LoopPrompt", { VK_F10 }, false),
 		showkeybind_("show_LoopPromptUI", u8"ºô³öÑ­»·Æ÷", { VK_F7 }, true),
-		tabekeybind_("tabekey", u8"ÇÐ»»"), pingbiwasd_(u8"ÆÁ±ÎWASD·½Ïò¼ü","pingbiwasd","loopavename",true), pingbiRK_(u8"ÆÁ±ÎÊó±êÓÒ¼ü", "pingbiRK", "loopavename", true),
+		tabekeybind_("tabekey", u8"ÇÐ»»"), pingbiwasd_(u8"Ñ­»·Æ÷ÆÁ±ÎWASD·½Ïò¼ü","pingbiwasd","loopavename",true), pingbiRK_(u8"Ñ­»·Æ÷ÆÁ±ÎÊó±êÓÒ¼ü", "pingbiRK", "loopavename", true),
 		fangunkeybind_("fangunkey", u8"·­¹ö"), LoopPromptA_(u8"Ñ­»·Æ÷Í¸Ã÷¶È", "LoopPromptA_", "loopavename", 0.5f),
 		anjian01_("F1_", u8"F1"), anjian02_("F2_", u8"F2"), anjian03_("F3_", u8"F3"), anjian04_("F4_", u8"F4"), anjian05_("F5_", u8"F5"),
 		anjian06_("wuqi1_", u8"ÎäÆ÷1"), anjian07_("wuqi2_", u8"ÎäÆ÷2"), anjian08_("wuqi3_", u8"ÎäÆ÷3"), anjian09_("wuqi4_", u8"ÎäÆ÷4"), anjian10_("wuqi5_", u8"ÎäÆ÷5"),
@@ -767,6 +767,7 @@ namespace GW2Radial
 		if (isVisibleLoopPromptui_)
 		{
 			ImGui::SetNextWindowBgAlpha(LoopPromptA_.value());//Í¸Ã÷¶È
+			ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
 			ImGui::Begin(u8"Êä³öÑ­»·", &isVisibleLoopPromptui_, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_AlwaysAutoResize);
 
 			for (int i = anjiansunxu; i < TMPbuttonitiems; i++)
@@ -778,24 +779,28 @@ namespace GW2Radial
 					{
 						//font_
 						ImGui::PushFont(Core::i()->font());
-						float tmpposx = 50.0f;
+						float tmpposx = 45.0f;
 						if (ImGui::CalcTextSize(tmp.c_str()).x + 10.0f > tmpposx)
 						{
 							tmpposx = ImGui::CalcTextSize(tmp.c_str()).x + 10.0f;
 						}
-
-						ImGui::Button(tmp.c_str(), ImVec2(tmpposx, 50.0f));
+						ImGui::PushStyleColor(ImGuiCol_Button, ImGui::GetStyle().Colors[ImGuiCol_ButtonHovered]);
+						ImGui::Button(tmp.c_str(), ImVec2(tmpposx, 45.0f));
 						ImGui::PopFont();
+						ImGui::PopStyleColor();
 						danqiangbt = BTofLOOP[i].c_str();
-						ImGui::SameLine();
 					}
 					else if ( i == anjiansunxu +1)
 					{
-						ImGui::Button(tmp.c_str(), ImVec2(40.0f, 35.0f));
+						ImGui::Button(tmp.c_str(), ImVec2(ImGui::CalcTextSize(tmp.c_str()).x + 20.0f, ImGui::CalcTextSize(tmp.c_str()).y + 20.0f));
+					}
+					else if (i == anjiansunxu + 2)
+					{
+						ImGui::Button(tmp.c_str(), ImVec2(ImGui::CalcTextSize(tmp.c_str()).x + 15.0f, ImGui::CalcTextSize(tmp.c_str()).y + 15.0f));
 					}
 					else
 					{
-						ImGui::Button(tmp.c_str(),ImVec2(40.0f, 25.0f));
+						ImGui::Button(tmp.c_str(), ImVec2(ImGui::CalcTextSize(tmp.c_str()).x + 10.0f, ImGui::CalcTextSize(tmp.c_str()).y + 10.0f));
 					}
 					ImGui::SameLine();
 				}
@@ -821,17 +826,19 @@ namespace GW2Radial
 			}
 
 			ImGui::BeginGroup();
-			if (ImGui::Button("X"))
+			if (ImGui::SmallButton("X##LoopPromptui_X"))
 			{
 				isVisibleLoopPromptui_ = false;
+				
 			}
-			if (ImGui::Button("R"))
+			if (ImGui::SmallButton("R##LoopPromptui_R"))
 			{
 				anjiansunxu = 0;
 			}
 			ImGui::EndGroup();
 
 			ImGui::End();
+			ImGui::PopStyleVar();
 		}
 	}
 
