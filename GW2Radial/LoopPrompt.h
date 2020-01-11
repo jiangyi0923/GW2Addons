@@ -20,11 +20,12 @@ namespace GW2Radial
 		void Deleteloopdate(char* tmpbuf1);
 		void setkeys(Keybind& setting);
 		void setkeysok(std::set<uint>& keys);
+		void deletsone(std::string tmp);
 		void anjianjiance(std::set<uint>& keys);
 		void makeFXWZ();
 		void parsFXWZ();
-
-
+		//void putky(std::set<uint>& keys);
+		//void getky(std::string tmpname);
 		void Draw();
 		const Keybind& showKeybind() const { return showKeybindLoopPrompt_; }
 	protected:
@@ -37,6 +38,7 @@ namespace GW2Radial
 		Keybind anjian06_, anjian07_, anjian08_, anjian09_, anjian10_;
 		Keybind anjian11_, anjian12_, anjian13_, anjian14_, anjian15_;
 		ConfigurationOption<float> LoopPromptA_;
+		ConfigurationOption<float> LoopPromptB_;
 		ConfigurationOption<bool> pingbiwasd_;
 		ConfigurationOption<bool> pingbiRK_;
 		bool shezianjian = false;
@@ -46,20 +48,25 @@ namespace GW2Radial
 		bool CGdate = false;
 		std::string Erros = "";
 		Input::InputChangeCallback inputChangeCallback_;
-
-		std::string * EncodeMap = new std::string[17]
+		//std::set<uint> keys_;
+		//std::optional<Point> cursorResetPosition_;
+		bool haveteit = false;
+		int  teit = 0;
+		bool loot2teit = false;
+		bool isoneof2loop = false;
+		std::string * EncodeMap = new std::string[18]
 		{
 			u8"F1",u8"F2",u8"F3",u8"F4",u8"F5",
 			u8"ÎäÆ÷1",u8"ÎäÆ÷2",u8"ÎäÆ÷3",u8"ÎäÆ÷4",u8"ÎäÆ÷5",
 			u8"ÖÎÁÆ",u8"²å²Û1",u8"²å²Û2",u8"²å²Û3",u8"¾«Ó¢",
-			u8"ÇÐ»»",u8"·­¹ö"
+			u8"ÇÐ»»",u8"·­¹ö",u8"±ê¼Ç"
 		};
-		std::string * DecodeMap = new std::string[17]
+		std::string * DecodeMap = new std::string[18]
 		{
 			"A","B","C","D","E",
 			"F","G","H","I","J",
 			"K","L","M","N","O",
-			"P","Q"
+			"P","Q","S"
 		};
 	};
 };

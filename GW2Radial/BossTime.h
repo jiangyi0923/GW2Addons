@@ -23,7 +23,7 @@ namespace GW2Radial
 		float sPOSY() const { return gudingwinpos_y.value(); }
 		void sPOSY(float value) { return gudingwinpos_y.value(value); }
 		bool _DoUI(bool& ison);
-
+		//bool getdted();
 	protected:
 		int BSPX1[97] = { 1,2,3,4,5,6,7,8,9,2,10,4,1,6,3,8,5,2,7,4,9,6,10,8,1,2,3,4,5,6,7,8,9,2,10,4,1,6,3,8,5,2,7,4,9,6,10,8,1,2,3,4,5,6,7,8,9,2,10,4,1,6,3,8,5,2,7,4,9,6,10,8,1,2,3,4,5,6,7,8,9,2,10,4,1,6,3,8,5,2,7,4,9,6,10,8,1 };
 		int BSPX2[97] = { 11,32,0,33,12,34,0,35,0,32,0,33,13,34,0,35,11,32,0,33,12,34,0,35,0,32,0,33,13,34,0,35,11,32,0,33,12,34,0,35,13,32,0,33,11,34,0,35,12,32,0,33,0,34,0,35,13,32,0,33,11,34,0,35,12,32,0,33,0,34,0,35,0,32,13,33,0,34,11,35,0,32,12,33,0,34,0,35,0,32,0,33,13,34,0,35,11 };
@@ -46,6 +46,7 @@ namespace GW2Radial
 		ConfigurationOption<bool> gudingwinpos_;
 		ConfigurationOption<float> gudingwinpos_x;
 		ConfigurationOption<float> gudingwinpos_y;
+		//ConfigurationOption<const char*> isnewday_;
 		int days = 0;
 		bool ghen = false;
 

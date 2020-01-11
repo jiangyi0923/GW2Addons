@@ -111,6 +111,7 @@ namespace GW2Radial
 		gudingwinpos_(u8"锁定窗口位置", "gudingwinpos_", "shubiao", false),
 		gudingwinpos_x(u8"窗口位置x", "gudingwinpos_x", "shubiao", 500.0f),
 		gudingwinpos_y(u8"窗口位置y", "gudingwinpos_y", "shubiao", 5.0f)
+		//isnewday_(u8"新的一天", "isnewday", "shubiao", "20191211")
 	{
 		inputChangeCallbackweb_ = [this](bool changed, const std::set<uint>& keys, const std::list<EventKey>& changedKeys) { return OnInputChangeweb(changed, keys, changedKeys); };
 		Input::i()->AddInputChangeCallback(&inputChangeCallbackweb_);
@@ -142,75 +143,7 @@ namespace GW2Radial
 			}
 		}
 	}
-#pragma region 日志
-	//struct ExampleAppLog
-	//{
-	//	ImGuiTextBuffer     Buf;
-	//	ImGuiTextFilter     Filter;
-	//	ImVector<int>       LineOffsets;        // Index to lines offset
-	//	bool                ScrollToBottom;
 
-	//	void    Clear() { Buf.clear(); LineOffsets.clear(); }
-
-	//	void    AddLog(const char* fmt, ...) IM_FMTARGS(2)
-	//	{
-	//		int old_size = Buf.size();
-	//		va_list args;
-	//		va_start(args, fmt);
-	//		Buf.appendfv(fmt, args);
-	//		Buf.appendfv("\r\n", args);
-	//		va_end(args);
-	//		for (int new_size = Buf.size(); old_size < new_size; old_size++)
-	//			if (Buf[old_size] == '\n')
-	//				LineOffsets.push_back(old_size);
-	//		ScrollToBottom = true;
-	//	}
-
-	//	void    Draw(const char* title, bool* p_open = NULL)
-	//	{
-	//		ImGui::SetNextWindowSize(ImVec2(500, 400), ImGuiCond_FirstUseEver);
-	//		
-	//		if (!ImGui::Begin(title, p_open))
-	//		{
-	//			ImGui::End();
-	//			return;
-	//		}
-	//		if (ImGui::Button(u8"取消")) Clear();
-	//		ImGui::SameLine();
-	//		bool copy = ImGui::Button(u8"拷贝");
-	//		ImGui::SameLine();
-	//		Filter.Draw(u8"过滤器", -100.0f);
-	//		ImGui::Separator();
-	//		ImGui::BeginChild(u8"滚动", ImVec2(0, 0), false, ImGuiWindowFlags_HorizontalScrollbar);
-	//		if (copy) ImGui::LogToClipboard();
-
-	//		if (Filter.IsActive())
-	//		{
-	//			const char* buf_begin = Buf.begin();
-	//			const char* line = buf_begin;
-	//			for (int line_no = 0; line != NULL; line_no++)
-	//			{
-	//				const char* line_end = (line_no < LineOffsets.Size) ? buf_begin + LineOffsets[line_no] : NULL;
-	//				if (Filter.PassFilter(line, line_end))
-	//					ImGui::TextUnformatted(line, line_end);
-	//				line = line_end && line_end[1] ? line_end + 1 : NULL;
-	//			}
-	//		}
-	//		else
-	//		{
-	//			ImGui::TextUnformatted(Buf.begin());
-	//		}
-
-	//		//if (ScrollToBottom)
-	//			//ImGui::SetScrollHereY(1.0f);
-	//		ScrollToBottom = false;
-	//		ImGui::EndChild();
-	//		ImGui::End();
-	//	}
-	//};
-	//static ExampleAppLog log;//
-	//bool is = true;//
-#pragma endregion
 
 #pragma region 网页获取
 	bool geting = true;
@@ -335,88 +268,6 @@ namespace GW2Radial
 		return result;
 	}
 
-
-
-
-
-	//std::string* FetchReleaseData(const char * days)
-	//{
-	//	wancheng = false;
-	//	std::string retVal;
-	//	HINTERNET handle = InternetOpen(L"RookIE/1.0", INTERNET_OPEN_TYPE_PRECONFIG, NULL, NULL, 0);
-	//	if (handle == nullptr)
-	//	{
-	//		InternetCloseHandle(handle);
-	//		result[0] = "0";
-	//		geting = false;
-	//		wancheng = true;
-	//	}
-	//	
-	//	std::string _a = "http://do.gw2.kongzhong.com/task/completes?date=";
-	//	std::string _b = days;
-	//	std::string _tmp = _a + _b;
-	//	LPCWSTR ul = stringToLPCWSTR(_tmp);
-
-	//	const auto request = InternetOpenUrl(handle, ul, NULL, 0, INTERNET_FLAG_RELOAD | INTERNET_FLAG_PRAGMA_NOCACHE | INTERNET_FLAG_NO_CACHE_WRITE, 0);
-	//	delete(ul);
-
-	//	if (request == nullptr)
-	//	{
-	//		InternetCloseHandle(request);
-	//		result[0] = "0";
-	//		geting = false;
-	//		wancheng = true;
-	//	}
-	//	char response_data[8000];//缓冲区
-	//	DWORD response_length = 0;
-
-	//	if (InternetReadFile(request, response_data, sizeof(response_data) - 1, &response_length) && response_length > 0)
-	//	{
-	//		response_data[response_length] = '\0';
-	//		response_length++;
-	//	}
-	//	InternetCloseHandle(request);
-	//	InternetCloseHandle(handle);
-	//	retVal = response_data;
-
-	//	if (response_length > 350)
-	//	{
-	//		std::string beginFlag = u8"task_name";
-	//		std::string endFlag = u8",";
-	//		std::string end = u8"}";
-	//		int startPos = 0;
-	//		int endPos = 0;
-	//		int beginPos = 0;
-	//		int endingpos = 0;
-	//		for (int i = 0; i < 6; i++)
-	//		{
-	//			startPos = (int)retVal.find(beginFlag, startPos);
-	//			endPos = (int)retVal.find(endFlag, startPos);
-	//			beginPos = startPos + (int)beginFlag.length() + 2;
-	//			endingpos = endPos - startPos - (int)beginFlag.length() - 2;
-	//			result[i] = retVal.substr(beginPos, endingpos);
-	//			if ((int)result[i].find(end) > 0)
-	//			{
-	//				result[i].replace(result[i].size() - 1, result[i].size(), "");
-	//				if ((int)result[i].find(end) > 0)
-	//				{
-	//					result[i].replace(result[i].size() - 1, result[i].size(), "");
-	//				}
-	//			}
-	//			startPos++;
-	//			endPos++;
-	//		}
-	//		wancheng = true;
-	//	}
-	//	else
-	//	{
-	//		result[0] = "0";
-	//		wancheng = true;
-	//	}
-
-	//	return result;
-	//}
-
 	void getsting(const char *  days)
 	{
 		geting = false;
@@ -490,6 +341,8 @@ namespace GW2Radial
 			}
 			ImGui::BeginChild("scrolling", ImVec2(360 * daxiao_, scrollingdaxiao), false);
 			ImGui::SetWindowFontScale(daxiao_);
+
+#pragma region BOSS排序显示
 			for (int t = 0; t < 5; t++)
 			{
 				int h = 0, s = 0;
@@ -499,7 +352,7 @@ namespace GW2Radial
 					for (int i = 0; i < 97; i++)
 					{
 						if (i > 0) ImGui::SameLine(0.0F, 0.0F);
-						Button_showit( BSPX1[i], t, i, h, s);
+						Button_showit(BSPX1[i], t, i, h, s);
 						if (s < 60) s = s + 15;
 						if (s == 60) h++, s = 0;
 						if (h == 24)	  h = 0;
@@ -518,7 +371,7 @@ namespace GW2Radial
 						{
 							s = 40;
 						}
-						Button_showit( BSPX2[i], t, i, h, s);
+						Button_showit(BSPX2[i], t, i, h, s);
 						if (s == 10 || s == 40)s = s + 5;
 						if (s < 60)  s = s + 15;
 						if (s == 60) h++, s = 0;
@@ -587,8 +440,9 @@ namespace GW2Radial
 					}
 				}
 
-				
+
 			}
+#pragma endregion
 
 			scroll_x = ImGui::GetScrollX();
 			ImGui::EndChild();
@@ -605,10 +459,15 @@ namespace GW2Radial
 					boost::thread thServer(getsting, W_time1);
 				}
 			}
+			
 			float scroll_x_delta = 0.0f;
 			ImGui::IsItemHovered();
 			if (ImGui::GetIO().WantCaptureMouse == 1)
 			{
+				//if (!getdted())
+				//{
+				//	ImGui::Text("dewewfew");
+				//}
 				ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(scroll_x / 120.0f / daxiao_ * 0.01031f, 0.6f, 0.6f, touming_));
 				ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(scroll_x / 120.0f / daxiao_ * 0.01031f, 0.6f, 0.6f, touming_));
 				ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(scroll_x / 120.0f / daxiao_ * 0.01031f, 0.6f, 0.6f, touming_));
@@ -714,7 +573,6 @@ namespace GW2Radial
 						}
 					}
 					ImGui::PopStyleColor(3);
-					
 				}
 			}
 			else
@@ -760,9 +618,28 @@ namespace GW2Radial
 			ImGui::End();
 			ImGui::PopStyleVar(4);
 		}
-		//log.Draw(u8"Log", &is);//日志显示
 		return ison;
 	}
+
+	//bool BossTime::getdted()
+	//{
+	//	time_t time_seconds = time(0);
+	//	tm now_time;
+	//	localtime_s(&now_time, &time_seconds);
+	//	char tmp_buf[32];
+	//	char tmp_str[32];
+	//	const char* tmp_day = "";
+	//	sprintf_s(tmp_buf, u8"%d%02d%02d", now_time.tm_year + 1900, now_time.tm_mon + 1, now_time.tm_mday);
+	//	strcpy_s(tmp_str, tmp_buf);
+	//	strcat_s(tmp_str, tmp_day);
+	//	tmp_day = tmp_str;
+	//	if (now_time.tm_hour > 7 && isnewday_.value() != tmp_day)
+	//	{
+	//		isnewday_.value(tmp_day);
+	//		return true;
+	//	}
+	//	return false;
+	//}
 
 	InputResponse BossTime::OnInputChangeweb(bool changed, const std::set<uint>& keys, const std::list<EventKey>& changedKeys)
 	{

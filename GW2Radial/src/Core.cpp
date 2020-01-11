@@ -268,6 +268,8 @@ void Core::DrawOver(IDirect3DDevice9* device, bool frameDrawn, bool sceneEnded)
 						"快捷键 Shift+Alt+M 打开设置菜单并绑定你的按键.\r\n "
 						"快捷键 F8 打开或关闭BOSS计时器.\r\n"
 						"快捷键 F9 打开或关闭鼠标跟随方块.\r\n "
+						"快捷键 F10 打开输出循环提示器设置面板.\r\n "
+						"默认快捷键 F7 打开输出循环提示器.\r\n "
 						"需要了解更多请访问项目网站,项目网站在这\r\n");
 
 					ImGui::SetCursorPosX(windowSize.x * 0.1f);

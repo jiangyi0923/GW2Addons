@@ -17,10 +17,12 @@ namespace GW2Radial
 	std::string danqiangbt = "";
 	bool anjzq = false;
 
+	
+
 	LoopPrompt::LoopPrompt() : showKeybindLoopPrompt_("show_LoopPrompt", "Show LoopPrompt", { VK_F10 }, false),
 		showkeybind_("show_LoopPromptUI", u8"呼出循环器", { VK_F7 }, true),
 		tabekeybind_("tabekey", u8"切换"), pingbiwasd_(u8"循环器屏蔽WASD方向键","pingbiwasd","loopavename",true), pingbiRK_(u8"循环器屏蔽鼠标右键", "pingbiRK", "loopavename", true),
-		fangunkeybind_("fangunkey", u8"翻滚"), LoopPromptA_(u8"循环器透明度", "LoopPromptA_", "loopavename", 0.5f),
+		fangunkeybind_("fangunkey", u8"翻滚"), LoopPromptA_(u8"循环器透明度", "LoopPromptA_", "loopavename", 0.5f), LoopPromptB_(u8"循环器按钮透明度", "LoopPromptB_", "loopavename", 1.0f),
 		anjian01_("F1_", u8"F1"), anjian02_("F2_", u8"F2"), anjian03_("F3_", u8"F3"), anjian04_("F4_", u8"F4"), anjian05_("F5_", u8"F5"),
 		anjian06_("wuqi1_", u8"武器1"), anjian07_("wuqi2_", u8"武器2"), anjian08_("wuqi3_", u8"武器3"), anjian09_("wuqi4_", u8"武器4"), anjian10_("wuqi5_", u8"武器5"),
 		anjian11_("ziliao_", u8"治疗"), anjian12_("ca1_", u8"插槽1"), anjian13_("ca2_", u8"插槽2"), anjian14_("ca3_", u8"插槽3"), anjian15_("jy_", u8"精英")
@@ -187,6 +189,7 @@ namespace GW2Radial
 		endPos++;
 		//重建BTofLOOP数据
 		BTofLOOP.clear();
+		bool havet = false;
 		for (int i = 0; i < TMPbuttonitiems; i++)
 		{
 			startPos = (int)tmp.find(beginFlag, startPos);
@@ -194,6 +197,20 @@ namespace GW2Radial
 			beginPos = startPos + (int)beginFlag.length();
 			endingpos = endPos - startPos - (int)beginFlag.length();
 			BTofLOOP.push_back(tmp.substr(beginPos, endingpos).c_str());
+			if (BTofLOOP[i].find(u8"标记",0) != BTofLOOP[i].npos)
+			{
+				havet = true;
+				haveteit = true;
+				teit = i;
+			}
+			else
+			{
+				if (!havet)
+				{
+					haveteit = false;
+					teit = 0;
+				}	
+			}
 			startPos++;
 			endPos++;
 		}
@@ -201,9 +218,26 @@ namespace GW2Radial
 	//删除按钮顺序存档
 	void LoopPrompt::Deleteloopdate(char* tmpbuf1)
 	{
-		if (loopnames_ >0)
+		std::string  gre = tmpbuf1;
+		bool havesomeoneistrue = false;
+		if (loopnames_ > 0)
 		{
-			std::string  gre = tmpbuf1;
+			for (int i = 0; i < loopnames_; i++)
+			{
+				if (BTofTABE[i].c_str() == gre)
+				{
+					havesomeoneistrue = true;
+				}
+			}
+		}
+		else
+		{
+			Erros = u8"没有给当前循环排序设置名称!";
+		}
+
+
+		if (havesomeoneistrue)
+		{
 			std::string  gre2;
 			if (gre.length() > 1)
 			{
@@ -223,12 +257,13 @@ namespace GW2Radial
 				BTofLOOP.clear();
 				cfg->Save();
 				loadloopdate();
-				Erros = u8"当前循环排序名称已删除!";
+				Erros = u8"当前循环排序名称的存档已删除!";
 			}
-			else
-			{
-				Erros = u8"没有给当前循环排序设置名称!";
-			}
+
+		}
+		else
+		{
+			Erros = u8"没有当前循环排序名称的存档!";
 		}
 	}
 	//所有按钮设置和添加
@@ -377,7 +412,7 @@ namespace GW2Radial
 		}
 	}
 	//删除某个按钮并且更新按钮排序
-	void deletsone(std::string tmp) 
+	void LoopPrompt::deletsone(std::string tmp)
 	{
 		if (!schans)
 		{
@@ -388,6 +423,11 @@ namespace GW2Radial
 				if (*it == tmp)
 				{
 					it = BTofLOOP.erase(it);
+					if (tmp.find(u8"标记",0) != tmp.npos)
+					{
+						haveteit = false;
+						teit = 0;
+					}
 				}
 				else
 				{
@@ -520,10 +560,10 @@ namespace GW2Radial
 		{
 			std::string tmp = "|";
 			tmp += buf1;
-			tmp += u8"-享,|"+std::to_string(TMPbuttonitiems) +",|";
+			tmp += u8"享,|"+std::to_string(TMPbuttonitiems) +",|";
 			for (int i = 0; i < TMPbuttonitiems; i++)
 			{
-				for (int t = 0; t < 17; t++)
+				for (int t = 0; t < 18; t++)
 				{
 					if (BTofLOOP[i].find(EncodeMap[t],0) != BTofLOOP[i].npos)
 					{
@@ -553,7 +593,6 @@ namespace GW2Radial
 	//解析分享文字
 	void LoopPrompt::parsFXWZ()
 	{
-		//|方吞逻逤戎1{享},|&A,&F,&K,&B,&G,&L,&M,&N,&C,&H,&L,&M,&N,&D,&I,&L,&M,&N,&E,&J,&O,&P,&Q,
 		std::string tmp = buf2;
 		try
 		{
@@ -594,7 +633,7 @@ namespace GW2Radial
 				startPos++;
 				endPos++;
 				beginFlag = "&";
-				BTofLOOP.clear(); //|河湾{享},|19,|&F,&F,&F,&F,&F,&F,&F,&F,&F,&F,&F,&F,&F,&F,&F,&F,&F,&F,&F,
+				BTofLOOP.clear(); 
 				for (int i = 0; i < TMPbuttonitiems; i++)
 				{
 					startPos = (int)tmp.find(beginFlag, startPos);
@@ -602,8 +641,14 @@ namespace GW2Radial
 					beginPos = startPos + (int)beginFlag.length();
 					endingpos = endPos - startPos - (int)beginFlag.length();
 					std::string tmp3 = tmp.substr(beginPos, endingpos).c_str();
-					for (int t = 0; t < 17; t++)
+					for (int t = 0; t < 18; t++)
 					{
+						if (tmp3.find(DecodeMap[17], 0) != tmp3.npos)
+						{
+							haveteit = true;
+							teit = i;
+						}
+
 						if (tmp3.find(DecodeMap[t], 0) != tmp3.npos)
 						{
 							BTofLOOP.push_back((std::to_string(i) + "{" + EncodeMap[t] + "}").c_str());
@@ -627,6 +672,39 @@ namespace GW2Radial
 		
 	}
 
+	//void LoopPrompt::putky(std::set<uint>& keys)
+	//{
+
+	//	if (!keys.empty())
+	//	{
+	//		auto& io = ImGui::GetIO();
+	//		cursorResetPosition_ = { static_cast<int>(io.MousePos.x), static_cast<int>(io.MousePos.y) };
+	//		Input::i()->SendKeybind(keys, cursorResetPosition_);
+	//	}
+	//	
+	//}
+
+	//void LoopPrompt::getky(std::string tmpname)
+	//{
+	//	if (tmpname == anjian01_.keysDisplayStringArray().data())keys_ = anjian01_.keys();
+	//	if (tmpname == anjian02_.keysDisplayStringArray().data()) keys_ = anjian02_.keys();
+	//	if (tmpname == anjian03_.keysDisplayStringArray().data()) keys_ = anjian03_.keys();
+	//	if (tmpname == anjian04_.keysDisplayStringArray().data()) keys_ = anjian04_.keys();
+	//	if (tmpname == anjian05_.keysDisplayStringArray().data()) keys_ = anjian05_.keys();
+	//	if (tmpname == anjian06_.keysDisplayStringArray().data()) keys_ = anjian06_.keys();
+	//	if (tmpname == anjian07_.keysDisplayStringArray().data()) keys_ = anjian07_.keys();
+	//	if (tmpname == anjian08_.keysDisplayStringArray().data()) keys_ = anjian08_.keys();
+	//	if (tmpname == anjian09_.keysDisplayStringArray().data()) keys_ = anjian09_.keys();
+	//	if (tmpname == anjian10_.keysDisplayStringArray().data()) keys_ = anjian10_.keys();
+	//	if (tmpname == anjian11_.keysDisplayStringArray().data()) keys_ = anjian11_.keys();
+	//	if (tmpname == anjian12_.keysDisplayStringArray().data()) keys_ = anjian12_.keys();
+	//	if (tmpname == anjian13_.keysDisplayStringArray().data()) keys_ = anjian13_.keys();
+	//	if (tmpname == anjian14_.keysDisplayStringArray().data()) keys_ = anjian14_.keys();
+	//	if (tmpname == anjian15_.keysDisplayStringArray().data()) keys_ = anjian15_.keys();
+	//	if (tmpname == tabekeybind_.keysDisplayStringArray().data()) keys_ = tabekeybind_.keys();
+	//	if (tmpname == fangunkeybind_.keysDisplayStringArray().data()) keys_ = fangunkeybind_.keys();
+	//}
+
 	void LoopPrompt::Draw()
 	{
 		if (isVisibleLoopPrompt_)
@@ -635,8 +713,7 @@ namespace GW2Radial
 			ImGui::Begin(u8"输出循环提示器设置", &isVisibleLoopPrompt_, ImGuiWindowFlags_NoResize);
 			ImGui::Columns(2, false);
 			ImGui::Separator();
-			//ImGui::Text(u8"保存当前按键排序(名称不能为空!不要输入\"|\"和\",\"!)");
-			ImGui::PushItemWidth(200.0f);
+			ImGui::PushItemWidth(195.0f);
 			ImGui::InputText(u8"名称", buf1, 128); ImGui::SameLine();
 			if (ImGui::IsItemHovered())
 			{
@@ -647,7 +724,7 @@ namespace GW2Radial
 			if (ImGui::Button(u8"保存")) saveloopdate(buf1); ImGui::SameLine();
 			if (ImGui::Button(u8"删除")) Deleteloopdate(buf1); ImGui::SameLine();
 			if (ImGui::Button(u8"创建共享")) makeFXWZ();
-			ImGui::PushItemWidth(200.0f);
+			ImGui::PushItemWidth(195.0f);
 			ImGui::InputText(u8"##载入", buf2, 10240); ImGui::SameLine();
 			if (ImGui::Button(u8"载入共享")) parsFXWZ();
 			ImGui::NextColumn();
@@ -655,12 +732,15 @@ namespace GW2Radial
 			ImGuiConfigurationWrapper(&ImGui::Checkbox, pingbiRK_);
 			ImGui::Columns(1);
 #pragma region 按键设置-按键设置完成!清除未完成
-			ImGui::Columns(3, false);
+			ImGui::Columns(4, false);
 			ImGui::Separator();
 			setkeys(showkeybind_);
 			ImGui::NextColumn();
-			ImGui::PushItemWidth(150.0f);
+			ImGui::PushItemWidth(75.0f);
 			ImGuiConfigurationWrapper(&ImGui::SliderFloat, LoopPromptA_, 0.01f, 1.0f, "%.2f", 1.0f);
+			ImGui::NextColumn();
+			ImGui::PushItemWidth(75.0f);
+			ImGuiConfigurationWrapper(&ImGui::SliderFloat, LoopPromptB_, 0.01f, 1.0f, "%.2f", 1.0f);
 			ImGui::NextColumn();
 			if (ImGui::Button(u8"清除所有按钮"))
 			{
@@ -668,15 +748,54 @@ namespace GW2Radial
 				BTofLOOP.clear();
 			}
 			ImGui::Columns(1);
-
-			ImGui::Columns(3, false);
+			
+			
 			ImGui::Separator();
+			ImGui::BeginChild("Child11", ImVec2(ImGui::CalcTextSize(u8"按键需要跟游戏设置一样(鼠标左右键已排除)").x, 30), false);
+			
 			ImGui::Text(u8"按键需要跟游戏设置一样(鼠标左右键已排除)");
-			ImGui::NextColumn();
+			ImGui::EndChild();
+			ImGui::SameLine();
+			
+			ImGui::BeginChild("Child12", ImVec2(0, 30), false);
+			ImGui::Separator();
+			ImGui::Columns(3, false);
 			setkeys(tabekeybind_);
 			ImGui::NextColumn();
 			setkeys(fangunkeybind_);
+			ImGui::NextColumn();
+			ImGui::Text(u8"主循环标识");
+			if (ImGui::SameLine(); ImGui::Button(u8"添加##zhuxunhuanbiaos"))
+			{
+				if (TMPbuttonitiems > 0)
+				{
+					bool havebj = false;
+					for (int i = 0; i < TMPbuttonitiems; i++)
+					{
+						if (BTofLOOP[i].find(u8"{标记}", 0) != BTofLOOP[i].npos)
+						{
+							havebj = true;
+						}
+					}
+					if (havebj)
+					{
+						Erros = u8"存在标记";
+					}
+					else
+					{
+						BTofLOOP.push_back((std::to_string(TMPbuttonitiems) + u8"{" + EncodeMap[17] + "}").c_str());
+						haveteit = true;
+						teit = TMPbuttonitiems;
+						TMPbuttonitiems++;
+					}
+				}
+				else
+				{
+					Erros = u8"不存在开场排序按键,请添加按钮后再添加标记";
+				}
+			}
 			ImGui::Columns(1);
+			ImGui::EndChild();
 			
 			ImGui::Columns(5, NULL);
 			ImGui::Separator();
@@ -699,6 +818,7 @@ namespace GW2Radial
 			setkeys(anjian15_); ImGui::NextColumn();
 
 			ImGui::Columns(1);
+			
 			ImGui::Separator();
 #pragma endregion
 
@@ -745,7 +865,7 @@ namespace GW2Radial
 					if (ImGui::IsItemHovered())
 					{
 						ImGui::BeginTooltip();
-						ImGui::TextUnformatted(BTofLOOP[i].c_str());
+						ImGui::TextUnformatted((BTofLOOP[i] + u8"-点击删除此按钮").c_str());
 						ImGui::EndTooltip();
 					}
 					ImGui::NextColumn();
@@ -769,59 +889,123 @@ namespace GW2Radial
 			ImGui::SetNextWindowBgAlpha(LoopPromptA_.value());//透明度
 			ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
 			ImGui::Begin(u8"输出循环", &isVisibleLoopPromptui_, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_AlwaysAutoResize);
-
+			
 			for (int i = anjiansunxu; i < TMPbuttonitiems; i++)
 			{
-				std::string tmp =  getksystring(BTofLOOP[i].c_str());
-				if (i< anjiansunxu +5)
+
+				std::string tmp = getksystring(BTofLOOP[i].c_str());
+
+				if (tmp.find(u8"标记", 0) != tmp.npos)
 				{
-					if (i == anjiansunxu)
-					{
-						//font_
-						ImGui::PushFont(Core::i()->font());
-						float tmpposx = 45.0f;
-						if (ImGui::CalcTextSize(tmp.c_str()).x + 10.0f > tmpposx)
-						{
-							tmpposx = ImGui::CalcTextSize(tmp.c_str()).x + 10.0f;
-						}
-						ImGui::PushStyleColor(ImGuiCol_Button, ImGui::GetStyle().Colors[ImGuiCol_ButtonHovered]);
-						ImGui::Button(tmp.c_str(), ImVec2(tmpposx, 45.0f));
-						ImGui::PopFont();
-						ImGui::PopStyleColor();
-						danqiangbt = BTofLOOP[i].c_str();
-					}
-					else if ( i == anjiansunxu +1)
-					{
-						ImGui::Button(tmp.c_str(), ImVec2(ImGui::CalcTextSize(tmp.c_str()).x + 20.0f, ImGui::CalcTextSize(tmp.c_str()).y + 20.0f));
-					}
-					else if (i == anjiansunxu + 2)
-					{
-						ImGui::Button(tmp.c_str(), ImVec2(ImGui::CalcTextSize(tmp.c_str()).x + 15.0f, ImGui::CalcTextSize(tmp.c_str()).y + 15.0f));
-					}
-					else
-					{
-						ImGui::Button(tmp.c_str(), ImVec2(ImGui::CalcTextSize(tmp.c_str()).x + 10.0f, ImGui::CalcTextSize(tmp.c_str()).y + 10.0f));
-					}
-					ImGui::SameLine();
+					loot2teit = true;
 				}
 				else
 				{
-					ImGui::SameLine();
-					continue;
+					if (i < anjiansunxu + 5)
+					{
+						if (i == anjiansunxu)
+						{
+							//font_
+							ImGui::PushFont(Core::i()->font());
+							float tmpposx = 45.0f;
+							if (ImGui::CalcTextSize(tmp.c_str()).x + 10.0f > tmpposx)
+							{
+								tmpposx = ImGui::CalcTextSize(tmp.c_str()).x + 10.0f;
+							}
+
+							if (haveteit && teit > 0 && anjiansunxu < teit)
+							{
+								ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0.6f, 0.6f, 0.6f, LoopPromptB_.value()));
+							}
+							else
+							{
+								ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0.53f, 0.53f, 0.53f, LoopPromptB_.value()));
+							}
+							ImGui::Button(tmp.c_str(), ImVec2(tmpposx, 45.0f));
+							//if (ImGui::Button(tmp.c_str(), ImVec2(tmpposx, 45.0f)))
+							//{
+							//	getky(tmp);
+							//	putky(keys_);
+							//	anjiansunxu++;
+							//}
+							ImGui::PopFont();
+							ImGui::PopStyleColor();
+							danqiangbt = BTofLOOP[i].c_str();
+						}
+						else if (i == anjiansunxu + 1)
+						{
+							if (haveteit && teit > 0 && i < teit)
+							{
+								ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0.59f, 0.59f, 0.59f, LoopPromptB_.value()));
+							}
+							else
+							{
+								ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0.52f, 0.52f, 0.52f, LoopPromptB_.value()));
+							}
+							ImGui::Button(tmp.c_str(), ImVec2(ImGui::CalcTextSize(tmp.c_str()).x + 20.0f, ImGui::CalcTextSize(tmp.c_str()).y + 20.0f));
+							ImGui::PopStyleColor();
+						}
+						else if (i == anjiansunxu + 2)
+						{
+							if (haveteit && teit > 0 && i < teit)
+							{
+								ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0.58f, 0.58f, 0.58f, LoopPromptB_.value()));
+							}
+							else
+							{
+								ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0.51f, 0.51f, 0.51f, LoopPromptB_.value()));
+							}
+							ImGui::Button(tmp.c_str(), ImVec2(ImGui::CalcTextSize(tmp.c_str()).x + 15.0f, ImGui::CalcTextSize(tmp.c_str()).y + 15.0f));
+							ImGui::PopStyleColor();
+						}
+						else
+						{
+							if (haveteit && teit > 0 && i < teit)
+							{
+								ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0.57f, 0.57f, 0.57f, LoopPromptB_.value()));
+							}
+							else
+							{
+								ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0.50f, 0.50f, 0.50f, LoopPromptB_.value()));
+							}
+							ImGui::Button(tmp.c_str(), ImVec2(ImGui::CalcTextSize(tmp.c_str()).x + 10.0f, ImGui::CalcTextSize(tmp.c_str()).y + 10.0f));
+							ImGui::PopStyleColor();
+						}
+						ImGui::SameLine();
+					}
+					else
+					{
+						ImGui::SameLine();
+						continue;
+					}
 				}
 			}
 			if (anjzq && anjiansunxu  < TMPbuttonitiems)
 			{
-
 				anjiansunxu++;
 				anjzq = false;
 			}
 			else
 			{
+				
+				if (loot2teit && haveteit && teit > 0 && anjiansunxu == teit)
+				{
+					isoneof2loop = true;
+					anjiansunxu++;
+				}
 				if (anjiansunxu == TMPbuttonitiems )
 				{
-					anjiansunxu = 0;
-					anjzq = false;
+					
+					if (isoneof2loop && loot2teit && haveteit && teit > 0)
+					{
+						anjiansunxu = teit+1;
+						anjzq = false;
+					}
+					else
+					{
+						anjiansunxu = 0;
+						anjzq = false;
+					}
 				}
 			}
 
@@ -834,6 +1018,7 @@ namespace GW2Radial
 			if (ImGui::SmallButton("R##LoopPromptui_R"))
 			{
 				anjiansunxu = 0;
+				isoneof2loop = false;
 			}
 			ImGui::EndGroup();
 
