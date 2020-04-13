@@ -4,6 +4,7 @@
 #include <Wheel.h>
 #include <Utility.h>
 #include <Core.h>
+#include <MiscTab.h>
 namespace GW2Radial
 {
 	DEFINE_SINGLETON(LoopPrompt);
@@ -19,7 +20,8 @@ namespace GW2Radial
 
 	
 
-	LoopPrompt::LoopPrompt() : showKeybindLoopPrompt_("show_LoopPrompt", "Show LoopPrompt", { VK_F10 }, false),
+	LoopPrompt::LoopPrompt() : 
+		//showKeybindLoopPrompt_("show_LoopPrompt", "Show LoopPrompt", { VK_F10 }, false),
 		showkeybind_("show_LoopPromptUI", u8"呼出循环器", { VK_F7 }, true),
 		tabekeybind_("tabekey", u8"切换"), pingbiwasd_(u8"循环器屏蔽WASD方向键","pingbiwasd","loopavename",true), pingbiRK_(u8"循环器屏蔽鼠标右键", "pingbiRK", "loopavename", true),
 		fangunkeybind_("fangunkey", u8"翻滚"), LoopPromptA_(u8"循环器透明度", "LoopPromptA_", "loopavename", 0.5f), LoopPromptB_(u8"循环器按钮透明度", "LoopPromptB_", "loopavename", 1.0f),
@@ -686,7 +688,7 @@ namespace GW2Radial
 
 	//void LoopPrompt::getky(std::string tmpname)
 	//{
-	//	if (tmpname == anjian01_.keysDisplayStringArray().data())keys_ = anjian01_.keys();
+	//	if (tmpname == anjian01_.keysDisplayStringArray().data()) keys_ = anjian01_.keys();
 	//	if (tmpname == anjian02_.keysDisplayStringArray().data()) keys_ = anjian02_.keys();
 	//	if (tmpname == anjian03_.keysDisplayStringArray().data()) keys_ = anjian03_.keys();
 	//	if (tmpname == anjian04_.keysDisplayStringArray().data()) keys_ = anjian04_.keys();
@@ -1029,96 +1031,99 @@ namespace GW2Radial
 
 	InputResponse GW2Radial::LoopPrompt::OnInputChange(bool changed, const std::set<uint>& keys, const std::list<EventKey>& changedKeys)
 	{
-		//设置界面
-		const bool isMenuKeybindLoopPrompt = keys == showKeybindLoopPrompt_.keys();
-		if (isMenuKeybindLoopPrompt)
-		{
-			isVisibleLoopPrompt_ = true;
-		}
-		//循环器界面
-		const bool isMenuKeybindshowkeybind_ = keys == showkeybind_.keys();
-		if (isMenuKeybindshowkeybind_)
-		{
-			isVisibleLoopPromptui_ = true;
-		}
-		//检测按钮
-		if (isVisibleLoopPromptui_)
-		{
-			//anjianjiance(keys);
-			auto fullKeybind = keys;
-			fullKeybind.erase(VK_LBUTTON);
-			fullKeybind.erase(VK_RBUTTON);
-			if (pingbiwasd_.value())
-			{
-				fullKeybind.erase(0x41);
-				fullKeybind.erase(0x53);
-				fullKeybind.erase(0x57);
-				fullKeybind.erase(0x44);
-			}
-			for (const auto& ek : changedKeys)
-			{
-				if (ek.vk == VK_LBUTTON)
-					continue;
-				if (ek.vk == VK_RBUTTON && pingbiRK_.value())
-					continue;
-				if (pingbiwasd_.value())
-				{
-					if (ek.vk == 0x41)
-						continue;
-					if (ek.vk == 0x53)
-						continue;
-					if (ek.vk == 0x57)
-						continue;
-					if (ek.vk == 0x44)
-						continue;
-				}
-				if (!ek.down)
-				{
-					fullKeybind.insert(ek.vk);
-					anjianjiance(fullKeybind);
-				}
-			}
-			
-		}
 
 
-		//检测设置按键
-		if (shezianjian)
-		{
-		    auto fullKeybind = keys;
-			fullKeybind.erase(VK_LBUTTON);
-			fullKeybind.erase(VK_RBUTTON);
-			if (pingbiwasd_.value())
+			//设置界面
+			const bool isMenuKeybindLoopPrompt = keys == MiscTab::i()->SHOWLOOPTIMER_CK().keys();
+			if (isMenuKeybindLoopPrompt&& MiscTab::i()->UseLooptool())
 			{
-				fullKeybind.erase(0x41);
-				fullKeybind.erase(0x53);
-				fullKeybind.erase(0x57);
-				fullKeybind.erase(0x44);
+				isVisibleLoopPrompt_ = true;
 			}
-			for (const auto& ek : changedKeys)
+			//循环器界面
+			const bool isMenuKeybindshowkeybind_ = keys == showkeybind_.keys();
+			if (isMenuKeybindshowkeybind_ && MiscTab::i()->UseLooptool())
 			{
-				if (ek.vk == VK_LBUTTON)
-					continue;
-				if (ek.vk == VK_RBUTTON && pingbiRK_.value())
-					continue;
+				isVisibleLoopPromptui_ = true;
+			}
+			//检测按钮
+			if (isVisibleLoopPromptui_ && MiscTab::i()->UseLooptool())
+			{
+				//anjianjiance(keys);
+				auto fullKeybind = keys;
+				fullKeybind.erase(VK_LBUTTON);
+				fullKeybind.erase(VK_RBUTTON);
 				if (pingbiwasd_.value())
 				{
-					if (ek.vk == 0x41)
-						continue;
-					if (ek.vk == 0x53)
-						continue;
-					if (ek.vk == 0x57)
-						continue;
-					if (ek.vk == 0x44)
-						continue;
+					fullKeybind.erase(0x41);
+					fullKeybind.erase(0x53);
+					fullKeybind.erase(0x57);
+					fullKeybind.erase(0x44);
 				}
-				if (!ek.down)
+				for (const auto& ek : changedKeys)
 				{
-					fullKeybind.insert(ek.vk);
-					setkeysok(fullKeybind);
+					if (ek.vk == VK_LBUTTON)
+						continue;
+					if (ek.vk == VK_RBUTTON && pingbiRK_.value())
+						continue;
+					if (pingbiwasd_.value())
+					{
+						if (ek.vk == 0x41)
+							continue;
+						if (ek.vk == 0x53)
+							continue;
+						if (ek.vk == 0x57)
+							continue;
+						if (ek.vk == 0x44)
+							continue;
+					}
+					if (!ek.down)
+					{
+						fullKeybind.insert(ek.vk);
+						anjianjiance(fullKeybind);
+					}
+				}
+
+			}
+
+
+			//检测设置按键
+			if (shezianjian && MiscTab::i()->UseLooptool())
+			{
+				auto fullKeybind = keys;
+				fullKeybind.erase(VK_LBUTTON);
+				fullKeybind.erase(VK_RBUTTON);
+				if (pingbiwasd_.value())
+				{
+					fullKeybind.erase(0x41);
+					fullKeybind.erase(0x53);
+					fullKeybind.erase(0x57);
+					fullKeybind.erase(0x44);
+				}
+				for (const auto& ek : changedKeys)
+				{
+					if (ek.vk == VK_LBUTTON)
+						continue;
+					if (ek.vk == VK_RBUTTON && pingbiRK_.value())
+						continue;
+					if (pingbiwasd_.value())
+					{
+						if (ek.vk == 0x41)
+							continue;
+						if (ek.vk == 0x53)
+							continue;
+						if (ek.vk == 0x57)
+							continue;
+						if (ek.vk == 0x44)
+							continue;
+					}
+					if (!ek.down)
+					{
+						fullKeybind.insert(ek.vk);
+						setkeysok(fullKeybind);
+					}
 				}
 			}
-		}
+
 		return isMenuKeybindLoopPrompt ? InputResponse::PREVENT_ALL : InputResponse::PASS_TO_GAME;
 	}
 

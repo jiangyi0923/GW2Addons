@@ -27,12 +27,13 @@ namespace GW2Radial
 		//void putky(std::set<uint>& keys);
 		//void getky(std::string tmpname);
 		void Draw();
-		const Keybind& showKeybind() const { return showKeybindLoopPrompt_; }
+		//const Keybind& showKeybind() const { return showKeybindLoopPrompt_; }
 	protected:
 		InputResponse OnInputChange(bool changed, const std::set<uint>& keys, const std::list<EventKey>& changedKeys);
 		bool isVisibleLoopPrompt_ = false;
 		bool isVisibleLoopPromptui_ = false;
-		Keybind showKeybindLoopPrompt_, showkeybind_,tabekeybind_ , fangunkeybind_;
+		//Keybind showKeybindLoopPrompt_;
+		Keybind showkeybind_, tabekeybind_, fangunkeybind_;
 
 		Keybind anjian01_, anjian02_, anjian03_, anjian04_, anjian05_;
 		Keybind anjian06_, anjian07_, anjian08_, anjian09_, anjian10_;
@@ -48,8 +49,7 @@ namespace GW2Radial
 		bool CGdate = false;
 		std::string Erros = "";
 		Input::InputChangeCallback inputChangeCallback_;
-		//std::set<uint> keys_;
-		//std::optional<Point> cursorResetPosition_;
+
 		bool haveteit = false;
 		int  teit = 0;
 		bool loot2teit = false;

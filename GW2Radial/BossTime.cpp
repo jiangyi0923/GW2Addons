@@ -56,6 +56,7 @@ namespace GW2Radial
 		case 34:tmp = u8"软泥坑"; break;
 		case 35:tmp = u8"金属音乐会"; break;
 		case 36:tmp = u8"冬季风暴"; break;
+		case 37:tmp = u8"德拉克"; break;
 		default:break;
 		}
 		return tmp;
@@ -102,16 +103,16 @@ namespace GW2Radial
 		case 34:tmp = u8"[&BP0LAAA=]"; break;
 		case 35:tmp = u8"[&BBkMAAA=]"; break;
 		case 36:tmp = u8"[&BCcMAAA=]"; break;
+		case 37:tmp = u8"[&BDkMAAA=]"; break;	
 		default:break;
 		}
 		return tmp;
 	}
 #pragma endregion
-	BossTime::BossTime():showKeybindweb_("show_BossTime", "Show BossTime", { VK_F8 }, false),
+	BossTime::BossTime()://showKeybindweb_("show_BossTime", "Show BossTime", { VK_F8 }, false),
 		gudingwinpos_(u8"锁定窗口位置", "gudingwinpos_", "shubiao", false),
 		gudingwinpos_x(u8"窗口位置x", "gudingwinpos_x", "shubiao", 500.0f),
 		gudingwinpos_y(u8"窗口位置y", "gudingwinpos_y", "shubiao", 5.0f)
-		//isnewday_(u8"新的一天", "isnewday", "shubiao", "20191211")
 	{
 		inputChangeCallbackweb_ = [this](bool changed, const std::set<uint>& keys, const std::list<EventKey>& changedKeys) { return OnInputChangeweb(changed, keys, changedKeys); };
 		Input::i()->AddInputChangeCallback(&inputChangeCallbackweb_);
@@ -393,14 +394,19 @@ namespace GW2Radial
 							{
 								s = 20;
 							}
-							if (BSPX3[i] == 36)
+							//if (BSPX3[i] == 36)
+							//{
+							//	s = 35;
+							//}
+							if (BSPX3[i] == 37)
 							{
-								s = 35;
+								s = 5;
 							}
 							Button_showit(BSPX3[i], t, i, h, s);
+							if (s == 5) s = s + 10;
 							if (s == 10) s = s - 10;
 							if (s == 20) s = s - 5;
-							if (s == 35) s = s + 10;
+							//if (s == 35) s = s + 10;
 							if (s < 60) s = s + 15;
 							if (s == 60) h++, s = 0;
 							if (h == 24)	  h = 0;
@@ -643,7 +649,7 @@ namespace GW2Radial
 
 	InputResponse BossTime::OnInputChangeweb(bool changed, const std::set<uint>& keys, const std::list<EventKey>& changedKeys)
 	{
-		const bool isMenuKeybindweb = keys == showKeybindweb_.keys();
+		const bool isMenuKeybindweb = keys == MiscTab::i()->SHOWBOSSTIMER_CK().keys();
 		if (isMenuKeybindweb)
 		{
 			kput = 1;

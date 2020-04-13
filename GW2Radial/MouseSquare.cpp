@@ -5,7 +5,7 @@ namespace GW2Radial
 {
 	DEFINE_SINGLETON(MouseSquare);
 
-	MouseSquare::MouseSquare() : showKeybindMouseSquare_("show_MouseSquare", "Show MouseSquare", { VK_F9 }, false)
+	MouseSquare::MouseSquare() //: showKeybindMouseSquare_("show_MouseSquare", "Show MouseSquare", { VK_F9 }, false)
 	{
 		inputChangeCallback_ = [this](bool changed, const std::set<uint>& keys, const std::list<EventKey>& changedKeys) { return OnInputChange(changed, keys, changedKeys); };
 		Input::i()->AddInputChangeCallback(&inputChangeCallback_);
@@ -101,7 +101,7 @@ namespace GW2Radial
 
 	InputResponse MouseSquare::OnInputChange(bool changed, const std::set<uint>& keys, const std::list<EventKey>& changedKeys)
 	{
-		const bool isMenuKeybindMouseSquare = keys == showKeybindMouseSquare_.keys();
+		const bool isMenuKeybindMouseSquare = keys == MiscTab::i()->SHOWMOUSELOOP_CK().keys();
 		if (isMenuKeybindMouseSquare)
 		{
 			kput = 1;

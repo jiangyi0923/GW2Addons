@@ -17,8 +17,7 @@ public:
 	//boos
 	bool showboostime() const { return showboostime_.value(); }
 	void showboostime(bool value) { return showboostime_.value(value); }
-	//bool getmingtian() const { return getmingtian_.value(); }
-	//void getmingtian(bool value) { return getmingtian_.value(value); }
+
 	bool getweb() const { return getweb_.value(); }
 	void getweb(bool value) { return getweb_.value(value); }
 	bool showfankuai() const { return showfankuai_.value(); }
@@ -51,7 +50,14 @@ public:
 	bool jianyimoshi() const { return jianyimoshi_.value(); }
 	void jianyimoshi(bool value) { return jianyimoshi_.value(value); }
 
-	//zhengtitoumingdu_ jianyimoshi_
+	bool UseLooptool() const { return uselooptool_.value(); }
+	void UseLooptool(bool value) { return uselooptool_.value(value); }
+
+
+	const Keybind& SHOWBOSSTIMER_CK() const { return SHOWBOSSTIMER_CK_; }
+	const Keybind& SHOWMOUSELOOP_CK() const { return SHOWMOUSELOOP_CK_; }
+	const Keybind& SHOWLOOPTIMER_CK() const { return SHOWLOOPTIMER_CK_; }
+
 	//===================================================
 	uint vk_ = 0;
 protected:
@@ -75,6 +81,20 @@ protected:
 	ConfigurationOption<float> jiemiandaxiao_;
 	ConfigurationOption<float> zhengtitoumingdu_;
 	ConfigurationOption<bool> jianyimoshi_;
+	ConfigurationOption<bool> uselooptool_;
+	//设置按键
+	//boss计时器
+	Keybind SHOWBOSSTIMER_CK_;
+	//鼠标跟随
+	Keybind SHOWMOUSELOOP_CK_;
+	//输出循环
+	Keybind SHOWLOOPTIMER_CK_;
+
+	void setkeys(Keybind& setting);
+	void setkeysok(std::set<uint>& keys);
+	bool shezianjian = false;
+	InputResponse OnInputChange(bool changed, const std::set<uint>& keys, const std::list<EventKey>& changedKeys);
+	Input::InputChangeCallback inputChangeCallback_;
 	//===================================================
 };
 
