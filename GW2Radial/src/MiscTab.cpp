@@ -10,9 +10,9 @@ namespace GW2Radial
 	DEFINE_SINGLETON(MiscTab);
 
 	MiscTab::MiscTab() :
-		SHOWBOSSTIMER_CK_("SHOWBOSSTIMER_CK", u8"BOSS计时器快捷键", { VK_F8 }, true),
-		SHOWMOUSELOOP_CK_("SHOWMOUSELOOP_CK", u8"鼠标跟随方块快捷键", { VK_F9 }, true),
-		SHOWLOOPTIMER_CK_("SHOWLOOPTIMER_CK", u8"输出循环提示器设置界面快捷键", { VK_F10 }, true),
+		SHOWBOSSTIMER_CK_("SHOWBOSSTIMER_CK", u8"BOSS计时器快捷键", {VK_F8}),
+		SHOWMOUSELOOP_CK_("SHOWMOUSELOOP_CK", u8"鼠标跟随方块快捷键", { VK_F9}),
+		SHOWLOOPTIMER_CK_("SHOWLOOPTIMER_CK", u8"输出循环提示器设置界面快捷键", { VK_F10}),
 		shubiaoPOSX_(u8"方块大小", "shubiaoPOSX", "shubiao", 50.0f),
 		shubiaoPOSY_(u8"方块大小", "shubiaoPOSY", "shubiao", 50.0f),
 		shubiaoRED_(u8"方块颜色", "shubiaoRED", "shubiao", 1.0f),
@@ -25,7 +25,7 @@ namespace GW2Radial
 		jiemiandaxiao_(u8"界面大小", "jiemiandaxiao_", "shubiao", 1.0f),
 		shubiaofankuaiyangshi_(u8"方块样式", "shubiaofankuaiyangshi_", "shubiao", 0),
 		zhengtitoumingdu_(u8"透明度", "toumingdu_", "shubiao", 0.44f),
-		uselooptool_(u8"启用输出循环提示器", "looptishiq_", "shubiao", true),
+		uselooptool_(u8"启用输出循环提示器", "looptishiq_", "shubiao", false),
 		jianyimoshi_(u8"简易模式(只显示前两行BOSS)", "showtwohang_", "shubiao", true)
 	{
 		inputChangeCallback_ = [this](bool changed, const std::set<uint>& keys, const std::list<EventKey>& changedKeys) { return OnInputChange(changed, keys, changedKeys); };
@@ -147,19 +147,32 @@ namespace GW2Radial
 			setting.keysDisplayStringArray().at(0) = '\0';
 			shezianjian = true;
 		}
-		else if (setting.isBeingModified() && ImGui::Button((u8"清除" + suffix).c_str()))
+		else if (setting.isBeingModified() && ImGui::Button((u8"还原默认" + suffix).c_str()))
 		{
-			setting.keys(std::set<uint>());
+			if (setting.nickname() == "SHOWBOSSTIMER_CK")
+			{
+				setting.keys(std::set<uint>({ VK_F8 }));
+			}
+			if (setting.nickname() == "SHOWMOUSELOOP_CK")
+			{
+				setting.keys(std::set<uint>({ VK_F8 }));
+			}
+			if (setting.nickname() == "SHOWLOOPTIMER_CK")
+			{
+				setting.keys(std::set<uint>({ VK_F8 }));
+			}
 			shezianjian = false;
 			setting.isBeingModified(false);
 		}
 		
-		if (setting.keys().empty())
-		{
-			ImGui::SameLine();
-			ImGui::Text(u8"没有给当前模块设置按键!");
-		}
-		else
+		//if (setting.keys().empty())
+		//{
+
+		//	shezianjian = false;
+		//	setting.isBeingModified(false);
+		//	mmmmm = setting.keysDisplayStringArray().data();
+		//}
+		//else
 		{
 			ImGui::SameLine();
 			ImGui::Text(u8"");

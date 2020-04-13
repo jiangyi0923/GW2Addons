@@ -22,7 +22,7 @@ namespace GW2Radial
 
 	LoopPrompt::LoopPrompt() : 
 		//showKeybindLoopPrompt_("show_LoopPrompt", "Show LoopPrompt", { VK_F10 }, false),
-		showkeybind_("show_LoopPromptUI", u8"呼出循环器", { VK_F7 }, true),
+		showkeybind_("show_LoopPromptUI", u8"呼出循环器", { VK_F7 }),
 		tabekeybind_("tabekey", u8"切换"), pingbiwasd_(u8"循环器屏蔽WASD方向键","pingbiwasd","loopavename",true), pingbiRK_(u8"循环器屏蔽鼠标右键", "pingbiRK", "loopavename", true),
 		fangunkeybind_("fangunkey", u8"翻滚"), LoopPromptA_(u8"循环器透明度", "LoopPromptA_", "loopavename", 0.5f), LoopPromptB_(u8"循环器按钮透明度", "LoopPromptB_", "loopavename", 1.0f),
 		anjian01_("F1_", u8"F1"), anjian02_("F2_", u8"F2"), anjian03_("F3_", u8"F3"), anjian04_("F4_", u8"F4"), anjian05_("F5_", u8"F5"),

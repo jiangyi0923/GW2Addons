@@ -23,6 +23,21 @@ Keybind::Keybind(std::string nickname, std::string displayName) :
 	isBeingModified_ = false;
 }
 
+Keybind::Keybind(std::string nickname, std::string displayName,const std::set<uint>& keys ): 
+	nickname_(std::move(nickname)), displayName_(std::move(displayName))
+{
+	const auto keys_s = ConfigurationFile::i()->ini().GetValue("Keybinds", nickname_.c_str());
+	if (keys_s != nullptr)
+	{
+		this->keys(keys_s);
+	} 
+	else
+	{
+		this->keys(keys);
+	}
+	isBeingModified_ = false;
+}
+
 Keybind::~Keybind()
 {
 	keyMaps_.erase(this);
