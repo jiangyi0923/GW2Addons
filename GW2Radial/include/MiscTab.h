@@ -42,16 +42,28 @@ public:
 	void shubiaoALH(float value) { return shubiaoALH_.value(value); }
 
 	float jiemiandaxiao() const { return jiemiandaxiao_.value(); }
-	void jiemiandaxiao(float value) { return jiemiandaxiao_.value(value); }
+	void jiemiandaxiao(float value) { return jiemiandaxiao_.value(value); }//
+
+	float zitidaxiao() const { return zitidaxiao_.value(); }
+	void zitidaxiao(float value) { return zitidaxiao_.value(value); }
 
 	float zhengtitoumingdu() const { return zhengtitoumingdu_.value(); }
 	void zhengtitoumingdu(float value) { return zhengtitoumingdu_.value(value); }
 
 	bool jianyimoshi() const { return jianyimoshi_.value(); }
 	void jianyimoshi(bool value) { return jianyimoshi_.value(value); }
+	bool jianyimoshi2() const { return jianyimoshi2_.value(); }
+	void jianyimoshi2(bool value) { return jianyimoshi2_.value(value); }
 
 	bool UseLooptool() const { return uselooptool_.value(); }
 	void UseLooptool(bool value) { return uselooptool_.value(value); }
+
+	bool lodmap() const { return lodmap_.value(); }
+	bool dej() const { return dej_.value(); }
+	bool hof() const { return hof_.value(); }
+	bool bcj() const { return bcj_.value(); }
+
+
 
 
 	const Keybind& SHOWBOSSTIMER_CK() const { return SHOWBOSSTIMER_CK_; }
@@ -79,9 +91,19 @@ protected:
 	ConfigurationOption<float> shubiaoALH_;
 
 	ConfigurationOption<float> jiemiandaxiao_;
+	ConfigurationOption<float> zitidaxiao_;
 	ConfigurationOption<float> zhengtitoumingdu_;
 	ConfigurationOption<bool> jianyimoshi_;
+	ConfigurationOption<bool> jianyimoshi2_;
 	ConfigurationOption<bool> uselooptool_;
+
+	ConfigurationOption<bool> lodmap_;
+	ConfigurationOption<bool> dej_;
+	ConfigurationOption<bool> hof_;
+	ConfigurationOption<bool> bcj_;
+
+	int bossleixinjisu = 0;
+
 	//设置按键
 	//boss计时器
 	Keybind SHOWBOSSTIMER_CK_;

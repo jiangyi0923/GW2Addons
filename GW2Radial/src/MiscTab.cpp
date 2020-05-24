@@ -23,10 +23,16 @@ namespace GW2Radial
 		getweb_(u8"获取网页日常", "getweb", "shubiao", true),
 		showfankuai_(u8"总是显示鼠标跟随方块", "showfankuai_", "shubiao", false),
 		jiemiandaxiao_(u8"界面大小", "jiemiandaxiao_", "shubiao", 1.0f),
+		zitidaxiao_(u8"字体大小(需要重启游戏)", "zitidaxiao_", "shubiao", 15.0f),
 		shubiaofankuaiyangshi_(u8"方块样式", "shubiaofankuaiyangshi_", "shubiao", 0),
 		zhengtitoumingdu_(u8"透明度", "toumingdu_", "shubiao", 0.44f),
 		uselooptool_(u8"启用输出循环提示器", "looptishiq_", "shubiao", false),
-		jianyimoshi_(u8"简易模式(只显示前两行BOSS)", "showtwohang_", "shubiao", true)
+		jianyimoshi_(u8"BOSS计时器自定义显示", "showjymos_", "shubiao", true),
+		jianyimoshi2_(u8"只显示前两行BOSS", "showtwohang_", "shubiao", true),
+		lodmap_(u8"世界首领", "lodmap_", "shubiao", true),
+		dej_(u8"荆棘之心", "dej_", "shubiao", true),
+		hof_(u8"烈焰征途", "hof_", "shubiao", true),
+		bcj_(u8"冰巢传说", "bcj_", "shubiao", true)
 	{
 		inputChangeCallback_ = [this](bool changed, const std::set<uint>& keys, const std::list<EventKey>& changedKeys) { return OnInputChange(changed, keys, changedKeys); };
 		Input::i()->AddInputChangeCallback(&inputChangeCallback_);
@@ -45,13 +51,15 @@ namespace GW2Radial
 
 	void MiscTab::DrawMenu()
 	{
-		//if(auto uc = UpdateCheck::iNoInit(); uc)
-		//	ImGuiConfigurationWrapper(ImGui::Checkbox, uc->checkEnabled_);
+		ImGui::Text(u8"全局设置:");
 		if (auto i = Input::iNoInit(); i)
 			ImGuiConfigurationWrapper(ImGui::Checkbox, i->distinguishLeftRight_);
-		ImGui::Text(u8"鼠标跟随模块设置");
+		ImGuiConfigurationWrapper(&ImGui::SliderFloat, zitidaxiao_, 10.0f, 35.0f, "%.f", 1.0f);
 
-		setkeys(SHOWBOSSTIMER_CK_);
+
+		ImGui::Text(u8"鼠标跟随模块设置:");
+
+		
 		std::vector<const char*> shubiaoyanhgsh(3);
 		shubiaoyanhgsh[0] = u8"方块";
 		shubiaoyanhgsh[1] = u8"十字";
@@ -74,17 +82,35 @@ namespace GW2Radial
 		bool(*cl)(const char*, float*, ImGuiInputTextFlags) = &ImGui::ColorEdit4;
 		ImGuiConfigurationWrapper(cl, u8"方块颜色", shubiaoRED_, shubiaoGRE_, shubiaoBLU_, shubiaoALH_, ImGuiColorEditFlags_AlphaBar);
 		ImGuiConfigurationWrapper(&ImGui::Checkbox, showfankuai_);//总是现实鼠标方块
-		ImGui::Text(u8"BOSS计时器设置");
-		setkeys(SHOWMOUSELOOP_CK_);
+		ImGui::Text(u8"BOSS计时器设置:");
+		
 		ImGuiConfigurationWrapper(&ImGui::SliderFloat, jiemiandaxiao_, 0.52f, 3.0f, "%.2f", 1.0f);
 		ImGuiConfigurationWrapper(&ImGui::SliderFloat, zhengtitoumingdu_, 0.01f, 1.0f, "%.2f", 1.0f);
-		ImGuiConfigurationWrapper(&ImGui::Checkbox, jianyimoshi_);//getmingtian_
-		ImGuiConfigurationWrapper(&ImGui::Checkbox, showboostime_);//getmingtian_
-		//ImGuiConfigurationWrapper(&ImGui::Checkbox, getmingtian_);
+
+		ImGuiConfigurationWrapper(&ImGui::Checkbox, showboostime_);
 		ImGuiConfigurationWrapper(&ImGui::Checkbox, getweb_);
-		ImGui::Text(u8"输出循环提示器启用设置");
+		ImGuiConfigurationWrapper(&ImGui::Checkbox, jianyimoshi_);
+		if (jianyimoshi_.value())//自定义显示
+		{
+			ImGuiConfigurationWrapper(&ImGui::Checkbox, dej_); ImGui::SameLine();
+			ImGuiConfigurationWrapper(&ImGui::Checkbox, hof_); ImGui::SameLine();
+			ImGuiConfigurationWrapper(&ImGui::Checkbox, bcj_);
+			ImGuiConfigurationWrapper(&ImGui::Checkbox, jianyimoshi2_);//2行模式
+		}
+		else
+		{
+			ImGuiConfigurationWrapper(&ImGui::Checkbox, jianyimoshi2_);//2行模式
+		}
+
+
+
+		ImGui::Text(u8"输出循环提示器启用设置:");
 		ImGuiConfigurationWrapper(&ImGui::Checkbox, uselooptool_);
+		ImGui::Text(u8"快捷键设置:");
+		setkeys(SHOWBOSSTIMER_CK_);
+		setkeys(SHOWMOUSELOOP_CK_);
 		setkeys(SHOWLOOPTIMER_CK_);
+
 		ImGui::PopItemWidth();
 
 #if 0
@@ -155,11 +181,11 @@ namespace GW2Radial
 			}
 			if (setting.nickname() == "SHOWMOUSELOOP_CK")
 			{
-				setting.keys(std::set<uint>({ VK_F8 }));
+				setting.keys(std::set<uint>({ VK_F9 }));
 			}
 			if (setting.nickname() == "SHOWLOOPTIMER_CK")
 			{
-				setting.keys(std::set<uint>({ VK_F8 }));
+				setting.keys(std::set<uint>({ VK_F10 }));
 			}
 			shezianjian = false;
 			setting.isBeingModified(false);

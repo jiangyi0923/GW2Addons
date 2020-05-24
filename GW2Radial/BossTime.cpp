@@ -20,6 +20,7 @@ namespace GW2Radial
 		const char* tmp = "";
 		switch (xuhao)
 		{
+			//老地图
 		case  1:tmp = u8"碎裂巨兽";	break;
 		case  2:tmp = u8"冰萨满";		break;
 		case  3:tmp = u8"人马王莫迪尔";		break;
@@ -33,30 +34,38 @@ namespace GW2Radial
 		case 11:tmp = u8"僵尸龙";		break;
 		case 12:tmp = u8"三重麻烦";	break;
 		case 13:tmp = u8"喀壳虫女王"; break;
-		case 14:tmp = u8"甘达拉跑男"; break;
-		case 15:tmp = u8"林线瀑布跑男"; break;
-		case 16:tmp = u8"钢铁平原跑男"; break;
-		case 17:tmp = u8"赌场闪电战"; break;
-		case 18:tmp = u8"巨蛇之怒"; break;
-		case 19:tmp = u8"雷云焦油"; break;
-		case 20:tmp = u8"埋藏的宝藏"; break;
-		case 21:tmp = u8"磨难血口"; break;
-		case 22:tmp = u8"晋升之路"; break;
-		case 23:tmp = u8"雷云使者"; break;
-		case 24:tmp = u8"烈焰塑形"; break;
-		case 25:tmp = u8"巨努多崛起"; break;
-		case 26:tmp = u8"亚哈巨兽"; break;
-		case 27:tmp = u8"伊斯坦攻城"; break;
-		case 28:tmp = u8"苍翠龙母"; break;
-		case 29:tmp = u8"缠藤虫王"; break;
-		case 30:tmp = u8"赤金四门"; break;
-		case 31:tmp = u8"巨龙阵地"; break;
-		case 32:tmp = u8"戈瑟玛雕像"; break;
-		case 33:tmp = u8"厄运传说圣坛"; break;
-		case 34:tmp = u8"软泥坑"; break;
-		case 35:tmp = u8"金属音乐会"; break;
-		case 36:tmp = u8"冬季风暴"; break;
-		case 37:tmp = u8"德拉克"; break;
+		case 14:tmp = u8"甘达拉跑男"; break;//20
+		case 15:tmp = u8"林线瀑布跑男"; break;//20
+		case 16:tmp = u8"钢铁平原跑男"; break;//20
+			//荆棘
+		case 17:tmp = u8"苍翠龙母"; break;//10
+		case 18:tmp = u8"缠藤虫王"; break;
+		case 19:tmp = u8"赤金四门"; break;
+		case 20:tmp = u8"巨龙阵地"; break;
+		case 21:tmp = u8"沙尘暴"; break;//40
+		case 22:tmp = u8"诺兰山庄"; break;
+		case 23:tmp = u8"塞德拉避难所"; break;
+		case 24:tmp = u8"新沃土之森"; break;
+			//烈焰
+		case 25:tmp = u8"赌场闪电战"; break;//05
+		case 26:tmp = u8"巨努多崛起"; break;
+		case 27:tmp = u8"雷云焦油"; break;
+		case 28:tmp = u8"埋藏宝藏"; break;
+		case 29:tmp = u8"护送灭龙车"; break;//00
+		case 30:tmp = u8"晋升之路"; break;
+		case 31:tmp = u8"雷云使者"; break;
+		case 32:tmp = u8"烈焰塑形"; break;
+		case 33:tmp = u8"巨蛇之怒"; break;
+		case 34:tmp = u8"磨难血口"; break;
+		case 35:tmp = u8"死亡碎裂巨兽"; break;
+		case 36:tmp = u8"帕拉瓦攻城"; break;
+			//冰巢
+		case 37:tmp = u8"神圣烈焰仪式"; break;//10
+		case 38:tmp = u8"厄运传说圣坛"; break;//38
+		case 39:tmp = u8"软泥怪坑"; break;//05
+		case 40:tmp = u8"金属音乐会"; break;//39
+		case 41:tmp = u8"德拉克"; break;//05
+		case 42:tmp = u8"冬季风暴"; break;
 		default:break;
 		}
 		return tmp;
@@ -68,42 +77,47 @@ namespace GW2Radial
 		switch (xuhao)
 		{
 		case  1:tmp = u8"[&BE4DAAA=]"; break;
-		case  2:tmp = u8"[&BH4BAAA=]"; break;
-		case  3:tmp = u8"[&BLEAAAA=]"; break;
-		case  4:tmp = u8"[&BEYAAAA=]"; break;
+		case  2:tmp = u8"[&BMIDAAA=]"; break;
+		case  3:tmp = u8"[&BKcAAAA=]"; break;
+		case  4:tmp = u8"[&BEcAAAA=]"; break;
 		case  5:tmp = u8"[&BNQCAAA=]"; break;
 		case  6:tmp = u8"[&BEEFAAA=]"; break;
 		case  7:tmp = u8"[&BHoCAAA=]"; break;
-		case  8:tmp = u8"[&BPwAAAA=]"; break;
+		case  8:tmp = u8"[&BPcAAAA=]"; break;
 		case  9:tmp = u8"[&BKgBAAA=]"; break;
-		case 10:tmp = u8"[&BM0CAAA=]"; break;
-		case 11:tmp = u8"[&BNABAAA=]"; break;
-		case 12:tmp = u8"[&BKoBAAA=]"; break;
-		case 13:tmp = u8"[&BNcGAAA=]"; break;
-		case 14:tmp = u8"[&BOQAAAA=]"; break;
-		case 15:tmp = u8"[&BEYEAAA=]"; break;
-		case 16:tmp = u8"[&BOkBAAA=]"; break;
-		case 17:tmp = u8"[&BLsKAAA=]"; break;
-		case 18:tmp = u8"[&BPIKAAA=]"; break;
-		case 19:tmp = u8"[&BKYLAAA=]"; break;
-		case 20:tmp = u8"[&BGsKAAA=]"; break;
-		case 21:tmp = u8"[&BGQKAAA=]"; break;
-		case 22:tmp = u8"[&BLgKAAA=]"; break;
-		case 23:tmp = u8"[&BLsLAAA=]"; break;
-		case 24:tmp = u8"[&BG0KAAA=]"; break;
-		case 25:tmp = u8"[&BFgKAAA=]"; break;
-		case 26:tmp = u8"[&BHALAAA=]"; break;
-		case 27:tmp = u8"[&BPcKAAA=]"; break;
-		case 28:tmp = u8"[&BAgIAAA=]"; break;
-		case 29:tmp = u8"[&BPUHAAA=]"; break;
-		case 30:tmp = u8"[&BGwIAAA=]"; break;
-		case 31:tmp = u8"[&BBAIAAA=]"; break;
-		case 32:tmp = u8"[&BAcMAAA=]"; break;
-		case 33:tmp = u8"[&BAEMAAA=]"; break;
-		case 34:tmp = u8"[&BP0LAAA=]"; break;
-		case 35:tmp = u8"[&BBkMAAA=]"; break;
-		case 36:tmp = u8"[&BCcMAAA=]"; break;
-		case 37:tmp = u8"[&BDkMAAA=]"; break;	
+		case  10:tmp = u8"[&BM0CAAA=]"; break;
+		case  11:tmp = u8"[&BNABAAA=]"; break;
+		case  12:tmp = u8"[&BKoBAAA=]"; break;
+		case  13:tmp = u8"[&BNcGAAA=]"; break;
+		case  14:tmp = u8"[&BJEBAAA=]"; break;
+		case  15:tmp = u8"[&BEYEAAA=]"; break;
+		case  16:tmp = u8"[&BOkBAAA=]"; break;
+		case  17:tmp = u8"[&BAgIAAA=]上方[&BMIHAAA=]"; break;
+		case  18:tmp = u8"[&BPUHAAA=]"; break;
+		case  19:tmp = u8"[&BGwIAAA=]"; break;
+		case  20:tmp = u8"[&BBAIAAA=]"; break;
+		case  21:tmp = u8"[&BHoHAAA=]"; break;
+		case  22:tmp = u8"[&BK8JAAA=]"; break;
+		case  23:tmp = u8"[&BK0JAAA=]2点方向"; break;
+		case  24:tmp = u8"[&BLQJAAA=]7点方向[&BK4JAAA=]"; break;
+		case  25:tmp = u8"[&BLsKAAA=]"; break;
+		case  26:tmp = u8"[&BMEKAAA=]8点方向[&BHAKAAA=]"; break;
+		case  27:tmp = u8"[&BKYLAAA=]"; break;
+		case  28:tmp = u8"[&BGsKAAA=]"; break;
+		case  29:tmp = u8"[&BIMLAAA=]"; break;
+		case  30:tmp = u8"[&BFMKAAA=]"; break;
+		case  31:tmp = u8"[&BLsLAAA=]"; break;
+		case  32:tmp = u8"[&BEoKAAA=]10点方向[&BG0KAAA=]"; break;
+		case  33:tmp = u8"[&BHQKAAA=]"; break;
+		case  34:tmp = u8"[&BKMKAAA=]"; break;
+		case  35:tmp = u8"[&BJQLAAA=]1点方向[&BHwLAAA=]"; break;
+		case  36:tmp = u8"[&BAkLAAA=]7点方向攻城[&BPcKAAA=]到[&BAELAAA=]"; break;
+		case  37:tmp = u8"[&BBsMAAA=]在[&BAcMAAA=]到[&BB0MAAA=]"; break;
+		case  38:tmp = u8"[&BBsMAAA=]在[&BAUMAAA=]到[&BAEMAAA=]"; break;
+		case  39:tmp = u8"[&BPgLAAA=]"; break;
+		case  40:tmp = u8"[&BPgLAAA=]3点方向[&BBkMAAA=]"; break;
+		case  41:tmp = u8"[&BDkMAAA=]到[&BEEMAAA=]"; break;
+		case  42:tmp = u8"[&BCcMAAA=]"; break;
 		default:break;
 		}
 		return tmp;
@@ -288,12 +302,7 @@ namespace GW2Radial
 			strcat_s(str3, label);
 			label = str3;
 		}
-		ImGui::PushID(showsidh * 100 + showsidL);
-		float hue = showsidL * 0.01f;
-		ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(hue, 0.6f, 0.6f, touming_));
-		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(hue, 0.7f, 0.7f, touming_));
-		ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(hue, 0.8f, 0.8f, touming_));
-		if (ImGui::Button(label, ImVec2(120.0f * daxiao_, 22.0f * daxiao_)))
+		if (ImGui::Button(label, ImVec2(120.0f * daxiao_ * daxiao2_, 22.0f * daxiao_ * daxiao2_)))
 		{
 			if (bosspaixuid != 0)
 			{
@@ -302,16 +311,13 @@ namespace GW2Radial
 				std::string arrc3 = u8" 来自\"gw2sy.top\"神油boss提示器";
 				ImGui::SetClipboardText((arrc1 + arrc2 + arrc3).c_str());
 			}
-		}
+		} 
 		if (ImGui::IsItemHovered())
 		{
 			ImGui::BeginTooltip();
 			ImGui::TextUnformatted(u8"\r\n=======点击即可复制到剪切板=======\r\n\n");
 			ImGui::EndTooltip();
 		}
-		ImGui::PopStyleColor(3);
-		ImGui::PopID();
-		
 	}
 
 	bool BossTime::_DoUI(bool &ison)
@@ -319,6 +325,7 @@ namespace GW2Radial
 		if (ison)
 		{
 			daxiao_ = MiscTab::i()->jiemiandaxiao();
+			daxiao2_ = MiscTab::i()->zitidaxiao()/15.0f;
 			touming_ = MiscTab::i()->zhengtitoumingdu();
 			ImGui::SetNextWindowBgAlpha(touming_);
 			if (gwps())
@@ -335,119 +342,300 @@ namespace GW2Radial
 			ImGui::PushStyleVar(ImGuiStyleVar_ChildBorderSize, 0.0f);
 			ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
 			ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(0, 1));
-			float scrollingdaxiao = 45 * daxiao_;
-			if (MiscTab::i()->jianyimoshi() == false || ImGui::GetIO().WantCaptureMouse == 1)
+
+			float scrollingdaxiao = 45 * daxiao_ * daxiao2_;
+			if (MiscTab::i()->jianyimoshi())//自定义显示
 			{
-				scrollingdaxiao = 115 * daxiao_;
+				if (!MiscTab::i()->jianyimoshi2() || ImGui::GetIO().WantCaptureMouse == 1)
+				{
+					int mmtL = 0;
+					if (MiscTab::i()->dej())mmtL += 2;
+					if (MiscTab::i()->hof())mmtL += 2;
+					if (MiscTab::i()->bcj())mmtL += 2;
+					if (mmtL > 1)scrollingdaxiao = (mmtL*46/2 +45) * daxiao_ * daxiao2_;
+				}
 			}
-			ImGui::BeginChild("scrolling", ImVec2(360 * daxiao_, scrollingdaxiao), false);
+			else
+			{
+				if (!MiscTab::i()->jianyimoshi2() || ImGui::GetIO().WantCaptureMouse == 1)
+				{
+					scrollingdaxiao = 183 * daxiao_ * daxiao2_;
+				}
+			}
+
+			ImGui::BeginChild("scrolling", ImVec2(360 * daxiao_ * daxiao2_, scrollingdaxiao), false);
 			ImGui::SetWindowFontScale(daxiao_);
 
 #pragma region BOSS排序显示
-			for (int t = 0; t < 5; t++)
-			{
-				int h = 0, s = 0;
+			//scroll_x = ImGui::GetScrollX();
+			ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(scroll_x / 120.0f / daxiao_ * daxiao2_ * 0.01031f, 0.6f, 0.6f, touming_));
+			ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(scroll_x / 120.0f / daxiao_ * daxiao2_ * 0.01031f, 0.6f, 0.8f, touming_));
+			ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(scroll_x / 120.0f / daxiao_ * daxiao2_ * 0.01031f, 0.6f, 1.0f, touming_));
 
-				if (t == 0)
+			//if (MiscTab::i()->jianyimoshi())//要改
+			{
+				for (int t = 0; t < 8; t++)
 				{
-					for (int i = 0; i < 97; i++)
-					{
-						if (i > 0) ImGui::SameLine(0.0F, 0.0F);
-						Button_showit(BSPX1[i], t, i, h, s);
-						if (s < 60) s = s + 15;
-						if (s == 60) h++, s = 0;
-						if (h == 24)	  h = 0;
-					}
-				}
-				if (t == 1)
-				{
-					for (int i = 0; i < 97; i++)
-					{
-						if (i > 0) ImGui::SameLine(0.0F, 0.0F);
-						if (BSPX2[i] == 32 || BSPX2[i] == 34)
-						{
-							s = 10;
-						}
-						if (BSPX2[i] == 33 || BSPX2[i] == 35)
-						{
-							s = 40;
-						}
-						Button_showit(BSPX2[i], t, i, h, s);
-						if (s == 10 || s == 40)s = s + 5;
-						if (s < 60)  s = s + 15;
-						if (s == 60) h++, s = 0;
-						if (h == 24)	  h = 0;
-					}
-				}
-				if (MiscTab::i()->jianyimoshi() == false || ImGui::GetIO().WantCaptureMouse == 1)
-				{
-					if (t == 2)
+					int h = 0, s = 0;
+
+					if (t == 0)
 					{
 						for (int i = 0; i < 97; i++)
 						{
 							if (i > 0) ImGui::SameLine(0.0F, 0.0F);
-							if (BSPX3[i] == 28)
-							{
-								s = 10;
-							}
-							if (BSPX3[i] == 14 || BSPX3[i] == 15 || BSPX3[i] == 16)
-							{
-								s = 20;
-							}
-							//if (BSPX3[i] == 36)
-							//{
-							//	s = 35;
-							//}
-							if (BSPX3[i] == 37)
-							{
-								s = 5;
-							}
-							Button_showit(BSPX3[i], t, i, h, s);
-							if (s == 5) s = s + 10;
-							if (s == 10) s = s - 10;
-							if (s == 20) s = s - 5;
-							//if (s == 35) s = s + 10;
+							Button_showit(BSPX1[i], t, i, h, s);
 							if (s < 60) s = s + 15;
 							if (s == 60) h++, s = 0;
 							if (h == 24)	  h = 0;
 						}
 					}
-					if (t == 3)
+					if (t == 1)
 					{
 						for (int i = 0; i < 97; i++)
 						{
 							if (i > 0) ImGui::SameLine(0.0F, 0.0F);
-							if (BSPX4[i] == 17)
+							if (BSPX2[i] == 14 || BSPX2[i] == 15 || BSPX2[i] == 16)
 							{
-								s = 5;
+								s = 20;
 							}
-							if (BSPX4[i] == 21)
-							{
-								s = 0;
-							}
-							Button_showit(BSPX4[i], t, i, h, s);
-							if (s == 5)s = 0;
-							if (BSPX4[i] == 21)s = 15;
+							Button_showit(BSPX2[i], t, i, h, s);
+							if (s == 20) s = s - 5;
 							if (s < 60)  s = s + 15;
 							if (s == 60) h++, s = 0;
 							if (h == 24)	  h = 0;
 						}
 					}
-					if (t == 4)
+					if (!MiscTab::i()->jianyimoshi2() || ImGui::GetIO().WantCaptureMouse == 1)
 					{
-						for (int i = 0; i < 97; i++)
+						if (MiscTab::i()->dej())
 						{
-							if (i > 0) ImGui::SameLine(0.0F, 0.0F);
-							Button_showit(BSPX5[i], t, i, h, s);
-							if (s < 60)  s = s + 15;
-							if (s == 60) h++, s = 0;
-							if (h == 24)	  h = 0;
+							if (t == 2)
+							{
+								for (int i = 0; i < 97; i++)
+								{
+									if (i > 0) ImGui::SameLine(0.0F, 0.0F);
+									if (BSPX3[i] == 17)
+									{
+										s = 10;
+									}
+									if (BSPX3[i] == 21)
+									{
+										s = 40;
+									}
+									Button_showit(BSPX3[i], t, i, h, s);
+									if (s == 10) s = s - 10;
+									if (s == 40) s = s +5;
+									if (s < 60) s = s + 15;
+									if (s == 60) h++, s = 0;
+									if (h == 24)	  h = 0;
+								}
+							}
+							if (t == 3)
+							{
+								for (int i = 0; i < 97; i++)
+								{
+									if (i > 0) ImGui::SameLine(0.0F, 0.0F);
+									Button_showit(BSPX4[i], t, i, h, s);
+									if (s < 60)  s = s + 15;
+									if (s == 60) h++, s = 0;
+									if (h == 24)	  h = 0;
+								}
+							}
+						}
+						else
+						{
+							if (!MiscTab::i()->jianyimoshi())
+							{
+								if (t == 2)
+								{
+									for (int i = 0; i < 97; i++)
+									{
+										if (i > 0) ImGui::SameLine(0.0F, 0.0F);
+										if (BSPX3[i] == 17)
+										{
+											s = 10;
+										}
+										if (BSPX3[i] == 21)
+										{
+											s = 40;
+										}
+										Button_showit(BSPX3[i], t, i, h, s);
+										if (s == 10) s = s - 10;
+										if (s == 40) s = s + 5;
+										if (s < 60) s = s + 15;
+										if (s == 60) h++, s = 0;
+										if (h == 24)	  h = 0;
+									}
+								}
+								if (t == 3)
+								{
+									for (int i = 0; i < 97; i++)
+									{
+										if (i > 0) ImGui::SameLine(0.0F, 0.0F);
+										Button_showit(BSPX4[i], t, i, h, s);
+										if (s < 60)  s = s + 15;
+										if (s == 60) h++, s = 0;
+										if (h == 24)	  h = 0;
+									}
+								}
+							}
+						}
+						if (MiscTab::i()->hof())
+						{
+							if (t == 4)
+							{
+								for (int i = 0; i < 97; i++)
+								{
+									if (i > 0) ImGui::SameLine(0.0F, 0.0F);
+									if (BSPX5[i]==25)
+									{
+										s = 5;
+									}
+									if (BSPX5[i] == 29)
+									{
+										s = 0;
+									}
+									Button_showit(BSPX5[i], t, i, h, s);
+									if (s == 5)  s = s - 5;
+									if (BSPX5[i] == 29)s = s + 15;
+									if (s < 60)  s = s + 15;
+									if (s == 60) h++, s = 0;
+									if (h == 24)	  h = 0;
+								}
+							}
+							if (t == 5)
+							{
+								for (int i = 0; i < 97; i++)
+								{
+									if (i > 0) ImGui::SameLine(0.0F, 0.0F);
+									Button_showit(BSPX6[i], t, i, h, s);
+									if (s < 60)  s = s + 15;
+									if (s == 60) h++, s = 0;
+									if (h == 24)	  h = 0;
+								}
+							}
+						}
+						else
+						{
+							if (!MiscTab::i()->jianyimoshi())
+							{
+								if (t == 4)
+								{
+									for (int i = 0; i < 97; i++)
+									{
+										if (i > 0) ImGui::SameLine(0.0F, 0.0F);
+										if (BSPX5[i] == 25)
+										{
+											s = 5;
+										}
+										if (BSPX5[i] == 29)
+										{
+											s = 0;
+										}
+										Button_showit(BSPX5[i], t, i, h, s);
+										if (s == 5)  s = s - 5;
+										if (BSPX5[i] == 29)s = s + 15;
+										if (s < 60)  s = s + 15;
+										if (s == 60) h++, s = 0;
+										if (h == 24)	  h = 0;
+									}
+								}
+								if (t == 5)
+								{
+									for (int i = 0; i < 97; i++)
+									{
+										if (i > 0) ImGui::SameLine(0.0F, 0.0F);
+										Button_showit(BSPX6[i], t, i, h, s);
+										if (s < 60)  s = s + 15;
+										if (s == 60) h++, s = 0;
+										if (h == 24)	  h = 0;
+									}
+								}
+							}
+						}
+						if (MiscTab::i()->bcj())
+						{
+							if (t == 6)
+							{
+								for (int i = 0; i < 97; i++)
+								{
+									if (i > 0) ImGui::SameLine(0.0F, 0.0F);
+									if (BSPX7[i] == 37)s = 10;//10
+									if (BSPX7[i] == 38)s = 38;//38
+									if (BSPX7[i] == 39)s = 5;//05
+									if (BSPX7[i] == 40)s = 39;//39
+									Button_showit(BSPX7[i], t, i, h, s);
+									if(s== 10)s = s - 10;
+									if (s == 38)s = s - 8;
+									if (s == 5)s = s  - 5;
+									if (s == 39)s = s - 9;
+									if (s < 60)  s = s + 15;
+									if (s == 60) h++, s = 0;
+									if (h == 24)	  h = 0;
+								}
+							}
+							if (t == 7)
+							{
+								for (int i = 0; i < 97; i++)
+								{
+									if (i > 0) ImGui::SameLine(0.0F, 0.0F);
+									if (BSPX8[i] == 41)
+									{
+										s = 5;
+									}
+									Button_showit(BSPX8[i], t, i, h, s);
+									if (s == 5) s = s - 5;
+									if (s < 60)  s = s + 15;
+									if (s == 60) h++, s = 0;
+									if (h == 24)	  h = 0;
+								}
+							}
+						}
+						else
+						{
+							if (!MiscTab::i()->jianyimoshi())
+							{
+								if (t == 6)
+								{
+									for (int i = 0; i < 97; i++)
+									{
+										if (i > 0) ImGui::SameLine(0.0F, 0.0F);
+										if (BSPX7[i] == 37)s = 10;//10
+										if (BSPX7[i] == 38)s = 38;//38
+										if (BSPX7[i] == 39)s = 5;//05
+										if (BSPX7[i] == 40)s = 39;//39
+										Button_showit(BSPX7[i], t, i, h, s);
+										if (s == 10)s = s - 10;
+										if (s == 38)s = s - 8;
+										if (s == 5)s = s - 5;
+										if (s == 39)s = s - 9;
+										if (s < 60)  s = s + 15;
+										if (s == 60) h++, s = 0;
+										if (h == 24)	  h = 0;
+									}
+								}
+								if (t == 7)
+								{
+									for (int i = 0; i < 97; i++)
+									{
+										if (i > 0) ImGui::SameLine(0.0F, 0.0F);
+										if (BSPX8[i] == 41)
+										{
+											s = 5;
+										}
+										Button_showit(BSPX8[i], t, i, h, s);
+										if (s == 5) s = s - 5;
+										if (s < 60)  s = s + 15;
+										if (s == 60) h++, s = 0;
+										if (h == 24)	  h = 0;
+									}
+								}
+							}
 						}
 					}
 				}
-
-
 			}
+			
 #pragma endregion
 
 			scroll_x = ImGui::GetScrollX();
@@ -461,7 +649,6 @@ namespace GW2Radial
 				if (geting)
 				{
 					W_time1 = GetTime(0);
-					//boost::thread(&getsting, W_time1);
 					boost::thread thServer(getsting, W_time1);
 				}
 			}
@@ -470,15 +657,8 @@ namespace GW2Radial
 			ImGui::IsItemHovered();
 			if (ImGui::GetIO().WantCaptureMouse == 1)
 			{
-				//if (!getdted())
-				//{
-				//	ImGui::Text("dewewfew");
-				//}
-				ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(scroll_x / 120.0f / daxiao_ * 0.01031f, 0.6f, 0.6f, touming_));
-				ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(scroll_x / 120.0f / daxiao_ * 0.01031f, 0.6f, 0.6f, touming_));
-				ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(scroll_x / 120.0f / daxiao_ * 0.01031f, 0.6f, 0.6f, touming_));
-				if (ImGui::SmallButton("<<<----------"))scroll_x_delta = -360.0f * daxiao_; ImGui::SameLine();
-				if (ImGui::SmallButton("<-------------"))scroll_x_delta = -120.0f * daxiao_; ImGui::SameLine();
+				if (ImGui::SmallButton("<<<--------- "))scroll_x_delta = -360.0f * daxiao_ * daxiao2_; ImGui::SameLine();
+				if (ImGui::SmallButton("<------------ "))scroll_x_delta = -120.0f * daxiao_ * daxiao2_; ImGui::SameLine();
 				if (ImGui::SmallButton(u8"关 闭")) ison = false; 
 				if (ImGui::IsItemHovered())
 				{
@@ -497,9 +677,8 @@ namespace GW2Radial
 					ImGui::EndPopup();
 				}
 				ImGui::SameLine();
-				if (ImGui::SmallButton("------------->"))scroll_x_delta = +120.0f * daxiao_; ImGui::SameLine();
-				if (ImGui::SmallButton("---------->>>"))scroll_x_delta = +360.0f * daxiao_; ImGui::SameLine();
-				ImGui::PopStyleColor(3);
+				if (ImGui::SmallButton(" ------------>"))scroll_x_delta = +120.0f * daxiao_ * daxiao2_; ImGui::SameLine();
+				if (ImGui::SmallButton(" --------->>>"))scroll_x_delta = +360.0f * daxiao_ * daxiao2_; ImGui::SameLine();
 				if (scroll_x_delta != 0.0f)ImGui::BeginChild("scrolling"), ImGui::SetScrollX(ImGui::GetScrollX() + scroll_x_delta), ImGui::EndChild();
 				ImGui::AlignTextToFramePadding();
 				ImGui::Unindent(ImGui::GetTreeNodeToLabelSpacing());
@@ -507,10 +686,7 @@ namespace GW2Radial
 				{
 					ImGui::Spacing();
 					bool node_open = ImGui::TreeNode(u8"网页日常", u8"网页日常 : (%s)", W_time1);
-					ImGui::SameLine(303.0f * daxiao_, spacing);
-					ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(scroll_x / 120.0f / daxiao_ * 0.01031f, 0.6f, 0.6f, touming_));
-					ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(scroll_x / 120.0f / daxiao_ * 0.01031f, 0.6f, 0.6f, touming_));
-					ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(scroll_x / 120.0f / daxiao_ * 0.01031f, 0.6f, 0.6f, touming_));
+					ImGui::SameLine(303.0f * daxiao_ * daxiao2_, spacing);
 					if (ImGui::SmallButton(u8"明天"))
 					{
 						if (wancheng)
@@ -526,12 +702,11 @@ namespace GW2Radial
 							days++;
 							const char* addday = GetTime(days);
 							W_time1 = addday;
-							//boost::thread(&getsting, addday);
 							boost::thread thServer(getsting, addday);
 						}
 
 					}
-					ImGui::SameLine(335.0f * daxiao_, spacing);
+					ImGui::SameLine(335.0f * daxiao_ * daxiao2_, spacing);
 					if (ImGui::SmallButton(u8"复制"))
 					{
 						std::string arrc1 = u8" 的网页任务: ";
@@ -578,7 +753,7 @@ namespace GW2Radial
 							ImGui::TreePop();
 						}
 					}
-					ImGui::PopStyleColor(3);
+					
 				}
 			}
 			else
@@ -586,11 +761,11 @@ namespace GW2Radial
 				ImGui::BeginChild("scrolling");
 				if (now_time.tm_hour * 60 + now_time.tm_min < 30)
 				{
-					ImGui::SetScrollX(((now_time.tm_hour * 60 + now_time.tm_min) / 15) * 120.0f* daxiao_);
+					ImGui::SetScrollX(((now_time.tm_hour * 60 + now_time.tm_min) / 15) * 120.0f* daxiao_ * daxiao2_);
 				}
 				else
 				{
-					ImGui::SetScrollX(((now_time.tm_hour * 60 + now_time.tm_min) / 15 - 1) * 120.0f* daxiao_);
+					ImGui::SetScrollX(((now_time.tm_hour * 60 + now_time.tm_min) / 15 - 1) * 120.0f* daxiao_ * daxiao2_);
 				}
 				ImGui::EndChild();
 				if (MiscTab::i()->getweb())
@@ -613,39 +788,20 @@ namespace GW2Radial
 							if (W_time1 != adddayend)
 							{
 								W_time1 = adddayend;
-								//boost::thread(&getsting, adddayend);
 								boost::thread thServer(getsting, adddayend);
 							}
 						}
 					}
 				}
 			}
-			
+			ImGui::PopStyleColor(3);
 			ImGui::End();
+			
 			ImGui::PopStyleVar(4);
 		}
 		return ison;
 	}
 
-	//bool BossTime::getdted()
-	//{
-	//	time_t time_seconds = time(0);
-	//	tm now_time;
-	//	localtime_s(&now_time, &time_seconds);
-	//	char tmp_buf[32];
-	//	char tmp_str[32];
-	//	const char* tmp_day = "";
-	//	sprintf_s(tmp_buf, u8"%d%02d%02d", now_time.tm_year + 1900, now_time.tm_mon + 1, now_time.tm_mday);
-	//	strcpy_s(tmp_str, tmp_buf);
-	//	strcat_s(tmp_str, tmp_day);
-	//	tmp_day = tmp_str;
-	//	if (now_time.tm_hour > 7 && isnewday_.value() != tmp_day)
-	//	{
-	//		isnewday_.value(tmp_day);
-	//		return true;
-	//	}
-	//	return false;
-	//}
 
 	InputResponse BossTime::OnInputChangeweb(bool changed, const std::set<uint>& keys, const std::list<EventKey>& changedKeys)
 	{

@@ -127,7 +127,7 @@ void Core::PostCreateDevice(IDirect3DDevice9 *device, D3DPRESENT_PARAMETERS *pre
 
 	//if(font_)
 	//	imio.FontDefault = font_;
-	imio.Fonts->AddFontFromFileTTF(".\\addons\\arcdps\\arcdps_font.ttf", 15.0f, NULL, imio.Fonts->GetGlyphRangesChineseFull());
+	imio.Fonts->AddFontFromFileTTF(".\\addons\\arcdps\\arcdps_font.ttf", MiscTab::i()->zitidaxiao(), NULL, imio.Fonts->GetGlyphRangesChineseFull());
 
 	void* fontPtr;
 	size_t fontSize;
