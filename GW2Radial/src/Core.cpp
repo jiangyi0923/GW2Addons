@@ -176,7 +176,7 @@ void Core::OnDeviceSet(IDirect3DDevice9 *device, D3DPRESENT_PARAMETERS *presenta
 
 	//UpdateCheck::i()->CheckForUpdates();BdMarker
 	MiscTab::i();
-
+	deviceout = device;
 	wheels_.emplace_back(Wheel::Create<Mount>(IDR_BG, IDR_INK, "mounts", u8"×øÆï", device));
 	wheels_.emplace_back(Wheel::Create<Novelty>(IDR_BG, IDR_INK, "novelties", u8"ÐÂÆæ", device));
 	wheels_.emplace_back(Wheel::Create<Marker>(IDR_BG, IDR_INK, "markers", u8"±ê¼Ç", device));

@@ -31,6 +31,7 @@ public:
 	ImFont* font() const { return font_; }
 	ImFont* fontBlack() const { return fontBlack_; }
 	ImFont* fontItalic() const { return fontItalic_; }
+	IDirect3DDevice9* getdevice() const { return deviceout; }
 
 protected:
 	void InternalInit();
@@ -48,6 +49,8 @@ protected:
 	void DrawUnder(IDirect3DDevice9* device, bool frameDrawn, bool sceneEnded);
 	void DrawOver(IDirect3DDevice9* device, bool frameDrawn, bool sceneEnded);
 
+
+	IDirect3DDevice9* deviceout = nullptr;
 	HWND gameWindow_ = nullptr;
 	HMODULE dllModule_ = nullptr;
 	WNDPROC baseWndProc_ = nullptr;

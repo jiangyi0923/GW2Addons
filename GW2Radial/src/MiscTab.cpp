@@ -32,7 +32,8 @@ namespace GW2Radial
 		lodmap_(u8"世界首领", "lodmap_", "shubiao", true),
 		dej_(u8"荆棘之心", "dej_", "shubiao", true),
 		hof_(u8"烈焰征途", "hof_", "shubiao", true),
-		bcj_(u8"冰巢传说", "bcj_", "shubiao", true)
+		bcj_(u8"冰巢传说", "bcj_", "shubiao", true),
+		newmod_(u8"新版UI", "newmod_", "shubiao", true)
 	{
 		inputChangeCallback_ = [this](bool changed, const std::set<uint>& keys, const std::list<EventKey>& changedKeys) { return OnInputChange(changed, keys, changedKeys); };
 		Input::i()->AddInputChangeCallback(&inputChangeCallback_);
@@ -84,26 +85,29 @@ namespace GW2Radial
 		ImGuiConfigurationWrapper(&ImGui::Checkbox, showfankuai_);//总是现实鼠标方块
 		ImGui::Text(u8"BOSS计时器设置:");
 		
+		ImGuiConfigurationWrapper(&ImGui::Checkbox, newmod_);
+		
 		ImGuiConfigurationWrapper(&ImGui::SliderFloat, jiemiandaxiao_, 0.52f, 3.0f, "%.2f", 1.0f);
 		ImGuiConfigurationWrapper(&ImGui::SliderFloat, zhengtitoumingdu_, 0.01f, 1.0f, "%.2f", 1.0f);
 
 		ImGuiConfigurationWrapper(&ImGui::Checkbox, showboostime_);
 		ImGuiConfigurationWrapper(&ImGui::Checkbox, getweb_);
-		ImGuiConfigurationWrapper(&ImGui::Checkbox, jianyimoshi_);
-		if (jianyimoshi_.value())//自定义显示
+
+		if (!newmod_.value())
 		{
-			ImGuiConfigurationWrapper(&ImGui::Checkbox, dej_); ImGui::SameLine();
-			ImGuiConfigurationWrapper(&ImGui::Checkbox, hof_); ImGui::SameLine();
-			ImGuiConfigurationWrapper(&ImGui::Checkbox, bcj_);
-			ImGuiConfigurationWrapper(&ImGui::Checkbox, jianyimoshi2_);//2行模式
+			ImGuiConfigurationWrapper(&ImGui::Checkbox, jianyimoshi_);
+			if (jianyimoshi_.value())//自定义显示
+			{
+				ImGuiConfigurationWrapper(&ImGui::Checkbox, dej_); ImGui::SameLine();
+				ImGuiConfigurationWrapper(&ImGui::Checkbox, hof_); ImGui::SameLine();
+				ImGuiConfigurationWrapper(&ImGui::Checkbox, bcj_);
+				ImGuiConfigurationWrapper(&ImGui::Checkbox, jianyimoshi2_);//2行模式
+			}
+			else
+			{
+				ImGuiConfigurationWrapper(&ImGui::Checkbox, jianyimoshi2_);//2行模式
+			}
 		}
-		else
-		{
-			ImGuiConfigurationWrapper(&ImGui::Checkbox, jianyimoshi2_);//2行模式
-		}
-
-
-
 		ImGui::Text(u8"输出循环提示器启用设置:");
 		ImGuiConfigurationWrapper(&ImGui::Checkbox, uselooptool_);
 		ImGui::Text(u8"快捷键设置:");

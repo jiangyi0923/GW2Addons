@@ -4,6 +4,9 @@
 
 #define IDR_BG			200
 #define IDR_INK			201
+#define IDR_NEXT		202
+#define IDR_NOW			203
+#define IDR_LAST		204
 
 #define IDR_MOUNTS		211
 #define IDR_MOUNT1		211

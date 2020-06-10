@@ -63,7 +63,7 @@ public:
 	bool hof() const { return hof_.value(); }
 	bool bcj() const { return bcj_.value(); }
 
-
+	bool newmod() const { return newmod_.value(); }
 
 
 	const Keybind& SHOWBOSSTIMER_CK() const { return SHOWBOSSTIMER_CK_; }
@@ -101,6 +101,8 @@ protected:
 	ConfigurationOption<bool> dej_;
 	ConfigurationOption<bool> hof_;
 	ConfigurationOption<bool> bcj_;
+
+	ConfigurationOption<bool> newmod_;
 
 	int bossleixinjisu = 0;
 

@@ -8,7 +8,9 @@
 #include <iostream>
 #include <ImGuiExtensions.h>
 #include <boost/date_time/gregorian/gregorian.hpp>
-//#include <DBINGtool.h>
+#include <Utility.h>
+#include <Core.h>
+
 
 namespace GW2Radial
 {
@@ -128,11 +130,17 @@ namespace GW2Radial
 		gudingwinpos_x(u8"窗口位置x", "gudingwinpos_x", "shubiao", 500.0f),
 		gudingwinpos_y(u8"窗口位置y", "gudingwinpos_y", "shubiao", 5.0f)
 	{
+		Texture_1 = CreateTextureFromResource(Core::i()->getdevice(), Core::i()->dllModule(), IDR_NEXT);
+		Texture_2 = CreateTextureFromResource(Core::i()->getdevice(), Core::i()->dllModule(), IDR_NOW);
+		Texture_3 = CreateTextureFromResource(Core::i()->getdevice(), Core::i()->dllModule(), IDR_LAST);
 		inputChangeCallbackweb_ = [this](bool changed, const std::set<uint>& keys, const std::list<EventKey>& changedKeys) { return OnInputChangeweb(changed, keys, changedKeys); };
 		Input::i()->AddInputChangeCallback(&inputChangeCallbackweb_);
 	}
 	BossTime::~BossTime()
 	{
+		COM_RELEASE(Texture_1);
+		COM_RELEASE(Texture_2);
+		COM_RELEASE(Texture_3);
 		if (auto i = Input::iNoInit(); i)
 		{
 			i->RemoveInputChangeCallback(&inputChangeCallbackweb_);
@@ -158,8 +166,6 @@ namespace GW2Radial
 			}
 		}
 	}
-
-
 #pragma region 网页获取
 	bool geting = true;
 	bool wancheng = false;
@@ -246,6 +252,21 @@ namespace GW2Radial
 			wancheng = true;
 			return result;
 		}
+
+		//printf("%d",response_length);
+
+
+		std::string beginFlagtmp = u8"head";
+		int startPostmp = 0;
+		startPostmp = (int)retVal.find(beginFlagtmp, startPostmp);
+		if (startPostmp > 0)
+		{
+			result[0] = "0";
+			wancheng = true;
+			return result;
+		}
+
+
 		if (response_length > 350)
 		{
 			std::string beginFlag = u8"task_name";
@@ -289,8 +310,566 @@ namespace GW2Radial
 		W_renwu1 = FetchReleaseData(days);
 	}
 #pragma endregion
+#pragma region 新UI
 
-	void BossTime::Button_showit(int bosspaixuid,int showsidh,int showsidL,int h,int s)
+	bool isbts = false;
+	bool isbtn = false;
+	int  NEWBOSSJISU = 0;
+	std::string Clipboardtmp = "";
+	int tesss = 0;
+	ImVec2 toolwindospost = {};
+	float toolwindospost_y = 0;
+	float windospost_y = 0;
+	float toolwindossize_y = 0;
+
+	std::string BossTime::SHOWNEWUI_BUTTONS_TYPE(int bosspaixuid, int show_TYPE, int h, int s)
+	{
+		std::string tmp_out = "";
+		char num_buf[32];
+		char str3[32];
+		const char* label = BossName(bosspaixuid);
+		if (bosspaixuid != 0)
+		{
+			sprintf_s(num_buf, u8"[%02d:%02d]", h, s);
+			strcpy_s(str3, num_buf);
+			strcat_s(str3, label);
+			label = str3;
+		}
+		std::string arrc1 = label;
+		std::string arrc2 = BossPost(bosspaixuid);
+		std::string arrc3 = u8" 来自\"gw2sy.top\"神油boss提示器";
+		if (show_TYPE == 0)
+		{
+			ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0.127f, 0.842f, 0.660f, touming_));
+			ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0.127f, 0.842f, 0.760f, touming_));
+			ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(0.127f, 0.842f, 0.860f, touming_));
+		}
+		if (show_TYPE == 1)
+		{
+			ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0.327f, 0.842f, 0.660f, touming_));//3
+			ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0.327f, 0.842f, 0.760f, touming_));
+			ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(0.327f, 0.842f, 0.860f, touming_));
+		}
+		if (show_TYPE == 2)
+		{
+			ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0.927f, 0.842f, 0.660f, touming_));//9
+			ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0.927f, 0.842f, 0.760f, touming_));
+			ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(0.927f, 0.842f, 0.860f, touming_));
+		}
+		if (show_TYPE == 3)
+		{
+			ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0.527f, 0.842f, 0.660f, touming_));//5
+			ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0.527f, 0.842f, 0.760f, touming_));
+			ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(0.527f, 0.842f, 0.860f, touming_));
+		}
+
+
+		if (ImGui::Button(label, ImVec2(-1, 22.0f * daxiao_ * daxiao2_)))
+		{
+			if (bosspaixuid != 0)
+			{
+				ImGui::SetClipboardText((arrc1 + arrc2 + arrc3).c_str());
+			}
+			ImGui::CloseCurrentPopup();
+		}
+		ImGui::PopStyleColor(3);
+		if (ImGui::IsItemHovered())
+		{
+			ImGui::BeginTooltip();
+			ImGui::TextUnformatted(u8"点击即可复制到剪切板");
+			ImGui::EndTooltip();
+		}
+		return arrc1 + arrc2 + "-";
+	}
+
+	void BossTime::TOOLSVIM(bool& showtoolwind)
+	{
+		if (tesss == 0)
+		{
+			if (!isbtn && !isbts)
+			{
+				
+				time_t time_seconds = time(0);
+				tm now_time;
+				localtime_s(&now_time, &time_seconds);
+
+				if (MiscTab::i()->getweb())
+				{
+					if (geting)
+					{
+						W_time1 = GetTime(0);
+						
+						boost::thread thServer(getsting, W_time1);
+					}
+				}
+				//NEWBOSSJISU = (ttsh * 60 + ttss) / 15;//时间测试代码
+				NEWBOSSJISU = (now_time.tm_hour * 60 + now_time.tm_min) / 15;
+			}
+			return;
+		}
+		ImGuiIO IIO = ImGui::GetIO();
+		if (ImGui::GetWindowPos().y > IIO.DisplaySize.y / 2)  //位置 = 主界面高度 - 本窗口高度      
+		{
+			toolwindospost.y = ( windospost_y - toolwindossize_y);
+		}
+		ImGui::SetNextWindowPos(toolwindospost);
+		ImGui::SetNextWindowBgAlpha(touming_);
+		ImGui::Begin("uid", &showtoolwind, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoTitleBar);
+		{
+			isbtn = ImGui::IsMouseHoveringWindow();
+			ImGui::SetWindowFontScale(daxiao_);
+			toolwindossize_y = ImGui::GetWindowSize().y;
+			
+			if (tesss == 2)
+			{
+				ImGui::Text(u8" 当前选中的所有BOSS");
+				ImGui::Separator();
+			}
+			else
+			{
+				if (tesss == 1)
+				{
+					ImGui::Text(u8" 前15分钟内所有BOSS");
+				}
+				if (tesss == 3)
+				{
+					ImGui::Text(u8" 后15分钟内所有BOSS");
+				}
+				ImGui::Separator();
+			}
+			SHOWNEWUI_BUTTONS();
+			ImGui::Separator();
+			ImGui::Text(u8"移开鼠标复原");
+			ImGui::SameLine(ImGui::CalcTextSize(u8"移开鼠标复原").x+40);
+			ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0.1f, 0.1f, 0.660f, touming_));
+			ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0.1f, 0.1f, 0.760f, touming_));
+			ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(0.1f, 0.1f, 0.860f, touming_));
+			if (ImGui::SmallButton(u8"关闭##toolui"))
+			{
+				showtoolwind = false;
+			}
+
+			if (MiscTab::i()->getweb())
+			{
+
+				ImGui::Text(u8"网页日常 : (%s)", W_time1);
+				//bool node_open = ImGui::TreeNode(u8"网页日常", u8"网页日常 : (%s)", W_time1);
+				ImGui::SameLine();
+				//if (ImGui::SmallButton(u8"昨天"))
+				//{
+				//	if (wancheng)
+				//	{
+				//		if (days == 0)
+				//		{
+				//			for (int i = 0; i < 5; i++)
+				//			{
+				//				W_renwu2[i] = W_renwu1[i];
+				//			}
+				//			W_time2 = W_time1;
+				//		}
+
+				//		days--;
+				//		const char* addday = GetTime(days);
+				//		W_time1 = addday;
+				//		boost::thread thServer(getsting, addday);
+				//	}
+
+				//}
+				//ImGui::SameLine();
+
+				if (ImGui::SmallButton(u8"明天"))
+				{
+					if (wancheng)
+					{
+						if (days == 0)
+						{
+							for (int i = 0; i < 5; i++)
+							{
+								W_renwu2[i] = W_renwu1[i];
+							}
+							W_time2 = W_time1;
+						}
+						
+						days++;
+						const char* addday = GetTime(days);
+						W_time1 = addday;
+						boost::thread thServer(getsting, addday);
+					}
+
+				}
+				ImGui::SameLine();
+				if (ImGui::SmallButton(u8"复制"))
+				{
+					std::string arrc1 = u8" 的网页任务: ";
+					std::string arrc12 = W_time1;
+					std::string arrc2 = u8"来自\"gw2sy.top\"神油boss提示器";
+					std::string arrc3 = u8"--";
+					std::string r1 = u8"任务一:";
+					std::string r2 = u8"任务二:";
+					std::string r3 = u8"任务三:";
+					std::string r4 = u8"任务四:";
+					std::string r5 = u8"任务五:";
+					std::string r6 = "\r\n";
+					if (W_renwu1[0] != "0")
+					{
+						W_arrc = (arrc12 + arrc1 + r6 + r1 + W_renwu1[0] + r6 + r2 + W_renwu1[1] + r6 + r3 + W_renwu1[2] + r6 + r4 + W_renwu1[3] + r6 + r5 + W_renwu1[4] + r6 + arrc2).c_str();
+						ImGui::SetClipboardText(W_arrc);
+					}
+					else
+					{
+						ImGui::SetClipboardText("");
+					}
+				}
+				//if (node_open)
+				{
+					if (wancheng)
+					{
+						if (W_renwu1[0] != "0")
+						{
+							for (int i = 0; i < 5; i++)
+							{
+								ImGui::Text((" " + W_renwu1[i]).c_str());
+							}
+							//ImGui::TreePop();
+						}
+						else
+						{
+							ImGui::Text(u8"未获取到信息请等待官网更新活动");
+							//ImGui::TreePop();
+						}
+					}
+					else
+					{
+						ImGui::Text(u8"正在获取中请耐心等候");
+						//ImGui::TreePop();
+					}
+				}
+
+			}
+			ImGui::PopStyleColor(3);
+
+			ImGui::End();
+		}
+		if (!isbtn && !isbts)
+		{
+			tesss = 0;
+			if (MiscTab::i()->getweb())
+			{
+				time_t time_seconds = time(0);
+				tm now_time;
+				localtime_s(&now_time, &time_seconds);
+
+				//if (MiscTab::i()->getweb())
+				//{
+				//	if (geting)
+				//	{
+				//		W_time1 = GetTime(0);
+				//		boost::thread thServer(getsting, W_time1);
+				//	}
+				//}
+				if (wancheng)
+				{
+					if (days != 0)
+					{
+						days = 0;
+						W_time1 = W_time2;
+						for (int i = 0; i < 5; i++)
+						{
+							W_renwu1[i] = W_renwu2[i];
+						}
+					}
+					if (!ghen && now_time.tm_hour == 0 && now_time.tm_min == 0)
+					{
+						ghen = true;
+						const char* adddayend = GetTime(0);
+						if (W_time1 != adddayend)
+						{
+							W_time1 = adddayend;
+							boost::thread thServer(getsting, adddayend);
+						}
+					}
+				}
+			}
+		}
+	}
+
+	void BossTime::SHOWNEWUI_BUTTONS()
+	{
+		Clipboardtmp = "";
+
+		if (BSPX1[NEWBOSSJISU] != 0 )
+		{
+			int h = 0, s = 0;
+			for (int i = 0; i < 96; i++)
+			{
+				if (i == NEWBOSSJISU)
+				{
+					Clipboardtmp += SHOWNEWUI_BUTTONS_TYPE(BSPX1[NEWBOSSJISU], 0, h, s);
+					break;
+				}
+				if (s < 60) s = s + 15;
+				if (s == 60) h++, s = 0;
+				if (h == 24)	  h = 0;
+			}
+		}
+		
+		if (BSPX2[NEWBOSSJISU] != 0)
+		{
+			int h = 0, s = 0;
+			for (int i = 0; i < 96; i++)
+			{
+				if (BSPX2[i] == 14 || BSPX2[i] == 15 || BSPX2[i] == 16)
+				{
+					s = 20;
+				}
+				if (i == NEWBOSSJISU)
+				{
+					Clipboardtmp += SHOWNEWUI_BUTTONS_TYPE(BSPX2[NEWBOSSJISU], 0, h, s);
+				}
+				if (s == 20) s = s - 5;
+				if (s < 60)  s = s + 15;
+				if (s == 60) h++, s = 0;
+				if (h == 24)	  h = 0;
+			}
+		}
+		if (BSPX3[NEWBOSSJISU] != 0)
+		{
+			int h = 0, s = 0;
+			for (int i = 0; i < 96; i++)
+			{
+				if (BSPX3[i] == 17)
+				{
+					s = 10;
+				}
+				if (BSPX3[i] == 21)
+				{
+					s = 40;
+				}
+				if (i == NEWBOSSJISU)
+				{
+					Clipboardtmp += SHOWNEWUI_BUTTONS_TYPE(BSPX3[NEWBOSSJISU], 1, h, s);
+				}
+				if (s == 10) s = s - 10;
+				if (s == 40) s = s + 5;
+				if (s < 60) s = s + 15;
+				if (s == 60) h++, s = 0;
+				if (h == 24)	  h = 0;
+			}
+			
+		}
+		if (BSPX4[NEWBOSSJISU] != 0)
+		{
+			int h = 0, s = 0;
+			for (int i = 0; i < 96; i++)
+			{
+				if (i == NEWBOSSJISU)
+				{
+					Clipboardtmp += SHOWNEWUI_BUTTONS_TYPE(BSPX4[NEWBOSSJISU], 1, h, s);
+				}
+				if (s < 60)  s = s + 15;
+				if (s == 60) h++, s = 0;
+				if (h == 24)	  h = 0;
+			}
+			
+		}
+		if (BSPX5x[NEWBOSSJISU] != 0)
+		{
+			int h = 0, s = 0;
+			for (int i = 0; i < 96; i++)
+			{
+				if (BSPX5[i] == 25)
+				{
+					s = 5;
+				}
+				//if (BSPX5[i] == 29)
+				//{
+				//	s = 0;
+				//}
+				if (i == NEWBOSSJISU)
+				{
+					Clipboardtmp += SHOWNEWUI_BUTTONS_TYPE(BSPX5x[NEWBOSSJISU], 2, h, s);
+				}
+				if (s == 5)  s = s - 5;
+				/*if (BSPX5[i] == 29)s = s + 15;*/
+				if (s < 60)  s = s + 15;
+				if (s == 60) h++, s = 0;
+				if (h == 24)	  h = 0;
+			}
+			
+		}
+		if (BSPX51[NEWBOSSJISU] != 0)
+		{
+			int h = 0, s = 0;
+			for (int i = 0; i < 96; i++) 
+			{
+				if (i == NEWBOSSJISU)
+				{
+					Clipboardtmp += SHOWNEWUI_BUTTONS_TYPE(BSPX51[NEWBOSSJISU], 2, h, s);
+				}
+				if (s < 60)  s = s + 15;
+				if (s == 60) h++, s = 0;
+				if (h == 24)	  h = 0;
+			}
+
+		}
+
+		if (BSPX6[NEWBOSSJISU] != 0)
+		{
+			int h = 0, s = 0;
+			for (int i = 0; i < 96; i++)
+			{
+				if (i == NEWBOSSJISU)
+				{
+					Clipboardtmp += SHOWNEWUI_BUTTONS_TYPE(BSPX6[NEWBOSSJISU], 2, h, s);
+				}
+				if (s < 60)  s = s + 15;
+				if (s == 60) h++, s = 0;
+				if (h == 24)	  h = 0;
+			}
+			
+		}
+		if (BSPX7[NEWBOSSJISU] != 0)
+		{
+			int h = 0, s = 0;
+			for (int i = 0; i < 96; i++)
+			{
+				if (BSPX7[i] == 37)s = 10;//10
+				if (BSPX7[i] == 38)s = 38;//38
+				if (BSPX7[i] == 39)s = 5;//05
+				if (BSPX7[i] == 40)s = 39;//39
+				if (i == NEWBOSSJISU)
+				{
+					Clipboardtmp += SHOWNEWUI_BUTTONS_TYPE(BSPX7[NEWBOSSJISU], 3, h, s);
+				}
+				if (s == 10)s = s - 10;
+				if (s == 38)s = s - 8;
+				if (s == 5)s = s - 5;
+				if (s == 39)s = s - 9;
+				if (s < 60)  s = s + 15;
+				if (s == 60) h++, s = 0;
+				if (h == 24)	  h = 0;
+			}
+			
+		}
+		if (BSPX8[NEWBOSSJISU] != 0)
+		{
+			int h = 0, s = 0;
+			for (int i = 0; i < 96; i++)
+			{
+				if (BSPX8[i] == 41)
+				{
+					s = 5;
+				}
+				if (i == NEWBOSSJISU)
+				{
+					Clipboardtmp += SHOWNEWUI_BUTTONS_TYPE(BSPX8[NEWBOSSJISU], 3, h, s);
+				}
+				if (s == 5) s = s - 5;
+				if (s < 60)  s = s + 15;
+				if (s == 60) h++, s = 0;
+				if (h == 24)	  h = 0;
+			}
+			
+		}
+	}
+
+	void BossTime::SHOWNEWUI(bool& showit) 
+	{
+		if (showit)
+		{
+			ImGui::SetNextWindowBgAlpha(touming_);
+			ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize,0);
+			ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(4, 4));
+			ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(2, 1));
+			if (gwps())
+			{
+				ImGui::SetNextWindowPos(ImVec2(sPOSX(), sPOSY()));
+			}
+			ImGui::Begin(u8"新ui", &showit,ImGuiWindowFlags_AlwaysAutoResize|ImGuiWindowFlags_NoTitleBar);
+			float bosx = ImGui::GetWindowPos().x;
+			float bosy = ImGui::GetWindowPos().y;
+			ImGui::SetWindowFontScale(daxiao_);
+			isbts = ImGui::IsMouseHoveringWindow();
+			ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0.0f, 0.0f, 0.0f, 0.0f));
+			ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0.0f, 0.0f, 0.0f, 0.2f));
+			ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(0.0f, 0.0f, 0.0f, 0.4f));
+
+			if (ImGui::ImageButton(Texture_3, { 32 * daxiao_,32 * daxiao_ }))
+			{
+				ImGui::CloseCurrentPopup();
+				if (NEWBOSSJISU > 0)
+				{
+					NEWBOSSJISU--;
+				}
+				else
+				{
+					if (NEWBOSSJISU == 0)
+					{
+						NEWBOSSJISU = 95;
+					}
+				}
+			}
+			if (ImGui::IsItemDeactivated())
+			{
+				tesss = 1;
+			}
+			ImGui::SameLine(0.0f);
+
+			if (ImGui::ImageButton(Texture_2, { 32 * daxiao_,32 * daxiao_ }))
+			{
+				std::string arrc3 = u8" 来自\"gw2sy.top\"神油boss提示器";
+				ImGui::SetClipboardText((Clipboardtmp + arrc3).c_str());
+			}
+			if (ImGui::IsItemHovered())
+			{
+				tesss = 2;
+				ImGui::BeginTooltip();
+				ImGui::TextUnformatted(u8"右键本按钮可以锁定窗口位置\r\n点击可复制当前所有boss");
+				ImGui::EndTooltip();
+			}
+			if (ImGui::BeginPopupContextItem())
+			{
+				ImGuiConfigurationWrapper(&ImGui::Checkbox, gudingwinpos_);
+				if (gudingwinpos_.value())
+				{
+					sPOSX(bosx);
+					sPOSY(bosy);
+				}
+				ImGui::EndPopup();
+			}
+			ImGui::SameLine(0.0f);
+
+			if (ImGui::ImageButton(Texture_1, { 32 * daxiao_,32 * daxiao_ }))
+			{
+				ImGui::CloseCurrentPopup();
+				if (NEWBOSSJISU < 95)
+				{
+					NEWBOSSJISU++;
+				}
+				else
+				{
+					if (NEWBOSSJISU == 95)
+					{
+						NEWBOSSJISU = 0;
+					}
+				}
+			}
+
+			if (ImGui::IsItemDeactivated())
+			{
+				tesss = 3;
+			}
+			ImGui::PopStyleColor(3);
+			ImGui::PopStyleVar(3);
+			windospost_y = ImGui::GetWindowPos().y;
+			toolwindospost = { ImGui::GetWindowPos().x , ImGui::GetWindowPos().y + ImGui::GetWindowSize().y };
+			TOOLSVIM(showit);
+			ImGui::End();
+		}
+	}
+#pragma endregion 新UI
+
+	void BossTime::Button_showit(int bosspaixuid, int showsidh, int showsidL, int h, int s)
 	{
 		char num_buf[32];
 		char str3[32];
@@ -311,22 +890,28 @@ namespace GW2Radial
 				std::string arrc3 = u8" 来自\"gw2sy.top\"神油boss提示器";
 				ImGui::SetClipboardText((arrc1 + arrc2 + arrc3).c_str());
 			}
-		} 
+		}
 		if (ImGui::IsItemHovered())
 		{
 			ImGui::BeginTooltip();
-			ImGui::TextUnformatted(u8"\r\n=======点击即可复制到剪切板=======\r\n\n");
+			ImGui::TextUnformatted(u8"点击即可复制到剪切板");
 			ImGui::EndTooltip();
 		}
 	}
 
 	bool BossTime::_DoUI(bool &ison)
 	{
-		if (ison)
+		daxiao_ = MiscTab::i()->jiemiandaxiao();
+		daxiao2_ = MiscTab::i()->zitidaxiao() / 15.0f;
+		touming_ = MiscTab::i()->zhengtitoumingdu();
+		if (ison && MiscTab::i()->newmod())
 		{
-			daxiao_ = MiscTab::i()->jiemiandaxiao();
-			daxiao2_ = MiscTab::i()->zitidaxiao()/15.0f;
-			touming_ = MiscTab::i()->zhengtitoumingdu();
+			SHOWNEWUI(ison);
+		}
+		
+		if (ison && !MiscTab::i()->newmod())
+		{
+
 			ImGui::SetNextWindowBgAlpha(touming_);
 			if (gwps())
 			{
@@ -753,7 +1338,7 @@ namespace GW2Radial
 							ImGui::TreePop();
 						}
 					}
-					
+
 				}
 			}
 			else
