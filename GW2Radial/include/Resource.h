@@ -8,6 +8,14 @@
 #define IDR_NOW			203
 #define IDR_LAST		204
 
+#define IDR_ADD			251
+#define IDR_CANCEL		252
+#define IDR_CLOSE		253
+#define IDR_EDIT		254
+#define IDR_RECOVERY	255
+#define IDR_REMOVE		256
+#define IDR_DELETE		257
+
 #define IDR_MOUNTS		211
 #define IDR_MOUNT1		211
 #define IDR_MOUNT2		212

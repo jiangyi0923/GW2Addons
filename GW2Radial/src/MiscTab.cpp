@@ -33,6 +33,8 @@ namespace GW2Radial
 		dej_(u8"荆棘之心", "dej_", "shubiao", true),
 		hof_(u8"烈焰征途", "hof_", "shubiao", true),
 		bcj_(u8"冰巢传说", "bcj_", "shubiao", true),
+		daytodo_(u8"开启每天必做", "daytodo_open", "shubiao", true),
+		daytodo_heid_(u8"隐藏完成项", "daytodo_heid", "shubiao", false),
 		newmod_(u8"新版UI", "newmod_", "shubiao", true)
 	{
 		inputChangeCallback_ = [this](bool changed, const std::set<uint>& keys, const std::list<EventKey>& changedKeys) { return OnInputChange(changed, keys, changedKeys); };
@@ -110,6 +112,12 @@ namespace GW2Radial
 		}
 		ImGui::Text(u8"输出循环提示器启用设置:");
 		ImGuiConfigurationWrapper(&ImGui::Checkbox, uselooptool_);
+		ImGui::Text(u8"每天必做启用设置:");
+		ImGuiConfigurationWrapper(&ImGui::Checkbox, daytodo_);
+		if (daytodo_.value())
+		{
+			ImGuiConfigurationWrapper(&ImGui::Checkbox, daytodo_heid_);
+		}
 		ImGui::Text(u8"快捷键设置:");
 		setkeys(SHOWBOSSTIMER_CK_);
 		setkeys(SHOWMOUSELOOP_CK_);

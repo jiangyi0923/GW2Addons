@@ -26,6 +26,8 @@ namespace GW2Radial
 		void TOOLSVIM(bool& showtoolwind);
 		void SHOWNEWUI_BUTTONS();
 		void SHOWNEWUI(bool& showit);
+		void readalldo_W();
+		void readalldo();
 		bool _DoUI(bool& ison);
 
 	protected:
@@ -44,6 +46,14 @@ namespace GW2Radial
 		const char* BossName(int xuhao);
 		const char* BossPost(int xuhao);
 
+		void savealldo();
+
+		void DELsonedo(int intmp_);
+
+		void ADDsonedo(std::string intmp_);
+
+		void DayToDo();
+
 		void Button_showit(int bosspaixuid, int showsidh, int showsidL, int h, int s);
 
 
@@ -58,6 +68,14 @@ namespace GW2Radial
 		IDirect3DTexture9* Texture_1 = nullptr;
 		IDirect3DTexture9* Texture_2 = nullptr;
 		IDirect3DTexture9* Texture_3 = nullptr;
+
+		IDirect3DTexture9* Texture_add = nullptr;
+		IDirect3DTexture9* Texture_cancel = nullptr;
+		IDirect3DTexture9* Texture_close = nullptr;
+		IDirect3DTexture9* Texture_edit = nullptr;
+		IDirect3DTexture9* Texture_recovery = nullptr;
+		IDirect3DTexture9* Texture_remove = nullptr;
+		IDirect3DTexture9* Texture_delete = nullptr;
 
 
 		ConfigurationOption<bool> gudingwinpos_;

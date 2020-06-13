@@ -64,7 +64,9 @@ public:
 	bool bcj() const { return bcj_.value(); }
 
 	bool newmod() const { return newmod_.value(); }
-
+	bool day_to_do() const { return daytodo_.value(); }
+	bool day_to_do_heid() const { return daytodo_heid_.value(); }
+	
 
 	const Keybind& SHOWBOSSTIMER_CK() const { return SHOWBOSSTIMER_CK_; }
 	const Keybind& SHOWMOUSELOOP_CK() const { return SHOWMOUSELOOP_CK_; }
@@ -103,7 +105,8 @@ protected:
 	ConfigurationOption<bool> bcj_;
 
 	ConfigurationOption<bool> newmod_;
-
+	ConfigurationOption<bool> daytodo_;
+	ConfigurationOption<bool> daytodo_heid_;
 	int bossleixinjisu = 0;
 
 	//…Ë÷√∞¥º¸

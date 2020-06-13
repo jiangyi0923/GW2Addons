@@ -133,6 +133,15 @@ namespace GW2Radial
 		Texture_1 = CreateTextureFromResource(Core::i()->getdevice(), Core::i()->dllModule(), IDR_NEXT);
 		Texture_2 = CreateTextureFromResource(Core::i()->getdevice(), Core::i()->dllModule(), IDR_NOW);
 		Texture_3 = CreateTextureFromResource(Core::i()->getdevice(), Core::i()->dllModule(), IDR_LAST);
+
+		Texture_add		 = CreateTextureFromResource(Core::i()->getdevice(), Core::i()->dllModule(), IDR_ADD);
+		Texture_cancel	 = CreateTextureFromResource(Core::i()->getdevice(), Core::i()->dllModule(), IDR_CANCEL);
+		Texture_close	 = CreateTextureFromResource(Core::i()->getdevice(), Core::i()->dllModule(), IDR_CLOSE);
+		Texture_edit	 = CreateTextureFromResource(Core::i()->getdevice(), Core::i()->dllModule(), IDR_EDIT);
+		Texture_recovery = CreateTextureFromResource(Core::i()->getdevice(), Core::i()->dllModule(), IDR_RECOVERY);
+		Texture_remove	 = CreateTextureFromResource(Core::i()->getdevice(), Core::i()->dllModule(), IDR_REMOVE);
+		Texture_delete	 = CreateTextureFromResource(Core::i()->getdevice(), Core::i()->dllModule(), IDR_DELETE);
+
 		inputChangeCallbackweb_ = [this](bool changed, const std::set<uint>& keys, const std::list<EventKey>& changedKeys) { return OnInputChangeweb(changed, keys, changedKeys); };
 		Input::i()->AddInputChangeCallback(&inputChangeCallbackweb_);
 	}
@@ -141,6 +150,15 @@ namespace GW2Radial
 		COM_RELEASE(Texture_1);
 		COM_RELEASE(Texture_2);
 		COM_RELEASE(Texture_3);
+
+		COM_RELEASE(Texture_add);
+		COM_RELEASE(Texture_cancel);
+		COM_RELEASE(Texture_close);
+		COM_RELEASE(Texture_edit);
+		COM_RELEASE(Texture_recovery);
+		COM_RELEASE(Texture_remove);
+		COM_RELEASE(Texture_delete);
+
 		if (auto i = Input::iNoInit(); i)
 		{
 			i->RemoveInputChangeCallback(&inputChangeCallbackweb_);
@@ -322,6 +340,18 @@ namespace GW2Radial
 	float windospost_y = 0;
 	float toolwindossize_y = 0;
 
+
+	///
+
+	bool showdaydo = true;
+	int dossizes = 0;
+	bool* alldobl;
+	std::vector<std::string> alldost;
+	std::string alldotmp;
+	bool iswantadd = false;
+	std::array<char, 256> intmp;
+	///
+
 	std::string BossTime::SHOWNEWUI_BUTTONS_TYPE(int bosspaixuid, int show_TYPE, int h, int s)
 	{
 		std::string tmp_out = "";
@@ -448,7 +478,14 @@ namespace GW2Radial
 			{
 				showtoolwind = false;
 			}
-
+			if (MiscTab::i()->day_to_do() && !showdaydo)
+			{
+				ImGui::SameLine(ImGui::CalcTextSize(u8"移开鼠标复原").x +10+ ImGui::CalcTextSize(u8"打开每天必做").x);
+				if (ImGui::SmallButton(u8"打开每天必做##dayui"))
+				{
+					showdaydo = true;
+				}
+			}
 			if (MiscTab::i()->getweb())
 			{
 
@@ -794,6 +831,7 @@ namespace GW2Radial
 			ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0.0f, 0.0f, 0.0f, 0.2f));
 			ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(0.0f, 0.0f, 0.0f, 0.4f));
 
+
 			if (ImGui::ImageButton(Texture_3, { 32 * daxiao_,32 * daxiao_ }))
 			{
 				ImGui::CloseCurrentPopup();
@@ -869,6 +907,387 @@ namespace GW2Radial
 	}
 #pragma endregion 新UI
 
+#pragma region 每日必做
+
+
+
+	void BossTime::readalldo_W()
+	{
+		auto cfg = ConfigurationFile::i();
+		alldotmp = cfg->ini().GetValue("shubiao", "alltodo_");
+		std::string beginFlag = u8"|";
+		int startPos = 0;
+		int endPos = 1;
+		int beginPos = 0;
+		int endingpos = 0;
+		startPos = (int)alldotmp.find(beginFlag, startPos);
+		endPos = (int)alldotmp.find(beginFlag, endPos);
+		beginPos = startPos + (int)beginFlag.length();
+		endingpos = endPos - startPos - (int)beginFlag.length();
+		dossizes = std::stoi(alldotmp.substr(beginPos, endingpos));
+		alldobl = new bool[dossizes];
+		startPos++;
+		endPos++;
+		alldost.clear();
+		for (int i = 0; i < dossizes; i++)
+		{
+			startPos = (int)alldotmp.find(beginFlag, startPos);
+			endPos = (int)alldotmp.find(beginFlag, endPos);
+			beginPos = startPos + (int)beginFlag.length();
+			endingpos = endPos - startPos - (int)beginFlag.length();
+			alldost.push_back(alldotmp.substr(beginPos, endingpos).c_str());
+			startPos++;
+			endPos++;
+		}
+		startPos = 0;
+		endPos = 1;
+		beginPos = 0;
+		endingpos = 0;
+		alldotmp.clear();
+		alldotmp = cfg->ini().GetValue("shubiao", "alltodo_BL");
+		for (int i = 0; i < dossizes; i++)
+		{
+			startPos = (int)alldotmp.find(beginFlag, startPos);
+			endPos = (int)alldotmp.find(beginFlag, endPos);
+			beginPos = startPos + (int)beginFlag.length();
+			endingpos = endPos - startPos - (int)beginFlag.length();
+			if (alldotmp.substr(beginPos, endingpos).find("B"))
+			{
+				alldobl[i] = false;
+			}
+			else
+			{
+				alldobl[i] = true;
+			}
+			startPos++;
+			endPos++;
+		}
+	}
+
+	void BossTime::readalldo()
+	{
+		auto cfg = ConfigurationFile::i();
+		if (dossizes == 0)
+		{
+			alldotmp = cfg->ini().GetValue("shubiao", "alltodo_", u8"|13|网页日常|日常碎层|家园采集|公会采集|日常制作|龙母|跑男|四门|虫王|分身|双狗|赌场|地虫|");
+		}
+		if (cfg->ini().GetBoolValue("shubiao", "alltodo_oot", true) && (int)alldotmp.find(u8"|13|网页日常|日常碎层|家园采集|公会采集|日常制作|龙母|跑男|四门|虫王|分身|双狗|赌场|地虫|", 0) == 0 && dossizes == 0)
+		{
+			cfg->ini().SetValue("shubiao", "alltodo_", alldotmp.c_str());
+			std::string alldotmp_2 = "|";
+			for (int i = 0; i < 13; i++)
+			{
+				alldotmp_2 += "A|";
+			}
+			cfg->ini().SetValue("shubiao", "alltodo_BL", alldotmp_2.c_str());
+			cfg->ini().SetBoolValue("shubiao", "alltodo_oot", false);
+			cfg->Save();
+			readalldo_W();
+		}
+		else
+		{
+			if (dossizes == 0)
+			{
+				readalldo_W();
+			}
+		}
+	}
+
+	void BossTime::savealldo()
+	{
+		auto cfg = ConfigurationFile::i();
+		std::string alldotmp_2 = "|";
+		for (int i = 0; i < dossizes; i++)
+		{
+
+			if (alldobl[i])
+			{
+				alldotmp_2 += "B|";
+			}
+			else
+			{
+				alldotmp_2 += "A|";
+			}
+		}
+		cfg->ini().SetValue("shubiao", "alltodo_BL", alldotmp_2.c_str());
+		cfg->Save();
+
+	}
+
+	void BossTime::DELsonedo(int intmp_)
+	{
+		auto cfg = ConfigurationFile::i();
+		std::string tmp = "|" + std::to_string(dossizes - 1) + "|";
+		for (int i = 0; i < dossizes; i++)
+		{
+			if (i != intmp_)
+			{
+				tmp += (alldost[i] + "|").c_str();
+			}
+		}
+		cfg->ini().SetValue("shubiao", "alltodo_", tmp.c_str());
+		cfg->Save();
+		dossizes = 0;
+	}
+	void BossTime::ADDsonedo(std::string intmp_)
+	{
+		if (intmp_ == "")
+		{
+			return;
+		}
+		if (intmp_.find("|",0) != intmp_.npos)
+		{
+			return;
+		}
+		auto cfg = ConfigurationFile::i();
+		std::string tmp = cfg->ini().GetValue("shubiao", "alltodo_");
+		if ((int)tmp.find(intmp_.c_str(), 0) > 0)
+		{
+			return;
+		}
+		tmp.clear();
+		tmp += "|";
+		tmp += std::to_string(dossizes + 1);
+		tmp += "|";
+		for (int i = 0; i < dossizes; i++)
+		{
+			tmp += (alldost[i] + "|").c_str();
+		}
+		tmp += (intmp_ + "|").c_str();
+		cfg->ini().SetValue("shubiao", "alltodo_", tmp.c_str());
+		cfg->Save();
+		dossizes = 0;
+		//readalldo();
+	}
+	bool editmod = false;
+	void BossTime::DayToDo()
+	{
+		if (MiscTab::i()->day_to_do()&&showdaydo)
+		{
+			readalldo();
+
+			ImGui::SetNextWindowBgAlpha(touming_);
+
+			ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0);
+			ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(4, 4));
+			ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(2, 1));
+
+			ImGui::PushStyleColor(ImGuiCol_TitleBgActive, (ImVec4)ImColor::HSV(0.0f, 0.0f, 0.0f, touming_));
+			ImGui::PushStyleColor(ImGuiCol_TitleBg, (ImVec4)ImColor::HSV(0.0f, 0.0f, 0.0f, touming_));
+			ImGui::PushStyleColor(ImGuiCol_TitleBgCollapsed, (ImVec4)ImColor::HSV(0.0f, 0.0f, 0.0f, touming_));
+
+			//ImGui::Begin("daytodos", &showdaydo, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_AlwaysAutoResize);
+			ImGui::Begin(u8"每日必做", NULL,  ImGuiWindowFlags_AlwaysAutoResize);
+			ImGui::SetWindowFontScale(daxiao_);
+
+			ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0.0f, 0.0f, 0.0f, 0.0f));
+			ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0.0f, 0.0f, 0.0f, 0.2f));
+			ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(0.0f, 0.0f, 0.0f, 0.4f));
+
+			ImGui::PushStyleColor(ImGuiCol_FrameBg, (ImVec4)ImColor::HSV(1.0f, 1.0f, 0.0f, 0.3f));
+			ImGui::PushStyleColor(ImGuiCol_FrameBgActive, (ImVec4)ImColor::HSV(1.0f, 0.0f, 1.0f, 0.5f));
+			ImGui::PushStyleColor(ImGuiCol_FrameBgHovered, (ImVec4)ImColor::HSV(1.0f, 0.0f, 1.0f, 0.7f));
+
+			ImGui::PushStyleColor(ImGuiCol_CheckMark, (ImVec4)ImColor::HSV(1.0f, 0.0f, 1.0f, 6.0f));
+			
+			for (int i = 0; i < dossizes; i++)
+			{
+				if ( MiscTab::i()->day_to_do_heid()&&!alldobl[i])
+				{
+					if (editmod)
+					{
+						ImGui::ImageButton(Texture_delete, { 12 * daxiao_,12 * daxiao_ });
+						if (ImGui::IsItemClicked())
+						{
+							DELsonedo(i);
+						}
+						if (ImGui::IsItemHovered())
+						{
+							ImGui::BeginTooltip();
+							ImGui::TextUnformatted(u8"删除此项");
+							ImGui::EndTooltip();
+						}
+						ImGui::SameLine();
+					}
+					if (ImGui::Checkbox(alldost[i].c_str(), &alldobl[i]))
+					{
+						savealldo();
+					}
+				}
+				else
+				{
+					if (!MiscTab::i()->day_to_do_heid())
+					{
+						if (editmod)
+						{
+							ImGui::ImageButton(Texture_delete, { 12 * daxiao_,12 * daxiao_ });
+							if (ImGui::IsItemClicked())
+							{
+								DELsonedo(i);
+							}
+							if (ImGui::IsItemHovered())
+							{
+								ImGui::BeginTooltip();
+								ImGui::TextUnformatted(u8"删除此项");
+								ImGui::EndTooltip();
+							}
+							ImGui::SameLine();
+						}
+						if (ImGui::Checkbox(alldost[i].c_str(), &alldobl[i]))
+						{
+							savealldo();
+						}
+					}
+
+				}
+			}
+			
+			if (editmod)
+			{
+				if (!iswantadd) {
+					if (ImGui::ImageButton(Texture_add, { 12 * daxiao_,12 * daxiao_ }))
+					//if (ImGui::SmallButton("+##DayToDoADD")) 
+					{
+						intmp.fill(NULL);
+						iswantadd = true;
+					}
+					if (ImGui::IsItemHovered())
+					{
+						ImGui::BeginTooltip();
+						ImGui::TextUnformatted(u8"添加项目");
+						ImGui::EndTooltip();
+					}
+				}
+
+				if (iswantadd) {
+					ImGui::InputText("##addtodo", intmp.data(), intmp.size()); ImGui::SameLine();
+
+					if (ImGui::ImageButton(Texture_add, { 12 * daxiao_,12 * daxiao_ }))
+					//if (ImGui::SmallButton("+##toadd"))
+					{
+						ADDsonedo(intmp.data());
+						iswantadd = false;
+					}
+					if (ImGui::IsItemHovered())
+					{
+						ImGui::BeginTooltip();
+						ImGui::TextUnformatted(u8"添加");
+						ImGui::EndTooltip();
+					}
+					ImGui::SameLine();
+					if (ImGui::ImageButton(Texture_cancel, { 12 * daxiao_,12 * daxiao_ }))
+					//if (ImGui::SmallButton("x##notoadd")) 
+					{
+						iswantadd = false;
+					}
+					if (ImGui::IsItemHovered())
+					{
+						ImGui::BeginTooltip();
+						ImGui::TextUnformatted(u8"取消");
+						ImGui::EndTooltip();
+					}
+					ImGui::Text(u8"请注意!不要输入\"|\"! ");
+				}
+				if (!iswantadd)
+				{
+					ImGui::SameLine();
+					if (ImGui::ImageButton(Texture_remove, { 12 * daxiao_,12 * daxiao_ }))
+					//if (ImGui::SmallButton("C##reld"))
+					{
+						for (int i = 0; i < dossizes; i++)
+						{
+							alldobl[i] = false;
+						}
+						savealldo();
+					}
+					if (ImGui::IsItemHovered())
+					{
+						ImGui::BeginTooltip();
+						ImGui::TextUnformatted(u8"清除所有项目勾选");
+						ImGui::EndTooltip();
+					}
+					ImGui::SameLine();
+					if (ImGui::ImageButton(Texture_recovery, { 12 * daxiao_,12 * daxiao_ }))
+					//if (ImGui::SmallButton("R##reld"))
+					{
+						auto cfg = ConfigurationFile::i();
+						cfg->ini().SetValue("shubiao", "alltodo_", u8"|13|网页日常|日常碎层|家园采集|公会采集|日常制作|龙母|跑男|四门|虫王|分身|双狗|赌场|地虫|");
+						std::string alldotmp_2 = "|";
+						for (int i = 0; i < 13; i++)
+						{
+							alldotmp_2 += "A|";
+						}
+						cfg->ini().SetValue("shubiao", "alltodo_BL", alldotmp_2.c_str());
+						cfg->Save();
+						readalldo_W();
+					}
+					if (ImGui::IsItemHovered())
+					{
+						ImGui::BeginTooltip();
+						ImGui::TextUnformatted(u8"初始到原始项目");
+						ImGui::EndTooltip();
+					}
+
+				}
+			}
+			else
+			{
+				if (ImGui::ImageButton(Texture_edit, { 12 * daxiao_,12 * daxiao_ }))
+				//if (ImGui::SmallButton(u8"编辑##editmod"))
+				{
+					editmod = true;
+				}
+				if (ImGui::IsItemHovered())
+				{
+					ImGui::BeginTooltip();
+					ImGui::TextUnformatted(u8"编辑");
+					ImGui::EndTooltip();
+				}
+			}
+
+			if (!iswantadd)
+			{
+				if (editmod)
+				{
+					ImGui::SameLine();
+					if (ImGui::ImageButton(Texture_cancel, { 12 * daxiao_,12 * daxiao_ }))
+					//if (ImGui::SmallButton(u8"取消##editmod"))
+					{
+						editmod = false;
+					}
+					if (ImGui::IsItemHovered())
+					{
+						ImGui::BeginTooltip();
+						ImGui::TextUnformatted(u8"取消");
+						ImGui::EndTooltip();
+					}
+				}
+
+				ImGui::SameLine();
+				if (ImGui::ImageButton(Texture_close, { 12 * daxiao_,12 * daxiao_ }))
+				//if (ImGui::SmallButton(u8"关##cldaydo"))
+				{
+					showdaydo = false;
+				}
+				if (ImGui::IsItemHovered())
+				{
+					ImGui::BeginTooltip();
+					ImGui::TextUnformatted(u8"关闭");
+					ImGui::EndTooltip();
+				}
+			}
+
+			ImGui::PopStyleColor(10);
+			ImGui::PopStyleVar(3);
+			ImGui::End();
+		}
+		
+		
+	}
+
+
+#pragma endregion 每日必做
+
 	void BossTime::Button_showit(int bosspaixuid, int showsidh, int showsidL, int h, int s)
 	{
 		char num_buf[32];
@@ -908,7 +1327,12 @@ namespace GW2Radial
 		{
 			SHOWNEWUI(ison);
 		}
-		
+
+		if (MiscTab::i()->day_to_do())
+		{
+			DayToDo();
+		}
+
 		if (ison && !MiscTab::i()->newmod())
 		{
 
@@ -952,12 +1376,12 @@ namespace GW2Radial
 			ImGui::SetWindowFontScale(daxiao_);
 
 #pragma region BOSS排序显示
-			//scroll_x = ImGui::GetScrollX();
+
 			ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(scroll_x / 120.0f / daxiao_ * daxiao2_ * 0.01031f, 0.6f, 0.6f, touming_));
 			ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(scroll_x / 120.0f / daxiao_ * daxiao2_ * 0.01031f, 0.6f, 0.8f, touming_));
 			ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(scroll_x / 120.0f / daxiao_ * daxiao2_ * 0.01031f, 0.6f, 1.0f, touming_));
 
-			//if (MiscTab::i()->jianyimoshi())//要改
+			//boss排序主循环
 			{
 				for (int t = 0; t < 8; t++)
 				{
@@ -1239,7 +1663,7 @@ namespace GW2Radial
 			}
 			
 			float scroll_x_delta = 0.0f;
-			ImGui::IsItemHovered();
+
 			if (ImGui::GetIO().WantCaptureMouse == 1)
 			{
 				if (ImGui::SmallButton("<<<--------- "))scroll_x_delta = -360.0f * daxiao_ * daxiao2_; ImGui::SameLine();

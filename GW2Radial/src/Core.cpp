@@ -116,17 +116,10 @@ void Core::PostCreateDevice(IDirect3DDevice9 *device, D3DPRESENT_PARAMETERS *pre
 	auto &imio = ImGui::GetIO();
 	imio.IniFilename = nullptr;
 	imio.IniSavingRate = 1.0f;
+
 	auto fontCfg = ImFontConfig();
 	fontCfg.FontDataOwnedByAtlas = false;
 
-
-	//if(LoadFontResource(IDR_FONT_BLACK, fontBlackPtr, fontBlackSize))
-	//	fontBlack_ = imio.Fonts->AddFontFromMemoryTTF(fontBlackPtr, int(fontBlackSize), 35.f, &fontCfg);
-	//if(LoadFontResource(IDR_FONT_ITALIC, fontItalicPtr, fontItalicSize))
-	//	fontItalic_ = imio.Fonts->AddFontFromMemoryTTF(fontItalicPtr, int(fontItalicSize), 25.f, &fontCfg);
-
-	//if(font_)
-	//	imio.FontDefault = font_;
 	imio.Fonts->AddFontFromFileTTF(".\\addons\\arcdps\\arcdps_font.ttf", MiscTab::i()->zitidaxiao(), NULL, imio.Fonts->GetGlyphRangesChineseFull());
 
 	void* fontPtr;
@@ -136,20 +129,6 @@ void Core::PostCreateDevice(IDirect3DDevice9 *device, D3DPRESENT_PARAMETERS *pre
 	ImGui_ImplWin32_Init(gameWindow_);
 
 	firstMessageShown_ = std::make_unique<ConfigurationOption<bool>>("", "first_message_shown_v1", "Core", false);
-	//ignoreRTSS_ = std::make_unique<ConfigurationOption<bool>>("", "ignore_rtss", "Core", false);
-
-	//if(!ignoreRTSS_->value())
-	//{
-	//	const auto rtss = GetModuleHandleA("RTSSHooks64.dll");
-	//	if(rtss)
-	//	{
-	//		const auto retval = MessageBox(nullptr, TEXT("WARNING: RivaTuner Statistics Server has been detected! GW2Radial is incompatible with RTSS, anomalous behavior may occur. Are you sure you want to continue? Continuing will prevent this message from showing again."), TEXT("RTSS Detected"), MB_ICONWARNING | MB_YESNO);
-	//		if(retval == IDNO)
-	//			exit(1);
-	//		else if(retval == IDYES)
-	//			ignoreRTSS_->value(true);
-	//	}
-	//}
 
 	OnDeviceSet(device, presentationParameters);
 }
