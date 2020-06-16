@@ -224,34 +224,50 @@ namespace GW2Radial
 	{
 		wancheng = false;
 		std::string retVal;
-		std::string _a = "http://do.gw2.kongzhong.com/task/completes?date=";
+		std::string _a = "http://do.gw2.kongzhong.com/gw2task/completes?date=";
+
+		time_t time_seconds = time(0);
 		std::string _b = days;
-		std::string _tmp = _a + _b;
+		std::string _tmp = _a + _b + "&_=" + std::to_string(time_seconds);
+
 		DWORD response_length = 0;
 		LPCWSTR ul = stringToLPCWSTR(_tmp);
-		HINTERNET hSession = InternetOpen(L"RookIE/1.0", INTERNET_OPEN_TYPE_PRECONFIG, NULL, NULL, 0);
-		if (hSession != NULL)
+
+		try
 		{
-			HINTERNET handle2 = InternetOpenUrl(hSession, ul, NULL, 0, INTERNET_FLAG_RELOAD | INTERNET_FLAG_PRAGMA_NOCACHE | INTERNET_FLAG_NO_CACHE_WRITE, 0);
-			if (handle2 != NULL)
+			HINTERNET hSession = InternetOpen(ul, INTERNET_OPEN_TYPE_PRECONFIG, NULL, NULL, 0);
+			if (hSession != NULL)
 			{
-				char response_data[8000];//»º³åÇø
-				if (InternetReadFile(handle2, response_data, sizeof(response_data) - 1, &response_length) && response_length > 0)
+				HINTERNET handle2 = InternetOpenUrl(hSession, ul, NULL, 0, INTERNET_FLAG_RELOAD | INTERNET_FLAG_PRAGMA_NOCACHE | INTERNET_FLAG_NO_CACHE_WRITE, 0);
+				if (handle2 != NULL)
 				{
-					response_data[response_length] = '\0';
-					response_length++;
-				}
-				if (response_length>0)
-				{
-					response_data[response_length] = '\0';
+					char response_data[8000];//»º³åÇø
+					if (InternetReadFile(handle2, response_data, sizeof(response_data) - 1, &response_length) && response_length > 0)
+					{
+						response_data[response_length] = '\0';
+						response_length++;
+					}
+					if (response_length > 0)
+					{
+						response_data[response_length] = '\0';
+					}
+					else
+					{
+						response_data[0] = '\0';
+					}
+					retVal = response_data;
+					InternetCloseHandle(handle2);
+					handle2 = NULL;
 				}
 				else
 				{
-					response_data[0] = '\0';
+					result[0] = "0";
+					geting = false;
+					wancheng = true;
+					return result;
 				}
-				retVal = response_data;
-				InternetCloseHandle(handle2);
-				handle2 = NULL;
+				InternetCloseHandle(hSession);
+				hSession = NULL;
 			}
 			else
 			{
@@ -260,16 +276,14 @@ namespace GW2Radial
 				wancheng = true;
 				return result;
 			}
-			InternetCloseHandle(hSession);
-			hSession = NULL;
 		}
-		else
+		catch (...)
 		{
-			result[0] = "0";
-			geting = false;
-			wancheng = true;
-			return result;
+
 		}
+
+		
+		
 
 		//printf("%d",response_length);
 
@@ -422,7 +436,7 @@ namespace GW2Radial
 				time_t time_seconds = time(0);
 				tm now_time;
 				localtime_s(&now_time, &time_seconds);
-
+				
 				if (MiscTab::i()->getweb())
 				{
 					if (geting)
