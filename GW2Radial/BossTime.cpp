@@ -764,6 +764,22 @@ namespace GW2Radial
 
 		}
 
+		if (BSPX52[NEWBOSSJISU] != 0)
+		{
+			int h = 0, s = 0;
+			for (int i = 0; i < 96; i++)
+			{
+				if (i == NEWBOSSJISU)
+				{
+					Clipboardtmp += SHOWNEWUI_BUTTONS_TYPE(BSPX52[NEWBOSSJISU], 2, h, s);
+				}
+				if (s < 60)  s = s + 15;
+				if (s == 60) h++, s = 0;
+				if (h == 24)	  h = 0;
+			}
+
+		}
+
 		if (BSPX6[NEWBOSSJISU] != 0)
 		{
 			int h = 0, s = 0;
@@ -1221,26 +1237,6 @@ namespace GW2Radial
 						ImGui::EndTooltip();
 					}
 					ImGui::SameLine();
-					if (ImGui::ImageButton(Texture_recovery, { 12 * daxiao_,12 * daxiao_ }))
-					//if (ImGui::SmallButton("R##reld"))
-					{
-						auto cfg = ConfigurationFile::i();
-						cfg->ini().SetValue("shubiao", "alltodo_", u8"|13|网页日常|日常碎层|家园采集|公会采集|日常制作|龙母|跑男|四门|虫王|分身|双狗|赌场|地虫|");
-						std::string alldotmp_2 = "|";
-						for (int i = 0; i < 13; i++)
-						{
-							alldotmp_2 += "A|";
-						}
-						cfg->ini().SetValue("shubiao", "alltodo_BL", alldotmp_2.c_str());
-						cfg->Save();
-						readalldo_W();
-					}
-					if (ImGui::IsItemHovered())
-					{
-						ImGui::BeginTooltip();
-						ImGui::TextUnformatted(u8"初始到原始项目");
-						ImGui::EndTooltip();
-					}
 
 				}
 			}
@@ -1290,6 +1286,31 @@ namespace GW2Radial
 					ImGui::EndTooltip();
 				}
 			}
+
+			if (editmod&& !iswantadd)
+			{
+				if (ImGui::ImageButton(Texture_recovery, { 12 * daxiao_,12 * daxiao_ }))
+					//if (ImGui::SmallButton("R##reld"))
+				{
+					auto cfg = ConfigurationFile::i();
+					cfg->ini().SetValue("shubiao", "alltodo_", u8"|13|网页日常|日常碎层|家园采集|公会采集|日常制作|龙母|跑男|四门|虫王|分身|双狗|赌场|地虫|");
+					std::string alldotmp_2 = "|";
+					for (int i = 0; i < 13; i++)
+					{
+						alldotmp_2 += "A|";
+					}
+					cfg->ini().SetValue("shubiao", "alltodo_BL", alldotmp_2.c_str());
+					cfg->Save();
+					readalldo_W();
+				}
+				if (ImGui::IsItemHovered())
+				{
+					ImGui::BeginTooltip();
+					ImGui::TextUnformatted(u8"初始到原始项目");
+					ImGui::EndTooltip();
+				}
+			}
+
 
 			ImGui::PopStyleColor(10);
 			ImGui::PopStyleVar(3);
