@@ -23,9 +23,11 @@ namespace GW2Radial
 		float sPOSY() const { return gudingwinpos_y.value(); }
 		void sPOSY(float value) { return gudingwinpos_y.value(value); }
 		std::string SHOWNEWUI_BUTTONS_TYPE(int bosspaixuid, int show_TYPE, int h, int s);
+		void SHOWNEWUI_BUTTONS_TYPE_V(int bosspaixuid, int show_TYPE, int h, int s);
 		void TOOLSVIM(bool& showtoolwind);
 		void SHOWNEWUI_BUTTONS();
 		void SHOWNEWUI(bool& showit);
+		void BAOJING(bool& showitbj);
 		void readalldo_W();
 		void readalldo();
 		bool _DoUI(bool& ison);

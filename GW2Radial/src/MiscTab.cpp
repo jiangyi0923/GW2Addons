@@ -35,7 +35,9 @@ namespace GW2Radial
 		bcj_(u8"冰巢传说", "bcj_", "shubiao", true),
 		daytodo_(u8"开启每天必做", "daytodo_open", "shubiao", true),
 		daytodo_heid_(u8"隐藏完成项", "daytodo_heid", "shubiao", false),
-		newmod_(u8"新版UI", "newmod_", "shubiao", true)
+		newmod_(u8"新版UI", "newmod_", "shubiao", true),
+		tixinmod_(u8"提醒模块", "tixinmod_", "shubiao", true),
+		tixinmodsiz_(u8"提醒模块大小", "tixinmodsiz_", "shubiao", 1.0f)
 	{
 		inputChangeCallback_ = [this](bool changed, const std::set<uint>& keys, const std::list<EventKey>& changedKeys) { return OnInputChange(changed, keys, changedKeys); };
 		Input::i()->AddInputChangeCallback(&inputChangeCallback_);
@@ -108,6 +110,15 @@ namespace GW2Radial
 			else
 			{
 				ImGuiConfigurationWrapper(&ImGui::Checkbox, jianyimoshi2_);//2行模式
+			}
+		}
+		
+		ImGui::Text(u8"BOSS提醒设置:");
+		{
+			ImGuiConfigurationWrapper(&ImGui::Checkbox, tixinmod_);
+			if (tixinmod_.value())
+			{
+				ImGuiConfigurationWrapper(&ImGui::SliderFloat, tixinmodsiz_, 1.f, 3.0f, "%.2f", 1.0f);
 			}
 		}
 		ImGui::Text(u8"输出循环提示器启用设置:");

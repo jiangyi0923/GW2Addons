@@ -67,6 +67,11 @@ public:
 	bool day_to_do() const { return daytodo_.value(); }
 	bool day_to_do_heid() const { return daytodo_heid_.value(); }
 	
+	float tixinmodsiz() const { return tixinmodsiz_.value(); }
+	void tixinmodsiz(float value) { return tixinmodsiz_.value(value); }
+
+	bool tixinmod() const { return tixinmod_.value(); }
+	void tixinmod(bool value) { return tixinmod_.value(value); }
 
 	const Keybind& SHOWBOSSTIMER_CK() const { return SHOWBOSSTIMER_CK_; }
 	const Keybind& SHOWMOUSELOOP_CK() const { return SHOWMOUSELOOP_CK_; }
@@ -107,6 +112,9 @@ protected:
 	ConfigurationOption<bool> newmod_;
 	ConfigurationOption<bool> daytodo_;
 	ConfigurationOption<bool> daytodo_heid_;
+
+	ConfigurationOption<bool> tixinmod_;
+	ConfigurationOption<float> tixinmodsiz_;
 	int bossleixinjisu = 0;
 
 	//…Ë÷√∞¥º¸

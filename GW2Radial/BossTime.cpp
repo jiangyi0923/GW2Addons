@@ -353,7 +353,7 @@ namespace GW2Radial
 	float toolwindospost_y = 0;
 	float windospost_y = 0;
 	float toolwindossize_y = 0;
-
+	int showbjmod = 0;
 
 	///
 
@@ -364,7 +364,10 @@ namespace GW2Radial
 	std::string alldotmp;
 	bool iswantadd = false;
 	std::array<char, 256> intmp;
+	bool showbjui = false;
 	///
+	bool kaisbjjishi = false;
+
 
 	std::string BossTime::SHOWNEWUI_BUTTONS_TYPE(int bosspaixuid, int show_TYPE, int h, int s)
 	{
@@ -425,6 +428,67 @@ namespace GW2Radial
 		}
 		return arrc1 + arrc2 + "-";
 	}
+
+	void BossTime::SHOWNEWUI_BUTTONS_TYPE_V(int bosspaixuid, int show_TYPE, int h, int s)
+	{
+		std::string tmp_out = "";
+		char num_buf[32];
+		char str3[32];
+		const char* label = BossName(bosspaixuid);
+		if (bosspaixuid != 0)
+		{
+			sprintf_s(num_buf, u8"[%02d:%02d]", h, s);
+			strcpy_s(str3, num_buf);
+			strcat_s(str3, label);
+			label = str3;
+		}
+		std::string arrc1 = label;
+		std::string arrc2 = BossPost(bosspaixuid);
+		std::string arrc3 = u8" 来自\"gw2sy.top\"神油boss提示器";
+		if (show_TYPE == 0)
+		{
+			ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0.127f, 0.842f, 0.660f, touming_));
+			ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0.127f, 0.842f, 0.760f, touming_));
+			ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(0.127f, 0.842f, 0.860f, touming_));
+		}
+		if (show_TYPE == 1)
+		{
+			ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0.327f, 0.842f, 0.660f, touming_));//3
+			ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0.327f, 0.842f, 0.760f, touming_));
+			ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(0.327f, 0.842f, 0.860f, touming_));
+		}
+		if (show_TYPE == 2)
+		{
+			ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0.927f, 0.842f, 0.660f, touming_));//9
+			ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0.927f, 0.842f, 0.760f, touming_));
+			ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(0.927f, 0.842f, 0.860f, touming_));
+		}
+		if (show_TYPE == 3)
+		{
+			ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0.527f, 0.842f, 0.660f, touming_));//5
+			ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0.527f, 0.842f, 0.760f, touming_));
+			ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(0.527f, 0.842f, 0.860f, touming_));
+		}
+
+
+		if (ImGui::Button(label, ImVec2(150 * MiscTab::i()->tixinmodsiz() * daxiao2_, 22 * MiscTab::i()->tixinmodsiz() * daxiao2_)))
+		{
+			if (bosspaixuid != 0)
+			{
+				ImGui::SetClipboardText((arrc1 + arrc2 + arrc3).c_str());
+			}
+			ImGui::CloseCurrentPopup();
+		}
+		ImGui::PopStyleColor(3);
+		if (ImGui::IsItemHovered())
+		{
+			ImGui::BeginTooltip();
+			ImGui::TextUnformatted(u8"点击即可复制到剪切板");
+			ImGui::EndTooltip();
+		}
+	}
+
+
 
 	void BossTime::TOOLSVIM(bool& showtoolwind)
 	{
@@ -932,9 +996,311 @@ namespace GW2Radial
 			windospost_y = ImGui::GetWindowPos().y;
 			toolwindospost = { ImGui::GetWindowPos().x , ImGui::GetWindowPos().y + ImGui::GetWindowSize().y };
 			TOOLSVIM(showit);
+			
+
 			ImGui::End();
 		}
 	}
+
+
+	void BossTime::BAOJING(bool& showitbj) 
+	{
+		if (MiscTab::i()->tixinmod())
+		{
+			if (showbjui && showbjmod > 0)
+			{
+				ImGui::SetNextWindowBgAlpha(touming_);
+				ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0);
+				ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(4, 4));
+				ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(2, 1));
+				ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 3.0f);
+				ImGui::Begin(u8"##showitbj", NULL, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoTitleBar);
+				ImGui::SetWindowFontScale(MiscTab::i()->tixinmodsiz() * daxiao2_);
+				ImGui::Button(u8"即将开始", { 150 * MiscTab::i()->tixinmodsiz() * daxiao2_ ,22 * MiscTab::i()->tixinmodsiz() * daxiao2_ });
+				
+#pragma region xianss
+				int NEWBOSSJISUofbj = NEWBOSSJISU;
+
+				if (NEWBOSSJISU < 95)
+				{
+					NEWBOSSJISUofbj++;
+				}
+				else
+				{
+					if (NEWBOSSJISU == 95)
+					{
+						NEWBOSSJISUofbj = 0;
+					}
+				}
+				if (BSPX1[NEWBOSSJISUofbj] != 0)
+				{
+					int h = 0, s = 0;
+					for (int i = 0; i < 96; i++)
+					{
+						if (i == NEWBOSSJISUofbj)
+						{
+							SHOWNEWUI_BUTTONS_TYPE_V(BSPX1[NEWBOSSJISUofbj], 0, h, s);
+							break;
+						}
+						if (s < 60) s = s + 15;
+						if (s == 60) h++, s = 0;
+						if (h == 24)	  h = 0;
+					}
+				}
+
+				if (BSPX2[NEWBOSSJISUofbj] != 0)
+				{
+					int h = 0, s = 0;
+					for (int i = 0; i < 96; i++)
+					{
+						if (BSPX2[i] == 14 || BSPX2[i] == 15 || BSPX2[i] == 16)
+						{
+							s = 20;
+						}
+						if (i == NEWBOSSJISUofbj)
+						{
+							SHOWNEWUI_BUTTONS_TYPE_V(BSPX2[NEWBOSSJISUofbj], 0, h, s);
+						}
+						if (s == 20) s = s - 5;
+						if (s < 60)  s = s + 15;
+						if (s == 60) h++, s = 0;
+						if (h == 24)	  h = 0;
+					}
+				}
+				if (BSPX3[NEWBOSSJISUofbj] != 0)
+				{
+					int h = 0, s = 0;
+					for (int i = 0; i < 96; i++)
+					{
+						if (BSPX3[i] == 17)
+						{
+							s = 10;
+						}
+						if (BSPX3[i] == 21)
+						{
+							s = 40;
+						}
+						if (i == NEWBOSSJISUofbj)
+						{
+							SHOWNEWUI_BUTTONS_TYPE_V(BSPX3[NEWBOSSJISUofbj], 1, h, s);
+						}
+						if (s == 10) s = s - 10;
+						if (s == 40) s = s + 5;
+						if (s < 60) s = s + 15;
+						if (s == 60) h++, s = 0;
+						if (h == 24)	  h = 0;
+					}
+
+				}
+				if (BSPX4[NEWBOSSJISUofbj] != 0)
+				{
+					int h = 0, s = 0;
+					for (int i = 0; i < 96; i++)
+					{
+						if (i == NEWBOSSJISUofbj)
+						{
+							SHOWNEWUI_BUTTONS_TYPE_V(BSPX4[NEWBOSSJISUofbj], 1, h, s);
+						}
+						if (s < 60)  s = s + 15;
+						if (s == 60) h++, s = 0;
+						if (h == 24)	  h = 0;
+					}
+
+				}
+				if (BSPX5x[NEWBOSSJISUofbj] != 0)
+				{
+					int h = 0, s = 0;
+					for (int i = 0; i < 96; i++)
+					{
+						if (BSPX5[i] == 25)
+						{
+							s = 5;
+						}
+						//if (BSPX5[i] == 29)
+						//{
+						//	s = 0;
+						//}
+						if (i == NEWBOSSJISUofbj)
+						{
+							SHOWNEWUI_BUTTONS_TYPE_V(BSPX5x[NEWBOSSJISUofbj], 2, h, s);
+						}
+						if (s == 5)  s = s - 5;
+						/*if (BSPX5[i] == 29)s = s + 15;*/
+						if (s < 60)  s = s + 15;
+						if (s == 60) h++, s = 0;
+						if (h == 24)	  h = 0;
+					}
+
+				}
+				if (BSPX51[NEWBOSSJISUofbj] != 0)
+				{
+					int h = 0, s = 0;
+					for (int i = 0; i < 96; i++)
+					{
+						if (i == NEWBOSSJISU)
+						{
+							SHOWNEWUI_BUTTONS_TYPE_V(BSPX51[NEWBOSSJISUofbj], 2, h, s);
+						}
+						if (s < 60)  s = s + 15;
+						if (s == 60) h++, s = 0;
+						if (h == 24)	  h = 0;
+					}
+
+				}
+
+				if (BSPX52[NEWBOSSJISUofbj] != 0)
+				{
+					int h = 0, s = 0;
+					for (int i = 0; i < 96; i++)
+					{
+						if (i == NEWBOSSJISUofbj)
+						{
+							SHOWNEWUI_BUTTONS_TYPE_V(BSPX52[NEWBOSSJISUofbj], 2, h, s);
+						}
+						if (s < 60)  s = s + 15;
+						if (s == 60) h++, s = 0;
+						if (h == 24)	  h = 0;
+					}
+
+				}
+
+				if (BSPX6[NEWBOSSJISUofbj] != 0)
+				{
+					int h = 0, s = 0;
+					for (int i = 0; i < 96; i++)
+					{
+						if (i == NEWBOSSJISUofbj)
+						{
+							SHOWNEWUI_BUTTONS_TYPE_V(BSPX6[NEWBOSSJISUofbj], 2, h, s);
+						}
+						if (s < 60)  s = s + 15;
+						if (s == 60) h++, s = 0;
+						if (h == 24)	  h = 0;
+					}
+
+				}
+				if (BSPX7[NEWBOSSJISUofbj] != 0)
+				{
+					int h = 0, s = 0;
+					for (int i = 0; i < 96; i++)
+					{
+						if (BSPX7[i] == 37)s = 10;//10
+						if (BSPX7[i] == 38)s = 38;//38
+						if (BSPX7[i] == 39)s = 5;//05
+						if (BSPX7[i] == 40)s = 39;//39
+						if (i == NEWBOSSJISUofbj)
+						{
+							SHOWNEWUI_BUTTONS_TYPE_V(BSPX7[NEWBOSSJISUofbj], 3, h, s);
+						}
+						if (s == 10)s = s - 10;
+						if (s == 38)s = s - 8;
+						if (s == 5)s = s - 5;
+						if (s == 39)s = s - 9;
+						if (s < 60)  s = s + 15;
+						if (s == 60) h++, s = 0;
+						if (h == 24)	  h = 0;
+					}
+
+				}
+				if (BSPX8[NEWBOSSJISUofbj] != 0)
+				{
+					int h = 0, s = 0;
+					for (int i = 0; i < 96; i++)
+					{
+						if (BSPX8[i] == 41)
+						{
+							s = 5;
+						}
+						if (i == NEWBOSSJISUofbj)
+						{
+							SHOWNEWUI_BUTTONS_TYPE_V(BSPX8[NEWBOSSJISUofbj], 3, h, s);
+						}
+						if (s == 5) s = s - 5;
+						if (s < 60)  s = s + 15;
+						if (s == 60) h++, s = 0;
+						if (h == 24)	  h = 0;
+					}
+
+				}
+#pragma endregion
+				if (ImGui::Button(u8"关闭", { 150 * MiscTab::i()->tixinmodsiz() * daxiao2_ ,22 * MiscTab::i()->tixinmodsiz() * daxiao2_  }))
+				{
+					showbjui = false;
+					if (showbjmod == 4)
+					{
+						showbjmod = 1;
+					}
+					else
+					{
+						showbjmod++;
+					}
+
+				}
+				ImGui::PopStyleVar(4);
+				ImGui::End();
+			}
+			//else
+			{
+				if (!showbjui)
+				{
+					time_t time_seconds = time(0);
+					tm now_time;
+					localtime_s(&now_time, &time_seconds);
+					if ((now_time.tm_min >= 10 && now_time.tm_min < 15) && (showbjmod == 4 || showbjmod == 0))
+					{
+						showbjmod = 1;
+						showbjui = true;
+					}
+					else if ((now_time.tm_min >= 25 && now_time.tm_min < 30) && (showbjmod == 1 || showbjmod == 0))
+					{
+						showbjmod = 2;
+						showbjui = true;
+					}
+					else if ((now_time.tm_min >= 40 && now_time.tm_min < 45) && (showbjmod == 2 || showbjmod == 0))
+					{
+						showbjmod = 3;
+						showbjui = true;
+					}
+					else if ((now_time.tm_min >= 55 && now_time.tm_min < 60) && (showbjmod == 3 || showbjmod == 0))
+					{
+						showbjmod = 4;
+						showbjui = true;
+					}
+				}
+				else
+				{
+					if (!kaisbjjishi)
+					{
+						kaisbjjishi = true;
+					}
+					else
+					{
+						time_t time_seconds = time(0);
+						tm now_time;
+						localtime_s(&now_time, &time_seconds);
+						if (now_time.tm_min == 15 || now_time.tm_min == 30 || now_time.tm_min == 45 || now_time.tm_min == 0 )
+						{
+							showbjui = false;
+							if (showbjmod == 4)
+							{
+								showbjmod = 1;
+							}
+							else
+							{
+								showbjmod++;
+							}
+							kaisbjjishi = false;
+						}
+					}
+				}
+			}
+		}
+		
+
+	}
+
+
+
 #pragma endregion 新UI
 
 #pragma region 每日必做
@@ -1367,6 +1733,12 @@ namespace GW2Radial
 		{
 			DayToDo();
 		}
+
+		if (MiscTab::i()->tixinmod())
+		{
+			BAOJING(showbjui);
+		}
+
 
 		if (ison && !MiscTab::i()->newmod())
 		{
