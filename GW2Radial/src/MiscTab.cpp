@@ -34,9 +34,10 @@ namespace GW2Radial
 		hof_(u8"烈焰征途", "hof_", "shubiao", true),
 		bcj_(u8"冰巢传说", "bcj_", "shubiao", true),
 		daytodo_(u8"开启每天必做", "daytodo_open", "shubiao", true),
-		daytodo_heid_(u8"隐藏完成项", "daytodo_heid", "shubiao", false),
+		daytodo_heid_(u8"隐藏完成项", "daytodo_heid", "shubiao", true),
 		newmod_(u8"新版UI", "newmod_", "shubiao", true),
 		tixinmod_(u8"提醒模块", "tixinmod_", "shubiao", true),
+		tixinmod_mianrao(u8"免扰模式(手动打开提醒)", "tixinmod_mianrao", "shubiao", true),
 		tixinmodsiz_(u8"提醒模块大小", "tixinmodsiz_", "shubiao", 1.0f)
 	{
 		inputChangeCallback_ = [this](bool changed, const std::set<uint>& keys, const std::list<EventKey>& changedKeys) { return OnInputChange(changed, keys, changedKeys); };
@@ -56,6 +57,7 @@ namespace GW2Radial
 
 	void MiscTab::DrawMenu()
 	{
+		ImGui::Text(u8"插件版本日期:2020-11-26");
 		ImGui::Text(u8"全局设置:");
 		if (auto i = Input::iNoInit(); i)
 			ImGuiConfigurationWrapper(ImGui::Checkbox, i->distinguishLeftRight_);
@@ -116,10 +118,14 @@ namespace GW2Radial
 		ImGui::Text(u8"BOSS提醒设置:");
 		{
 			ImGuiConfigurationWrapper(&ImGui::Checkbox, tixinmod_);
-			if (tixinmod_.value())
-			{
-				ImGuiConfigurationWrapper(&ImGui::SliderFloat, tixinmodsiz_, 1.f, 3.0f, "%.2f", 1.0f);
-			}
+
+			ImGuiConfigurationWrapper(&ImGui::Checkbox, tixinmod_mianrao);
+			
+			//废弃
+			//if (tixinmod_.value())
+			//{
+			//	ImGuiConfigurationWrapper(&ImGui::SliderFloat, tixinmodsiz_, 1.f, 3.0f, "%.2f", 1.0f);
+			//}
 		}
 		ImGui::Text(u8"输出循环提示器启用设置:");
 		ImGuiConfigurationWrapper(&ImGui::Checkbox, uselooptool_);

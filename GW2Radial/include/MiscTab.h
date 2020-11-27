@@ -73,6 +73,10 @@ public:
 	bool tixinmod() const { return tixinmod_.value(); }
 	void tixinmod(bool value) { return tixinmod_.value(value); }
 
+	bool tixinmodmianrao() const { return tixinmod_mianrao.value(); }
+	void tixinmodmianrao(bool value) { return tixinmod_mianrao.value(value); }
+
+
 	const Keybind& SHOWBOSSTIMER_CK() const { return SHOWBOSSTIMER_CK_; }
 	const Keybind& SHOWMOUSELOOP_CK() const { return SHOWMOUSELOOP_CK_; }
 	const Keybind& SHOWLOOPTIMER_CK() const { return SHOWLOOPTIMER_CK_; }
@@ -115,6 +119,7 @@ protected:
 
 	ConfigurationOption<bool> tixinmod_;
 	ConfigurationOption<float> tixinmodsiz_;
+	ConfigurationOption<bool> tixinmod_mianrao;
 	int bossleixinjisu = 0;
 
 	//…Ë÷√∞¥º¸

@@ -4,7 +4,6 @@
 #include <ConfigurationFile.h>
 #include <type_traits>
 
-
 namespace GW2Radial
 {
 

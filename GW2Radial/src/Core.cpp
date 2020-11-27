@@ -116,22 +116,38 @@ void Core::PostCreateDevice(IDirect3DDevice9 *device, D3DPRESENT_PARAMETERS *pre
 	auto &imio = ImGui::GetIO();
 	imio.IniFilename = nullptr;
 	imio.IniSavingRate = 1.0f;
-
 	auto fontCfg = ImFontConfig();
 	fontCfg.FontDataOwnedByAtlas = false;
 
-	imio.Fonts->AddFontFromFileTTF(".\\addons\\arcdps\\arcdps_font.ttf", MiscTab::i()->zitidaxiao(), NULL, imio.Fonts->GetGlyphRangesChineseFull());
-
+	
+	//font_ = imio.Fonts->AddFontFromFileTTF(".\\addons\\arcdps\\arcdps_font.ttf", MiscTab::i()->zitidaxiao(), &fontCfg, imio.Fonts->GetGlyphRangesChineseFull());
+	font_ = imio.Fonts->AddFontFromFileTTF(".\\addons\\arcdps\\arcdps_font.ttf", MiscTab::i()->zitidaxiao(), NULL, imio.Fonts->GetGlyphRangesChineseFull());
+	//fontBlack_ = imio.Fonts->AddFontFromFileTTF(".\\addons\\sct\\font\\arcdps_font.ttf", 80.0f, &fontCfg);
 	void* fontPtr;
 	size_t fontSize;
-	if (LoadFontResource(IDR_FONT, fontPtr, fontSize))
-		font_ = imio.Fonts->AddFontFromMemoryTTF(fontPtr, int(fontSize), 30.f, &fontCfg);
-	ImGui_ImplWin32_Init(gameWindow_);
+	//if (LoadFontResource(IDR_FONT, fontPtr, fontSize))
+	//	font_ = imio.Fonts->AddFontFromMemoryTTF(fontPtr, int(fontSize), 25.f, &fontCfg);
 
+	if (LoadFontResource(IDR_FONT, fontPtr, fontSize))
+		fontBlack_ = imio.Fonts->AddFontFromMemoryTTF(fontPtr, int(fontSize), 36.0f, &fontCfg , imio.Fonts->GetGlyphRangesChineseFull());
+	//fontBlack_ = imio.Fonts->AddFontFromFileTTF(".\\bin64\\d3d9_chainload_font.ttf", 36.0f, &fontCfg, imio.Fonts->GetGlyphRangesChineseFull());
+	
+	if (font_)
+	{
+		imio.FontDefault = font_;
+	}
+	//fontBlack_ = imio.Fonts->AddFontFromFileTTF(".\\addons\\arcdps\\arcdps_font.ttf", MiscTab::i()->zitidaxiao(), NULL, imio.Fonts->GetGlyphRangesChineseFull());
+	//font_ = imio.Fonts->AddFontFromFileTTF(".\\addons\\arcdps\\arcdps_font.ttf", 21.0f, &fontCfg);
+
+	ImGui_ImplWin32_Init(gameWindow_);
+	
 	firstMessageShown_ = std::make_unique<ConfigurationOption<bool>>("", "first_message_shown_v1", "Core", false);
 
 	OnDeviceSet(device, presentationParameters);
 }
+
+
+
 
 void Core::OnDeviceSet(IDirect3DDevice9 *device, D3DPRESENT_PARAMETERS *presentationParameters)
 {

@@ -77,6 +77,14 @@ bool MumbleLink::isWvW() const
 
 	return mt == 18 || (mt >= 9 && mt <= 15 && mt != 13);
 }
+//
+//unsigned int MumbleLink::id() const
+//{
+//	if (!linkedMemory_)
+//		return 0;
+//	auto mt = context()->mapId;
+//	return mt;
+//}
 
 const MumbleContext* MumbleLink::context() const
 {
@@ -85,5 +93,58 @@ const MumbleContext* MumbleLink::context() const
 
 	return reinterpret_cast<const MumbleContext*>(&linkedMemory_->context);
 }
+
+//float* MumbleLink::fp() const
+//{
+//	if (!linkedMemory_)
+//		return nullptr;
+//
+//	return reinterpret_cast<float*>(&linkedMemory_->fAvatarPosition);
+//}
+//
+//float* MumbleLink::fpF() const
+//{
+//	if (!linkedMemory_)
+//		return nullptr;
+//
+//	return reinterpret_cast<float*>(&linkedMemory_->fAvatarFront);
+//}
+//
+//float* MumbleLink::fpT() const
+//{
+//	if (!linkedMemory_)
+//		return nullptr;
+//
+//	return reinterpret_cast<float*>(&linkedMemory_->fAvatarTop);
+//}
+
+
+
+
+
+//float* MumbleLink::ap() const
+//{
+//	if (!linkedMemory_)
+//		return nullptr;
+//
+//	return reinterpret_cast<float*>(&linkedMemory_->fCameraPosition);
+//}
+//
+//float* MumbleLink::apF() const
+//{
+//	if (!linkedMemory_)
+//		return nullptr;
+//
+//	return reinterpret_cast<float*>(&linkedMemory_->fCameraFront);
+//}
+//
+//float* MumbleLink::apT() const
+//{
+//	if (!linkedMemory_)
+//		return nullptr;
+//
+//	return reinterpret_cast<float*>(&linkedMemory_->fCameraTop);
+//}
+
 
 }

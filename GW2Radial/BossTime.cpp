@@ -1,4 +1,4 @@
-#include "BossTime.h"
+ï»¿#include "BossTime.h"
 //#include <SettingsMenu.h>
 #include <MiscTab.h>
 #include <imgui.h>
@@ -16,58 +16,58 @@ namespace GW2Radial
 {
 
 	DEFINE_SINGLETON(BossTime);
-#pragma region ¼ÆÊ±Æ÷Êı¾İ
+#pragma region è®¡æ—¶å™¨æ•°æ®
 	const char* BossTime::BossName(int xuhao)
 	{
 		const char* tmp = "";
 		switch (xuhao)
 		{
-			//ÀÏµØÍ¼
-		case  1:tmp = u8"ËéÁÑ¾ŞÊŞ";	break;
-		case  2:tmp = u8"±ùÈøÂú";		break;
-		case  3:tmp = u8"ÈËÂíÍõÄªµÏ¶û";		break;
-		case  4:tmp = u8"»ğÔªËØ";		break;
-		case  5:tmp = u8"Âí¿ËÄ§Ïñ";	break;
-		case  6:tmp = u8"¾ŞĞÍÁÖµØ³æ"; break;
-		case  7:tmp = u8"×¿ÂêÖ®×¦";	break;
-		case  8:tmp = u8"°µÓ°¾ŞÊŞ";	break;
-		case  9:tmp = u8"º£µÁ¿ÆÎÄ¶Ù"; break;
-		case 10:tmp = u8"³¬ÄÜ»ÙÃğÕß"; break;
-		case 11:tmp = u8"½©Ê¬Áú";		break;
-		case 12:tmp = u8"ÈıÖØÂé·³";	break;
-		case 13:tmp = u8"¿¦¿Ç³æÅ®Íõ"; break;
-		case 14:tmp = u8"¸Ê´ïÀ­ÅÜÄĞ"; break;//20
-		case 15:tmp = u8"ÁÖÏßÆÙ²¼ÅÜÄĞ"; break;//20
-		case 16:tmp = u8"¸ÖÌúÆ½Ô­ÅÜÄĞ"; break;//20
-			//¾£¼¬
-		case 17:tmp = u8"²Ô´äÁúÄ¸"; break;//10
-		case 18:tmp = u8"²øÌÙ³æÍõ"; break;
-		case 19:tmp = u8"³à½ğËÄÃÅ"; break;
-		case 20:tmp = u8"¾ŞÁúÕóµØ"; break;
-		case 21:tmp = u8"É³³¾±©"; break;//40
-		case 22:tmp = u8"ÅµÀ¼É½×¯"; break;
-		case 23:tmp = u8"ÈûµÂÀ­±ÜÄÑËù"; break;
-		case 24:tmp = u8"ĞÂÎÖÍÁÖ®É­"; break;
-			//ÁÒÑæ
-		case 25:tmp = u8"¶Ä³¡ÉÁµçÕ½"; break;//05
-		case 26:tmp = u8"¾ŞÅ¬¶àáÈÆğ"; break;
-		case 27:tmp = u8"À×ÔÆ½¹ÓÍ"; break;
-		case 28:tmp = u8"Âñ²Ø±¦²Ø"; break;
-		case 29:tmp = u8"»¤ËÍÃğÁú³µ"; break;//00
-		case 30:tmp = u8"½úÉıÖ®Â·"; break;
-		case 31:tmp = u8"À×ÔÆÊ¹Õß"; break;
-		case 32:tmp = u8"ÁÒÑæËÜĞÎ"; break;
-		case 33:tmp = u8"¾ŞÉßÖ®Å­"; break;
-		case 34:tmp = u8"Ä¥ÄÑÑª¿Ú"; break;
-		case 35:tmp = u8"ËÀÍöËéÁÑ¾ŞÊŞ"; break;
-		case 36:tmp = u8"ÅÁÀ­Íß¹¥³Ç"; break;
-			//±ù³²
-		case 37:tmp = u8"ÉñÊ¥ÁÒÑæÒÇÊ½"; break;//10
-		case 38:tmp = u8"¶òÔË´«ËµÊ¥Ì³"; break;//38
-		case 39:tmp = u8"ÈíÄà¹Ö¿Ó"; break;//05
-		case 40:tmp = u8"½ğÊôÒôÀÖ»á"; break;//39
-		case 41:tmp = u8"µÂÀ­¿Ë"; break;//05
-		case 42:tmp = u8"¶¬¼¾·ç±©"; break;
+			//è€åœ°å›¾
+		case  1:tmp = u8"ç¢è£‚å·¨å…½";	break;
+		case  2:tmp = u8"å†°è¨æ»¡";		break;
+		case  3:tmp = u8"äººé©¬ç‹è«è¿ªå°”";		break;
+		case  4:tmp = u8"ç«å…ƒç´ ";		break;
+		case  5:tmp = u8"é©¬å…‹é­”åƒ";	break;
+		case  6:tmp = u8"å·¨å‹æ—åœ°è™«"; break;
+		case  7:tmp = u8"å“ç›ä¹‹çˆª";	break;
+		case  8:tmp = u8"æš—å½±å·¨å…½";	break;
+		case  9:tmp = u8"æµ·ç›—ç§‘æ–‡é¡¿"; break;
+		case 10:tmp = u8"è¶…èƒ½æ¯ç­è€…"; break;
+		case 11:tmp = u8"åƒµå°¸é¾™";		break;
+		case 12:tmp = u8"ä¸‰é‡éº»çƒ¦";	break;
+		case 13:tmp = u8"å–€å£³è™«å¥³ç‹"; break;
+		case 14:tmp = u8"ç”˜è¾¾æ‹‰è·‘ç”·"; break;//20
+		case 15:tmp = u8"æ—çº¿ç€‘å¸ƒè·‘ç”·"; break;//20
+		case 16:tmp = u8"é’¢é“å¹³åŸè·‘ç”·"; break;//20
+			//è†æ£˜
+		case 17:tmp = u8"è‹ç¿ é¾™æ¯"; break;//10
+		case 18:tmp = u8"ç¼ è—¤è™«ç‹"; break;
+		case 19:tmp = u8"èµ¤é‡‘å››é—¨"; break;
+		case 20:tmp = u8"å·¨é¾™é˜µåœ°"; break;
+		case 21:tmp = u8"æ²™å°˜æš´"; break;//40
+		case 22:tmp = u8"è¯ºå…°å±±åº„"; break;
+		case 23:tmp = u8"å¡å¾·æ‹‰é¿éš¾æ‰€"; break;
+		case 24:tmp = u8"æ–°æ²ƒåœŸä¹‹æ£®"; break;
+			//çƒˆç„°
+		case 25:tmp = u8"èµŒåœºé—ªç”µæˆ˜"; break;//05
+		case 26:tmp = u8"å·¨åŠªå¤šå´›èµ·"; break;
+		case 27:tmp = u8"é›·äº‘ç„¦æ²¹"; break;
+		case 28:tmp = u8"åŸ‹è—å®è—"; break;
+		case 29:tmp = u8"æŠ¤é€ç­é¾™è½¦"; break;//00
+		case 30:tmp = u8"æ™‹å‡ä¹‹è·¯"; break;
+		case 31:tmp = u8"é›·äº‘ä½¿è€…"; break;
+		case 32:tmp = u8"çƒˆç„°å¡‘å½¢"; break;
+		case 33:tmp = u8"å·¨è›‡ä¹‹æ€’"; break;
+		case 34:tmp = u8"ç£¨éš¾è¡€å£"; break;
+		case 35:tmp = u8"æ­»äº¡ç¢è£‚å·¨å…½"; break;
+		case 36:tmp = u8"å¸•æ‹‰ç“¦æ”»åŸ"; break;
+			//å†°å·¢
+		case 37:tmp = u8"ç¥åœ£çƒˆç„°ä»ªå¼"; break;//10
+		case 38:tmp = u8"å„è¿ä¼ è¯´åœ£å›"; break;//38
+		case 39:tmp = u8"è½¯æ³¥æ€ªå‘"; break;//05
+		case 40:tmp = u8"é‡‘å±éŸ³ä¹ä¼š"; break;//39
+		case 41:tmp = u8"å¾·æ‹‰å…‹"; break;//05
+		case 42:tmp = u8"å†¬å­£é£æš´"; break;
 		default:break;
 		}
 		return tmp;
@@ -94,31 +94,31 @@ namespace GW2Radial
 		case  14:tmp = u8"[&BJEBAAA=]"; break;
 		case  15:tmp = u8"[&BEYEAAA=]"; break;
 		case  16:tmp = u8"[&BOkBAAA=]"; break;
-		case  17:tmp = u8"[&BAgIAAA=]ÉÏ·½[&BMIHAAA=]"; break;
+		case  17:tmp = u8"[&BAgIAAA=]å¤©ä¸Š[&BMIHAAA=]"; break;
 		case  18:tmp = u8"[&BPUHAAA=]"; break;
 		case  19:tmp = u8"[&BGwIAAA=]"; break;
 		case  20:tmp = u8"[&BBAIAAA=]"; break;
 		case  21:tmp = u8"[&BHoHAAA=]"; break;
 		case  22:tmp = u8"[&BK8JAAA=]"; break;
-		case  23:tmp = u8"[&BK0JAAA=]2µã·½Ïò"; break;
-		case  24:tmp = u8"[&BLQJAAA=]7µã·½Ïò[&BK4JAAA=]"; break;
+		case  23:tmp = u8"[&BK0JAAA=]2ç‚¹æ–¹å‘"; break;
+		case  24:tmp = u8"[&BLQJAAA=]7ç‚¹æ–¹å‘[&BK4JAAA=]"; break;
 		case  25:tmp = u8"[&BLsKAAA=]"; break;
-		case  26:tmp = u8"[&BMEKAAA=]8µã·½Ïò[&BHAKAAA=]"; break;
+		case  26:tmp = u8"[&BMEKAAA=]8ç‚¹æ–¹å‘[&BHAKAAA=]"; break;
 		case  27:tmp = u8"[&BKYLAAA=]"; break;
 		case  28:tmp = u8"[&BGsKAAA=]"; break;
 		case  29:tmp = u8"[&BIMLAAA=]"; break;
 		case  30:tmp = u8"[&BFMKAAA=]"; break;
 		case  31:tmp = u8"[&BLsLAAA=]"; break;
-		case  32:tmp = u8"[&BEoKAAA=]10µã·½Ïò[&BG0KAAA=]"; break;
+		case  32:tmp = u8"[&BEoKAAA=]10ç‚¹æ–¹å‘[&BG0KAAA=]"; break;
 		case  33:tmp = u8"[&BHQKAAA=]"; break;
 		case  34:tmp = u8"[&BKMKAAA=]"; break;
-		case  35:tmp = u8"[&BJQLAAA=]1µã·½Ïò[&BHwLAAA=]"; break;
-		case  36:tmp = u8"[&BAkLAAA=]7µã·½Ïò¹¥³Ç[&BPcKAAA=]µ½[&BAELAAA=]"; break;
-		case  37:tmp = u8"[&BBsMAAA=]ÔÚ[&BAcMAAA=]µ½[&BB0MAAA=]"; break;
-		case  38:tmp = u8"[&BBsMAAA=]ÔÚ[&BAUMAAA=]µ½[&BAEMAAA=]"; break;
+		case  35:tmp = u8"[&BJQLAAA=]1ç‚¹æ–¹å‘[&BHwLAAA=]"; break;
+		case  36:tmp = u8"[&BAkLAAA=]7ç‚¹æ–¹å‘æ”»åŸ[&BPcKAAA=]åˆ°[&BAELAAA=]"; break;
+		case  37:tmp = u8"[&BBsMAAA=]åœ¨[&BAcMAAA=]åˆ°[&BB0MAAA=]"; break;
+		case  38:tmp = u8"[&BBsMAAA=]åœ¨[&BAUMAAA=]åˆ°[&BAEMAAA=]"; break;
 		case  39:tmp = u8"[&BPgLAAA=]"; break;
-		case  40:tmp = u8"[&BPgLAAA=]3µã·½Ïò[&BBkMAAA=]"; break;
-		case  41:tmp = u8"[&BDkMAAA=]µ½[&BEEMAAA=]"; break;
+		case  40:tmp = u8"[&BPgLAAA=]3ç‚¹æ–¹å‘[&BBkMAAA=]"; break;
+		case  41:tmp = u8"[&BDkMAAA=]åˆ°[&BEEMAAA=]"; break;
 		case  42:tmp = u8"[&BCcMAAA=]"; break;
 		default:break;
 		}
@@ -126,9 +126,9 @@ namespace GW2Radial
 	}
 #pragma endregion
 	BossTime::BossTime()://showKeybindweb_("show_BossTime", "Show BossTime", { VK_F8 }, false),
-		gudingwinpos_(u8"Ëø¶¨´°¿ÚÎ»ÖÃ", "gudingwinpos_", "shubiao", false),
-		gudingwinpos_x(u8"´°¿ÚÎ»ÖÃx", "gudingwinpos_x", "shubiao", 500.0f),
-		gudingwinpos_y(u8"´°¿ÚÎ»ÖÃy", "gudingwinpos_y", "shubiao", 5.0f)
+		gudingwinpos_(u8"é”å®šçª—å£ä½ç½®", "gudingwinpos_", "shubiao", false),
+		gudingwinpos_x(u8"çª—å£ä½ç½®x", "gudingwinpos_x", "shubiao", 500.0f),
+		gudingwinpos_y(u8"çª—å£ä½ç½®y", "gudingwinpos_y", "shubiao", 5.0f)
 	{
 		Texture_1 = CreateTextureFromResource(Core::i()->getdevice(), Core::i()->dllModule(), IDR_NEXT);
 		Texture_2 = CreateTextureFromResource(Core::i()->getdevice(), Core::i()->dllModule(), IDR_NOW);
@@ -141,6 +141,7 @@ namespace GW2Radial
 		Texture_recovery = CreateTextureFromResource(Core::i()->getdevice(), Core::i()->dllModule(), IDR_RECOVERY);
 		Texture_remove	 = CreateTextureFromResource(Core::i()->getdevice(), Core::i()->dllModule(), IDR_REMOVE);
 		Texture_delete	 = CreateTextureFromResource(Core::i()->getdevice(), Core::i()->dllModule(), IDR_DELETE);
+		Texture_NWBGDDS = CreateTextureFromResource(Core::i()->getdevice(), Core::i()->dllModule(), IDR_NWBGDDS);
 
 		inputChangeCallbackweb_ = [this](bool changed, const std::set<uint>& keys, const std::list<EventKey>& changedKeys) { return OnInputChangeweb(changed, keys, changedKeys); };
 		Input::i()->AddInputChangeCallback(&inputChangeCallbackweb_);
@@ -158,6 +159,7 @@ namespace GW2Radial
 		COM_RELEASE(Texture_recovery);
 		COM_RELEASE(Texture_remove);
 		COM_RELEASE(Texture_delete);
+		COM_RELEASE(Texture_NWBGDDS);
 
 		if (auto i = Input::iNoInit(); i)
 		{
@@ -184,18 +186,19 @@ namespace GW2Radial
 			}
 		}
 	}
-#pragma region ÍøÒ³»ñÈ¡
+#pragma region ç½‘é¡µè·å–
 	bool geting = true;
 	bool wancheng = false;
-	const char* W_arrc = nullptr;//¼ôÇĞ°å
-	const char * W_time1 = nullptr;//Ê±¼ä
-	const char * W_time2 = nullptr;//Ê±¼ä
-	std::string* FetchReleaseData(const char * days);//ÉùÃ÷»ñÈ¡·½·¨º¯Êı
-	std::string * W_renwu1 = new std::string[5];//¶÷ÎïÏÔÊ¾
-	std::string * W_renwu2 = new std::string[5];//¶÷Îï±£´æÏÔÊ¾
-	std::string* result = new std::string[6];//¶÷Îï´¢´æ
-	std::string* tmpIDname = new std::string[32];//¶÷Îï´¢´æ
-	LPCWSTR stringToLPCWSTR(std::string orig);//±êÖÂ×ª»»
+	const char* W_arrc = nullptr;//å‰ªåˆ‡æ¿
+	const char * W_time1 = nullptr;//æ—¶é—´
+	const char * W_time2 = nullptr;//æ—¶é—´
+	std::string* FetchReleaseData(const char * days);
+	std::string* FetchReleaseData2();//å£°æ˜è·å–æ–¹æ³•å‡½æ•°
+	std::string * W_renwu1 = new std::string[5];//æ©ç‰©æ˜¾ç¤º
+	std::string * W_renwu2 = new std::string[5];//æ©ç‰©ä¿å­˜æ˜¾ç¤º
+	std::string* result = new std::string[6];//æ©ç‰©å‚¨å­˜
+	std::string* tmpIDname = new std::string[32];//æ©ç‰©å‚¨å­˜
+	LPCWSTR stringToLPCWSTR(std::string orig);//æ ‡è‡´è½¬æ¢
 	LPCWSTR stringToLPCWSTR(std::string orig)
 	{
 		size_t origsize = orig.length() + 1;
@@ -205,6 +208,130 @@ namespace GW2Radial
 		mbstowcs_s(&convertedChars, wcstring, origsize, orig.c_str(), _TRUNCATE);
 		return wcstring;
 	}
+
+
+
+	bool getingmeiri = true;
+	bool meirihuoqu = false;
+	std::string* jifenresult = new std::string[5];
+	std::string* W_renwu1meiri = new std::string[5];
+	std::string gregrehertg;
+
+	std::string* FetchReleaseData2()
+	{
+		meirihuoqu = false;
+		std::string _a = "http://do.gw2.kongzhong.com/gw2newcommander/getDefaultInfo";
+		std::string retVal;
+		DWORD response_length = 0;
+		LPCWSTR ul = stringToLPCWSTR(_a);
+
+		try
+		{
+			HINTERNET hSession = InternetOpen(ul, INTERNET_OPEN_TYPE_PRECONFIG, NULL, NULL, 0);
+			if (hSession != NULL)
+			{
+				HINTERNET handle2 = InternetOpenUrl(hSession, ul, NULL, 0, INTERNET_FLAG_RELOAD | INTERNET_FLAG_PRAGMA_NOCACHE | INTERNET_FLAG_NO_CACHE_WRITE, 0);
+				if (handle2 != NULL)
+				{
+					char response_data[30720];//ç¼“å†²åŒº
+					if (InternetReadFile(handle2, response_data, sizeof(response_data) - 1, &response_length) && response_length > 0)
+					{
+						response_data[response_length] = '\0';
+						response_length++;
+					}
+					//std::cout << response_length << std::endl;
+					if (response_length > 0)
+					{
+						response_data[response_length] = '\0';
+					}
+					else
+					{
+						response_data[0] = '\0';
+					}
+					retVal = response_data;
+					InternetCloseHandle(handle2);
+					handle2 = NULL;
+				}
+				else
+				{
+					jifenresult[0] = "0";
+					getingmeiri = false;
+					meirihuoqu = true;
+					return jifenresult;
+				}
+				InternetCloseHandle(hSession);
+				hSession = NULL;
+			}
+			else
+			{
+				jifenresult[0] = "0";
+				getingmeiri = false;
+				meirihuoqu = true;
+				return jifenresult;
+			}
+		}
+		catch (...)
+		{
+
+		}
+
+		
+
+
+		std::string beginFlagtmp = u8"head";
+		int startPostmp = 0;
+		startPostmp = (int)retVal.find(beginFlagtmp, startPostmp);
+		if (startPostmp > 0)
+		{
+			jifenresult[0] = "0";
+			meirihuoqu = true;
+			return jifenresult;
+		}
+
+
+
+		if (response_length > 350)
+		{
+			gregrehertg = retVal.c_str();
+			std::string beginFlag = u8"task_name";
+			std::string endFlag = u8",";
+			std::string end = u8"}";
+			int startPos = 0;
+			int endPos = 0;
+			int beginPos = 0;
+			int endingpos = 0;
+			for (int i = 0; i < 5; i++)
+			{
+				startPos = (int)gregrehertg.find(beginFlag, startPos);
+				endPos = (int)gregrehertg.find(endFlag, startPos);
+				//std::cout << "--!--" << startPos << "--" << endPos << std::endl;
+				beginPos = startPos + (int)beginFlag.length() + 2;
+				endingpos = endPos - startPos - (int)beginFlag.length() - 2;
+				jifenresult[i] = gregrehertg.substr(beginPos, endingpos);
+				if ((int)jifenresult[i].find(end) > 0)
+				{
+					jifenresult[i].replace(jifenresult[i].size() - 1, jifenresult[i].size(), "");
+					if ((int)jifenresult[i].find(end) > 0)
+					{
+						jifenresult[i].replace(jifenresult[i].size() - 1, jifenresult[i].size(), "");
+					}
+					
+				}
+				//std::cout << "--!--" << jifenresult[i] << std::endl;
+				startPos++;
+				endPos++;
+			}
+			meirihuoqu = true;
+		}
+		else
+		{
+			jifenresult[0] = "0";
+			meirihuoqu = true;
+		}
+		return jifenresult;
+	}
+
+
 	const char *  GetTime(int day)
 	{
 		using namespace boost::gregorian;
@@ -216,8 +343,8 @@ namespace GW2Radial
 		//for (int i = 0; i <= strTime.length(); ++i)
 		//	out[i] = strTime[i];
 		char * out2 = new char[strTime.length()];
-		strTime.copy(out2, strTime.length(), 0);//ÕâÀï5£¬´ú±í¸´ÖÆ¼¸¸ö×Ö·û£¬0´ú±í¸´ÖÆµÄÎ»ÖÃ  
-		*(out2 + strTime.length()) = '\0';//ÒªÊÖ¶¯¼ÓÉÏ½áÊø·û
+		strTime.copy(out2, strTime.length(), 0);//è¿™é‡Œ5ï¼Œä»£è¡¨å¤åˆ¶å‡ ä¸ªå­—ç¬¦ï¼Œ0ä»£è¡¨å¤åˆ¶çš„ä½ç½®  
+		*(out2 + strTime.length()) = '\0';//è¦æ‰‹åŠ¨åŠ ä¸Šç»“æŸç¬¦
 		return out2;
 	}
 	std::string* FetchReleaseData(const char* days)
@@ -241,7 +368,7 @@ namespace GW2Radial
 				HINTERNET handle2 = InternetOpenUrl(hSession, ul, NULL, 0, INTERNET_FLAG_RELOAD | INTERNET_FLAG_PRAGMA_NOCACHE | INTERNET_FLAG_NO_CACHE_WRITE, 0);
 				if (handle2 != NULL)
 				{
-					char response_data[8000];//»º³åÇø
+					char response_data[8000];//ç¼“å†²åŒº
 					if (InternetReadFile(handle2, response_data, sizeof(response_data) - 1, &response_length) && response_length > 0)
 					{
 						response_data[response_length] = '\0';
@@ -336,13 +463,20 @@ namespace GW2Radial
 		return result;
 	}
 
+
+	void getstingzaixian()
+	{
+		getingmeiri = false;
+		W_renwu1meiri = FetchReleaseData2();
+	}
+
 	void getsting(const char *  days)
 	{
 		geting = false;
 		W_renwu1 = FetchReleaseData(days);
 	}
 #pragma endregion
-#pragma region ĞÂUI
+#pragma region æ–°UI
 
 	bool isbts = false;
 	bool isbtn = false;
@@ -364,10 +498,9 @@ namespace GW2Radial
 	std::string alldotmp;
 	bool iswantadd = false;
 	std::array<char, 256> intmp;
-	bool showbjui = false;
+	bool showbjui = true;
 	///
 	bool kaisbjjishi = false;
-
 
 	std::string BossTime::SHOWNEWUI_BUTTONS_TYPE(int bosspaixuid, int show_TYPE, int h, int s)
 	{
@@ -384,7 +517,7 @@ namespace GW2Radial
 		}
 		std::string arrc1 = label;
 		std::string arrc2 = BossPost(bosspaixuid);
-		std::string arrc3 = u8" À´×Ô\"gw2sy.top\"ÉñÓÍbossÌáÊ¾Æ÷";
+		std::string arrc3 = u8" æ¥è‡ª\"gw2sy.top\"ç¥æ²¹bossæç¤ºå™¨";
 		if (show_TYPE == 0)
 		{
 			ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0.127f, 0.842f, 0.660f, touming_));
@@ -423,7 +556,7 @@ namespace GW2Radial
 		if (ImGui::IsItemHovered())
 		{
 			ImGui::BeginTooltip();
-			ImGui::TextUnformatted(u8"µã»÷¼´¿É¸´ÖÆµ½¼ôÇĞ°å");
+			ImGui::TextUnformatted(u8"ç‚¹å‡»å³å¯å¤åˆ¶åˆ°å‰ªåˆ‡æ¿");
 			ImGui::EndTooltip();
 		}
 		return arrc1 + arrc2 + "-";
@@ -444,7 +577,7 @@ namespace GW2Radial
 		}
 		std::string arrc1 = label;
 		std::string arrc2 = BossPost(bosspaixuid);
-		std::string arrc3 = u8" À´×Ô\"gw2sy.top\"ÉñÓÍbossÌáÊ¾Æ÷";
+		std::string arrc3 = u8" æ¥è‡ª\"gw2sy.top\"ç¥æ²¹bossæç¤ºå™¨";
 		if (show_TYPE == 0)
 		{
 			ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0.127f, 0.842f, 0.660f, touming_));
@@ -483,12 +616,10 @@ namespace GW2Radial
 		if (ImGui::IsItemHovered())
 		{
 			ImGui::BeginTooltip();
-			ImGui::TextUnformatted(u8"µã»÷¼´¿É¸´ÖÆµ½¼ôÇĞ°å");
+			ImGui::TextUnformatted(u8"ç‚¹å‡»å³å¯å¤åˆ¶åˆ°å‰ªåˆ‡æ¿");
 			ImGui::EndTooltip();
 		}
 	}
-
-
 
 	void BossTime::TOOLSVIM(bool& showtoolwind)
 	{
@@ -510,13 +641,13 @@ namespace GW2Radial
 						boost::thread thServer(getsting, W_time1);
 					}
 				}
-				//NEWBOSSJISU = (ttsh * 60 + ttss) / 15;//Ê±¼ä²âÊÔ´úÂë
+				//NEWBOSSJISU = (ttsh * 60 + ttss) / 15;//æ—¶é—´æµ‹è¯•ä»£ç 
 				NEWBOSSJISU = (now_time.tm_hour * 60 + now_time.tm_min) / 15;
 			}
 			return;
 		}
 		ImGuiIO IIO = ImGui::GetIO();
-		if (ImGui::GetWindowPos().y > IIO.DisplaySize.y / 2)  //Î»ÖÃ = Ö÷½çÃæ¸ß¶È - ±¾´°¿Ú¸ß¶È      
+		if (ImGui::GetWindowPos().y > IIO.DisplaySize.y / 2)  //ä½ç½® = ä¸»ç•Œé¢é«˜åº¦ - æœ¬çª—å£é«˜åº¦      
 		{
 			toolwindospost.y = ( windospost_y - toolwindossize_y);
 		}
@@ -530,36 +661,36 @@ namespace GW2Radial
 			
 			if (tesss == 2)
 			{
-				ImGui::Text(u8" µ±Ç°Ñ¡ÖĞµÄËùÓĞBOSS");
+				ImGui::Text(u8" å½“å‰é€‰ä¸­çš„æ‰€æœ‰BOSS");
 				ImGui::Separator();
 			}
 			else
 			{
 				if (tesss == 1)
 				{
-					ImGui::Text(u8" Ç°15·ÖÖÓÄÚËùÓĞBOSS");
+					ImGui::Text(u8" å‰15åˆ†é’Ÿå†…æ‰€æœ‰BOSS");
 				}
 				if (tesss == 3)
 				{
-					ImGui::Text(u8" ºó15·ÖÖÓÄÚËùÓĞBOSS");
+					ImGui::Text(u8" å15åˆ†é’Ÿå†…æ‰€æœ‰BOSS");
 				}
 				ImGui::Separator();
 			}
 			SHOWNEWUI_BUTTONS();
 			ImGui::Separator();
-			ImGui::Text(u8"ÒÆ¿ªÊó±ê¸´Ô­");
-			ImGui::SameLine(ImGui::CalcTextSize(u8"ÒÆ¿ªÊó±ê¸´Ô­").x+40);
+			ImGui::Text(u8"ç§»å¼€é¼ æ ‡å¤åŸ");
+			ImGui::SameLine(ImGui::CalcTextSize(u8"ç§»å¼€é¼ æ ‡å¤åŸ").x+40);
 			ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0.1f, 0.1f, 0.660f, touming_));
 			ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0.1f, 0.1f, 0.760f, touming_));
 			ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(0.1f, 0.1f, 0.860f, touming_));
-			if (ImGui::SmallButton(u8"¹Ø±Õ##toolui"))
+			if (ImGui::SmallButton(u8"å…³é—­##toolui"))
 			{
 				showtoolwind = false;
 			}
 			if (MiscTab::i()->day_to_do() && !showdaydo)
 			{
-				ImGui::SameLine(ImGui::CalcTextSize(u8"ÒÆ¿ªÊó±ê¸´Ô­").x +10+ ImGui::CalcTextSize(u8"´ò¿ªÃ¿Ìì±Ø×ö").x);
-				if (ImGui::SmallButton(u8"´ò¿ªÃ¿Ìì±Ø×ö##dayui"))
+				ImGui::SameLine(ImGui::CalcTextSize(u8"ç§»å¼€é¼ æ ‡å¤åŸ").x +10+ ImGui::CalcTextSize(u8"æ‰“å¼€æ¯å¤©å¿…åš").x);
+				if (ImGui::SmallButton(u8"æ‰“å¼€æ¯å¤©å¿…åš##dayui"))
 				{
 					showdaydo = true;
 				}
@@ -567,32 +698,9 @@ namespace GW2Radial
 			if (MiscTab::i()->getweb())
 			{
 
-				ImGui::Text(u8"ÍøÒ³ÈÕ³£ : (%s)", W_time1);
-				//bool node_open = ImGui::TreeNode(u8"ÍøÒ³ÈÕ³£", u8"ÍøÒ³ÈÕ³£ : (%s)", W_time1);
+				ImGui::Text(u8"ç§¯åˆ†æ—¥å¸¸ : (%s)", W_time1);
 				ImGui::SameLine();
-				//if (ImGui::SmallButton(u8"×òÌì"))
-				//{
-				//	if (wancheng)
-				//	{
-				//		if (days == 0)
-				//		{
-				//			for (int i = 0; i < 5; i++)
-				//			{
-				//				W_renwu2[i] = W_renwu1[i];
-				//			}
-				//			W_time2 = W_time1;
-				//		}
-
-				//		days--;
-				//		const char* addday = GetTime(days);
-				//		W_time1 = addday;
-				//		boost::thread thServer(getsting, addday);
-				//	}
-
-				//}
-				//ImGui::SameLine();
-
-				if (ImGui::SmallButton(u8"Ã÷Ìì"))
+				if (ImGui::SmallButton(u8"æ˜å¤©"))
 				{
 					if (wancheng)
 					{
@@ -613,17 +721,17 @@ namespace GW2Radial
 
 				}
 				ImGui::SameLine();
-				if (ImGui::SmallButton(u8"¸´ÖÆ"))
+				if (ImGui::SmallButton(u8"å¤åˆ¶"))
 				{
-					std::string arrc1 = u8" µÄÍøÒ³ÈÎÎñ: ";
+					std::string arrc1 = u8" çš„ç§¯åˆ†ä»»åŠ¡: ";
 					std::string arrc12 = W_time1;
-					std::string arrc2 = u8"À´×Ô\"gw2sy.top\"ÉñÓÍbossÌáÊ¾Æ÷";
+					std::string arrc2 = u8"æ¥è‡ª\"gw2sy.top\"ç¥æ²¹bossæç¤ºå™¨";
 					std::string arrc3 = u8"--";
-					std::string r1 = u8"ÈÎÎñÒ»:";
-					std::string r2 = u8"ÈÎÎñ¶ş:";
-					std::string r3 = u8"ÈÎÎñÈı:";
-					std::string r4 = u8"ÈÎÎñËÄ:";
-					std::string r5 = u8"ÈÎÎñÎå:";
+					std::string r1 = u8"ä»»åŠ¡ä¸€:";
+					std::string r2 = u8"ä»»åŠ¡äºŒ:";
+					std::string r3 = u8"ä»»åŠ¡ä¸‰:";
+					std::string r4 = u8"ä»»åŠ¡å››:";
+					std::string r5 = u8"ä»»åŠ¡äº”:";
 					std::string r6 = "\r\n";
 					if (W_renwu1[0] != "0")
 					{
@@ -636,29 +744,94 @@ namespace GW2Radial
 					}
 				}
 				//if (node_open)
+				if (wancheng)
 				{
-					if (wancheng)
+					if (W_renwu1[0] != "0")
 					{
-						if (W_renwu1[0] != "0")
+						for (int i = 0; i < 5; i++)
 						{
-							for (int i = 0; i < 5; i++)
-							{
-								ImGui::Text((" " + W_renwu1[i]).c_str());
-							}
-							//ImGui::TreePop();
+							ImGui::Text((" " + W_renwu1[i]).c_str());
 						}
-						else
+						//ImGui::TreePop();
+					}
+					else
+					{
+						ImGui::Text(u8"æœªè·å–åˆ°ä¿¡æ¯è¯·ç­‰å¾…å®˜ç½‘æ›´æ–°æ´»åŠ¨");
+						//ImGui::TreePop();
+					}
+				}
+				else
+				{
+					ImGui::Text(u8"æ­£åœ¨è·å–ä¸­è¯·è€å¿ƒç­‰å€™");
+					//ImGui::TreePop();
+				}
+
+				if (meirihuoqu)
+				{
+					static int ettotbad = 0;
+					if (jifenresult[0] != "0")
+					{
+						ImGui::Text(u8"åœ¨çº¿æ—¥å¸¸:");
+						if (ettotbad == 0)
 						{
-							ImGui::Text(u8"Î´»ñÈ¡µ½ĞÅÏ¢ÇëµÈ´ı¹ÙÍø¸üĞÂ»î¶¯");
-							//ImGui::TreePop();
+							ImGui::SameLine();
+							if (ImGui::SmallButton(u8"å¤åˆ¶##gveagew"))
+							{
+								std::string arrc1 = u8"ä»Šå¤©çš„åœ¨çº¿æ—¥å¸¸ä»»åŠ¡: ";
+								std::string arrc2 = u8"æ¥è‡ª\"gw2sy.top\"ç¥æ²¹bossæç¤ºå™¨";
+								std::string arrc3 = u8"--";
+								std::string r1 = u8"ä»»åŠ¡ä¸€:";
+								std::string r2 = u8"ä»»åŠ¡äºŒ:";
+								std::string r3 = u8"ä»»åŠ¡ä¸‰:";
+								std::string r4 = u8"ä»»åŠ¡å››:";
+								std::string r5 = u8"ä»»åŠ¡äº”:";
+								std::string r6 = "\r\n";
+								if (W_renwu1meiri[0] != "0")
+								{
+									W_arrc = (arrc1 + r6 + r1 + W_renwu1meiri[0] + r6 + r2 + W_renwu1meiri[1] + r6 + r3 + W_renwu1meiri[2] + r6 + r4 + W_renwu1meiri[3] + r6 + r5 + W_renwu1meiri[4] + r6 + arrc2).c_str();
+									ImGui::SetClipboardText(W_arrc);
+								}
+								else
+								{
+									ImGui::SetClipboardText("");
+								}
+							}
+						}
+						for (int i = 0; i < 5; i++)
+						{
+							//ImGui::Text("jh%d", W_renwu1meiri[i].length());
+							if (W_renwu1meiri[i].length() > 600)
+							{
+								ettotbad++;
+							}
+							else
+							{
+								ImGui::Text(W_renwu1meiri[i].c_str());
+							}
+							
+						}
+						if (ettotbad >= 4)
+						{
+							ettotbad = 5;
+							ImGui::Text(u8"æœªè·å–åˆ°ä¿¡æ¯è¯·ç­‰å¾…å®˜ç½‘æ›´æ–°æ´»åŠ¨");
 						}
 					}
 					else
 					{
-						ImGui::Text(u8"ÕıÔÚ»ñÈ¡ÖĞÇëÄÍĞÄµÈºò");
+						ImGui::Text(u8"æœªè·å–åˆ°ä¿¡æ¯è¯·ç­‰å¾…å®˜ç½‘æ›´æ–°æ´»åŠ¨");
 						//ImGui::TreePop();
 					}
 				}
+				else
+				{
+					ImGui::Text(u8"-----æ­£åœ¨è·å–ä¸­è¯·è€å¿ƒç­‰å€™-----");
+					//ImGui::TreePop();
+				}
+				if (W_renwu1[0] != "0" || W_renwu1meiri[0] != "0")
+				{
+					ImGui::Text(u8"ä»¥ä¸Šä¸¤ç§ä»»åŠ¡åˆ†åˆ«5é€‰3å®Œæˆå³å¯");
+				}
+
 
 			}
 			ImGui::PopStyleColor(3);
@@ -916,7 +1089,7 @@ namespace GW2Radial
 			{
 				ImGui::SetNextWindowPos(ImVec2(sPOSX(), sPOSY()));
 			}
-			ImGui::Begin(u8"ĞÂui", &showit,ImGuiWindowFlags_AlwaysAutoResize|ImGuiWindowFlags_NoTitleBar);
+			ImGui::Begin(u8"æ–°ui", &showit,ImGuiWindowFlags_AlwaysAutoResize|ImGuiWindowFlags_NoTitleBar);
 			float bosx = ImGui::GetWindowPos().x;
 			float bosy = ImGui::GetWindowPos().y;
 			ImGui::SetWindowFontScale(daxiao_);
@@ -949,14 +1122,14 @@ namespace GW2Radial
 
 			if (ImGui::ImageButton(Texture_2, { 32 * daxiao_,32 * daxiao_ }))
 			{
-				std::string arrc3 = u8" À´×Ô\"gw2sy.top\"ÉñÓÍbossÌáÊ¾Æ÷";
+				std::string arrc3 = u8" æ¥è‡ª\"gw2sy.top\"ç¥æ²¹bossæç¤ºå™¨";
 				ImGui::SetClipboardText((Clipboardtmp + arrc3).c_str());
 			}
 			if (ImGui::IsItemHovered())
 			{
 				tesss = 2;
 				ImGui::BeginTooltip();
-				ImGui::TextUnformatted(u8"ÓÒ¼ü±¾°´Å¥¿ÉÒÔËø¶¨´°¿ÚÎ»ÖÃ\r\nµã»÷¿É¸´ÖÆµ±Ç°ËùÓĞboss");
+				ImGui::TextUnformatted(u8"å³é”®æœ¬æŒ‰é’®å¯ä»¥é”å®šçª—å£ä½ç½®\r\nç‚¹å‡»å¯å¤åˆ¶å½“å‰æ‰€æœ‰boss");
 				ImGui::EndTooltip();
 			}
 			if (ImGui::BeginPopupContextItem())
@@ -986,6 +1159,11 @@ namespace GW2Radial
 					}
 				}
 			}
+			if (!gudingwinpos_.value()&& isbts)
+			{
+				ImGui::Text(u8"ç‚¹ä½æˆ‘æ‹–åŠ¨çª—å£");
+			}
+
 
 			if (ImGui::IsItemDeactivated())
 			{
@@ -1016,7 +1194,7 @@ namespace GW2Radial
 				ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 3.0f);
 				ImGui::Begin(u8"##showitbj", NULL, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoTitleBar);
 				ImGui::SetWindowFontScale(MiscTab::i()->tixinmodsiz() * daxiao2_);
-				ImGui::Button(u8"¼´½«¿ªÊ¼", { 150 * MiscTab::i()->tixinmodsiz() * daxiao2_ ,22 * MiscTab::i()->tixinmodsiz() * daxiao2_ });
+				ImGui::Button(u8"å³å°†å¼€å§‹", { 150 * MiscTab::i()->tixinmodsiz() * daxiao2_ ,22 * MiscTab::i()->tixinmodsiz() * daxiao2_ });
 				
 #pragma region xianss
 				int NEWBOSSJISUofbj = NEWBOSSJISU;
@@ -1137,7 +1315,7 @@ namespace GW2Radial
 					int h = 0, s = 0;
 					for (int i = 0; i < 96; i++)
 					{
-						if (i == NEWBOSSJISU)
+						if (i == NEWBOSSJISUofbj)
 						{
 							SHOWNEWUI_BUTTONS_TYPE_V(BSPX51[NEWBOSSJISUofbj], 2, h, s);
 						}
@@ -1223,7 +1401,7 @@ namespace GW2Radial
 
 				}
 #pragma endregion
-				if (ImGui::Button(u8"¹Ø±Õ", { 150 * MiscTab::i()->tixinmodsiz() * daxiao2_ ,22 * MiscTab::i()->tixinmodsiz() * daxiao2_  }))
+				if (ImGui::Button(u8"å…³é—­", { 150 * MiscTab::i()->tixinmodsiz() * daxiao2_ ,22 * MiscTab::i()->tixinmodsiz() * daxiao2_  }))
 				{
 					showbjui = false;
 					if (showbjmod == 4)
@@ -1301,9 +1479,353 @@ namespace GW2Radial
 
 
 
-#pragma endregion ĞÂUI
+#pragma endregion æ–°UI
 
-#pragma region Ã¿ÈÕ±Ø×ö
+#pragma region æ–°æé†’æ¨¡å—
+
+	//å…¨éƒ¨å‚æ•°
+	static int tmpjisu = 0;
+	float scdto = 59;//æ˜¾ç¤ºæ—¶é—´2åˆ†é’Ÿ
+	int isttnow[10];
+	bool openpot2[10];
+	float sctno2[10];
+	std::vector<int> cunhun;
+	static float sctno2tz = -1;
+	bool clossall_in = false;
+	bool tis00 = false;
+	bool tis50 = false;
+	bool tis55 = false;
+	bool shengsuoanniu = false;
+	float allbgalpha = 0.8f;
+	//å…³é—­å…¨éƒ¨
+	void BossTime::cloossalltz()
+	{
+		float tmppost = ImGui::GetIO().DisplaySize.y * 0.45f - 45.0f;
+		ImVec2 ming1 = { -290.0f,tmppost };
+		ImVec2 mingsize1 = { 300,64 };
+		if (sctno2tz == -1)
+		{
+			sctno2tz = (float)ImGui::GetTime();
+		}
+		if ((float)ImGui::GetTime() - sctno2tz > scdto && showbjui)
+		{
+			//std::cout << "å“ç‰Œ2: " << std::endl;
+			//std::cout << "å“ç‰Œ2: " << std::endl;
+			clossall_in = false;
+			return;
+		}
+		if (-290.0f + ((float)ImGui::GetTime() - sctno2tz) * 120.0f < -10.0f)
+		{
+			ming1.x = -290.0f + ((float)ImGui::GetTime() - sctno2tz) * 120.0f;
+
+		}
+		else
+		{
+			ming1.x = -10.0f;
+
+		}
+		if (!shengsuoanniu && MiscTab::i()->tixinmodmianrao())return;
+
+		if (clossall_in)
+		{
+			ImGui::SetNextWindowPos({ ming1.x  ,ming1.y });
+			ImGui::SetNextWindowSize(mingsize1);
+			ImGui::SetNextWindowBgAlpha(0);
+			ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0);
+			ImGui::Begin("cloossalltz1", NULL, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoScrollbar);
+			ImGui::Image(Texture_NWBGDDS, ImGui::GetContentRegionAvail(), { 0,0 }, { 1,1 }, { 1,1,1,allbgalpha });
+
+			ImGui::SetNextWindowPos({ ming1.x  ,ming1.y });
+			ImGui::SetNextWindowSize(mingsize1);
+			ImGui::SetNextWindowBgAlpha(0);
+			ImGui::Begin("cloossalltz2", NULL, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoScrollbar);
+
+			ImGui::PushStyleColor(ImGuiCol_Button, { 1,1,1,0.0f });
+			ImGui::PushStyleColor(ImGuiCol_ButtonHovered, { 1,1,1,0.2f });
+			ImGui::PushStyleColor(ImGuiCol_ButtonActive, { 1,1,1,0.4f });
+			ImGui::Button((const char*)u8"å³å°†å¼€å§‹", { ImGui::GetContentRegionAvail().x * 0.5f,ImGui::GetContentRegionAvail().y });
+			ImGui::SameLine(0, 0);
+			if (ImGui::Button((const char*)u8"å…³é—­", { ImGui::GetContentRegionAvail().x * 0.5f,ImGui::GetContentRegionAvail().y }))
+			{
+				for (int i = 0; i < tmpjisu; i++)
+				{
+					openpot2[i] = false;
+					isttnow[i] = 0;
+				}
+				clossall_in = false;
+			}
+			ImGui::PopStyleColor(3);
+			ImGui::End();
+			ImGui::End();
+			ImGui::PopStyleVar(1);
+		}
+	}
+
+	//å•ä¸ªæ¨¡å—
+	void BossTime::showtimspot(float postto) {
+
+		float tmppost = 45.0f * postto + ImGui::GetIO().DisplaySize.y * 0.45f;//å±å¹•æ¯”ä¾‹
+		ImVec2 ming = { -290.0f,tmppost };//çª—å£ä½ç½®
+		ImVec2 mingsize = { 300,64 };//çª—å£å¤§å°
+		bool tts = false;
+
+		char num_buf[32];
+		char str3[32];
+		const char* label = BossName(ALL_boss_paixu[isttnow[(int)postto]][2]);
+		sprintf_s(num_buf, (const char*)u8"[%02d:%02d]", ALL_boss_paixu[isttnow[(int)postto]][0], ALL_boss_paixu[isttnow[(int)postto]][1]);
+		strcpy_s(str3, num_buf);
+		strcat_s(str3, label);
+		label = str3;
+
+		if (!tts && !openpot2[(int)postto] && sctno2[(int)postto] == -1)
+		{
+			tts = true;
+			openpot2[(int)postto] = true;
+			sctno2[(int)postto] = (float)ImGui::GetTime();
+			
+		}
+		else
+		{
+			if ((float)ImGui::GetTime() - (float)sctno2[(int)postto] - postto > scdto && showbjui)
+			{
+				openpot2[(int)postto] = false;
+				isttnow[(int)postto] = 0;
+				tts = false;
+				return;
+			}
+			if (-10.0f > -290.0f + ((float)ImGui::GetTime() - (float)sctno2[(int)postto] - postto) * 120)
+			{
+				ming.x = -290.0f + ((float)ImGui::GetTime() - (float)sctno2[(int)postto] - postto) * 120;
+			}
+			else
+			{
+				ming.x = -10.0f;
+			}
+		}
+
+		if (!shengsuoanniu && MiscTab::i()->tixinmodmianrao())return;
+
+		if (openpot2[(int)postto])
+		{
+			//std::cout << "å“ç‰Œ4: " << std::endl;
+			ImGui::SetNextWindowPos(ming);
+			ImGui::SetNextWindowSize(mingsize);
+			ImGui::SetNextWindowBgAlpha(0);
+			ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0);
+
+			char buf1[64];
+			//sprintf(buf1, "tmpWindowB1##mm%d", (int)postto);
+			sprintf_s(buf1, sizeof(buf1), "tmpWindowB1##mm%d", (int)postto);
+			ImGui::Begin(buf1, &openpot2[(int)postto], ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoScrollbar);
+
+			ImGui::Image(Texture_NWBGDDS, ImGui::GetContentRegionAvail(), { 0,0 }, { 1,1 }, { 1,1,1,allbgalpha });
+
+			ImGui::SetNextWindowPos({ ming.x + 10 ,ming.y });
+			ImGui::SetNextWindowSize(mingsize);
+			ImGui::SetNextWindowBgAlpha(0);
+			char buf2[64];
+			//sprintf(buf2, "tmpWindowB2##mm%d", (int)postto);
+			sprintf_s(buf2, sizeof(buf2), "tmpWindowB2##mm%d", (int)postto);
+			ImGui::Begin(buf2, &openpot2[(int)postto], ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoScrollbar);
+			ImGui::PushStyleColor(ImGuiCol_Button, { 1,1,1,0.0f });
+			ImGui::PushStyleColor(ImGuiCol_ButtonHovered, { 1,1,1,0.2f });
+			ImGui::PushStyleColor(ImGuiCol_ButtonActive, { 1,1,1,0.4f });
+
+			ImGui::PushStyleVar(ImGuiStyleVar_ButtonTextAlign, { 0.2f,0.5f });
+			if (ImGui::Button(("htre##%s", label), { ImGui::GetContentRegionAvail().x - 80,ImGui::GetContentRegionAvail().y }))
+			{
+				//std::cout << label << std::endl;
+				std::string arrc1 = label;
+				std::string arrc2 = BossPost(ALL_boss_paixu[isttnow[(int)postto]][2]);
+				std::string arrc3 = u8" æ¥è‡ª\"gw2sy.top\"ç¥æ²¹bossæç¤ºå™¨";
+				ImGui::SetClipboardText((arrc1 + arrc2 + arrc3).c_str());
+
+			}
+			ImGui::SameLine(0, 0);
+			ImGui::PopStyleVar(1);
+			char Butbuf3[32];
+			char Butstr3[32];
+			const char* Butlabel = BossName(ALL_boss_paixu[isttnow[(int)postto]][2]);
+			sprintf_s(Butbuf3, sizeof(Butbuf3), (const char*)u8"Ã—##%d", (int)postto);
+			strcpy_s(Butstr3, Butbuf3);
+			strcat_s(Butstr3, Butlabel); 
+			Butlabel = Butstr3;
+
+			if (ImGui::Button(Butlabel, { 52,ImGui::GetContentRegionAvail().y }))
+			{
+				openpot2[(int)postto] = false;
+				isttnow[(int)postto] = 0;
+				//std::cout << Butbuf3 << std::endl;
+			}
+			ImGui::PopStyleColor(3);
+			ImGui::End();
+
+			ImGui::End();
+			ImGui::PopStyleVar(1);
+		}
+	}
+
+	void BossTime::NEWBAOJING(bool& showitbj)
+	{
+		//============================================
+		time_t time_seconds = time(0);
+		tm now_time;
+		localtime_s(&now_time, &time_seconds);
+		//å¾—åˆ°å½“å‰æ—¶é—´
+		int tmp_vefve = 0;
+		for (int ite = 0; ite < 10; ite++)
+		{
+			if (isttnow[ite] == 0)
+			{
+				tmp_vefve++;
+			}
+		}
+		if (tmp_vefve == 10)
+		{
+			tmpjisu = 0;
+			cunhun.clear();
+			clossall_in = false;
+		}
+		//æ˜¯å¦æ¸…ç©ºå¤„ç†
+		if (now_time.tm_hour * 60 + now_time.tm_min > 1425)
+		{
+			//23.55ä¹‹åå¤„ç†
+			int thistimeis = (now_time.tm_hour * 60 + now_time.tm_min) * 60 + now_time.tm_sec;
+			if (!tis50 &&  thistimeis == 85800)
+			{
+				tis50 = true;
+				cunhun.push_back(1);
+				cunhun.push_back(2);
+				cunhun.push_back(3);
+				tmpjisu = 3;
+			}
+			else if(!tis55 && thistimeis == 86100)
+			{
+				tis55 = true;
+				cunhun.push_back(4);
+				tmpjisu = 1;
+			}
+		}
+		else if (!tis00 && (now_time.tm_hour * 60 + now_time.tm_min) * 60 + now_time.tm_sec == 0)
+		{
+			tis00 = true;
+			cunhun.push_back(5);
+			cunhun.push_back(6);
+			tmpjisu = 2;
+		}
+		else if ((now_time.tm_hour * 60 + now_time.tm_min) * 60 + now_time.tm_sec > 100)
+		{
+			tis00 = false;
+			tis50 = false;
+			tis55 = false;
+			//23.55ä¹‹å‰
+			for (int jisuqi = 0; jisuqi < 475; jisuqi++)
+			{
+				int thistimeis = (ALL_boss_paixu[jisuqi][0] * 60 + ALL_boss_paixu[jisuqi][1]) * 60 - ((now_time.tm_hour * 60 + now_time.tm_min) * 60 + now_time.tm_sec);
+				if (600 < thistimeis && thistimeis < 602)
+				{
+					bool haveit = false;
+					for (size_t i = 0; i < 10; i++)
+					{
+						for (size_t t = 0; t < 10; t++)
+						{
+							if (isttnow[i] != 0 && (isttnow[t] == isttnow[i]))
+							{
+								haveit = true;
+							}
+						}
+					}
+					if (!haveit && tmpjisu < 10)
+					{
+						cunhun.push_back(jisuqi);
+						//isttnow[tmpjisu] = jisuqi;
+						tmpjisu++;
+					}
+				}
+			}
+		}
+
+		//èµ‹å€¼
+		if (tmpjisu > 0)
+		{
+			for (size_t i = 0; i < cunhun.size(); i++)
+			{
+				if (isttnow[i] == 0 && cunhun[i] != 0)
+				{
+					isttnow[i] = cunhun[i];
+					cunhun[i] = 0;
+					sctno2tz = -1;
+					clossall_in = true;
+				}
+				else
+				{
+					if (isttnow[i] == 0 && isttnow[i + 1] > 0 && i + 1 < tmpjisu)
+					{
+						isttnow[i] = isttnow[i + 1]; isttnow[i + 1] = 0;
+						openpot2[i] = true;
+					}
+				}
+			}
+			for (int i = 0; i < tmpjisu; i++)
+			{
+				if (isttnow[i] == 0 || openpot2[i] == false)
+				{
+					openpot2[i] = false;
+					sctno2[i] = -1;
+				}
+			}
+		}
+		//æé†’å…æ‰°æ¨¡å¼
+		if (MiscTab::i()->tixinmodmianrao()) {
+			if (tmpjisu == 0 && shengsuoanniu)
+			{
+				shengsuoanniu = false;
+			}
+			if (tmpjisu > 0 && !shengsuoanniu)
+			{
+				float tmppost = ImGui::GetIO().DisplaySize.y * 0.45f - 45.0f;
+				ImVec2 ming1 = { -8.0f,tmppost };
+				ImGui::SetNextWindowPos(ming1);
+				ImGui::SetNextWindowBgAlpha(0);
+				ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0);
+				ImGui::Begin("shengsuoanniu", NULL, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar);
+				ImGui::PushStyleColor(ImGuiCol_Button, { 1,1,1,0.0f });
+				ImGui::PushStyleColor(ImGuiCol_ButtonHovered, { 1,1,1,0.2f });
+				ImGui::PushStyleColor(ImGuiCol_ButtonActive, { 1,1,1,0.4f });
+				if (ImGui::ImageButton(Texture_1, { 35.f,35.f }))
+				{
+					shengsuoanniu = true;
+				}
+				ImGui::PopStyleColor(3);
+				ImGui::End();
+				ImGui::PopStyleVar(1);
+			}
+		}
+		//è°ƒå–
+		if (showitbj && tmpjisu > 0)
+		{
+			if (clossall_in)
+			{
+				cloossalltz();
+			}
+			for (int i = 0; i < tmpjisu; i++)
+			{
+				if (isttnow[i] > 0)
+				{
+					showtimspot((float)i);
+				}
+			}
+		}
+		//============================================
+	}
+
+
+
+
+
+#pragma endregion
+
+#pragma region æ¯æ—¥å¿…åš
 
 
 
@@ -1365,9 +1887,9 @@ namespace GW2Radial
 		auto cfg = ConfigurationFile::i();
 		if (dossizes == 0)
 		{
-			alldotmp = cfg->ini().GetValue("shubiao", "alltodo_", u8"|13|ÍøÒ³ÈÕ³£|ÈÕ³£Ëé²ã|¼ÒÔ°²É¼¯|¹«»á²É¼¯|ÈÕ³£ÖÆ×÷|ÁúÄ¸|ÅÜÄĞ|ËÄÃÅ|³æÍõ|·ÖÉí|Ë«¹·|¶Ä³¡|µØ³æ|");
+			alldotmp = cfg->ini().GetValue("shubiao", "alltodo_", u8"|13|ç½‘é¡µæ—¥å¸¸|æ—¥å¸¸ç¢å±‚|å®¶å›­é‡‡é›†|å…¬ä¼šé‡‡é›†|æ—¥å¸¸åˆ¶ä½œ|é¾™æ¯|è·‘ç”·|å››é—¨|è™«ç‹|åˆ†èº«|åŒç‹—|èµŒåœº|åœ°è™«|");
 		}
-		if (cfg->ini().GetBoolValue("shubiao", "alltodo_oot", true) && (int)alldotmp.find(u8"|13|ÍøÒ³ÈÕ³£|ÈÕ³£Ëé²ã|¼ÒÔ°²É¼¯|¹«»á²É¼¯|ÈÕ³£ÖÆ×÷|ÁúÄ¸|ÅÜÄĞ|ËÄÃÅ|³æÍõ|·ÖÉí|Ë«¹·|¶Ä³¡|µØ³æ|", 0) == 0 && dossizes == 0)
+		if (cfg->ini().GetBoolValue("shubiao", "alltodo_oot", true) && (int)alldotmp.find(u8"|13|ç½‘é¡µæ—¥å¸¸|æ—¥å¸¸ç¢å±‚|å®¶å›­é‡‡é›†|å…¬ä¼šé‡‡é›†|æ—¥å¸¸åˆ¶ä½œ|é¾™æ¯|è·‘ç”·|å››é—¨|è™«ç‹|åˆ†èº«|åŒç‹—|èµŒåœº|åœ°è™«|", 0) == 0 && dossizes == 0)
 		{
 			cfg->ini().SetValue("shubiao", "alltodo_", alldotmp.c_str());
 			std::string alldotmp_2 = "|";
@@ -1456,6 +1978,10 @@ namespace GW2Radial
 		//readalldo();
 	}
 	bool editmod = false;
+	//
+	bool showui = false;
+	int zidingyixuanzhe = 4;
+	//
 	void BossTime::DayToDo()
 	{
 		if (MiscTab::i()->day_to_do()&&showdaydo)
@@ -1473,7 +1999,72 @@ namespace GW2Radial
 			ImGui::PushStyleColor(ImGuiCol_TitleBgCollapsed, (ImVec4)ImColor::HSV(0.0f, 0.0f, 0.0f, touming_));
 
 			//ImGui::Begin("daytodos", &showdaydo, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_AlwaysAutoResize);
-			ImGui::Begin(u8"Ã¿ÈÕ±Ø×ö", NULL,  ImGuiWindowFlags_AlwaysAutoResize);
+			ImGui::Begin(u8"æ¯æ—¥å¿…åš", NULL,  ImGuiWindowFlags_AlwaysAutoResize);
+			//ImGui::PushFont(Core::i()->fontBlack());
+
+			//static const char* names[9] = { u8"éºŸé¾™", u8"é¸Ÿé¾™", u8"å…”å­", u8"æˆ˜çˆª", u8"å–æ¶ˆ", u8"é£é±¼", u8"ç”²è™«", u8"ç‹®é¹«", u8"èƒ¡ç‹¼" };
+			//static const char* namesdo[9] = { u8"ã‡°", u8"ã‡±", u8"ã‡²", u8"ã‡³", u8"ã‡´", u8"ã‡µ", u8"ã‡¶", u8"ã‡·", u8"ã‡¸" };
+			//ImGui::Checkbox(u8"å¯ç”¨åéª‘æ’ä»¶", &showui);
+			//ImGui::Combo(u8"é»˜è®¤é€‰æ‹©", &zidingyixuanzhe, names, 9);
+			//
+			//if (showui)
+			//{
+			//	ImGui::CaptureKeyboardFromApp();
+			//	if (ImGui::IsKeyPressed(27, false))
+			//	{
+			//		showui = false;
+			//	}
+			//	ImGui::SetWindowFontScale(2.0f*daxiao2_  * daxiao_);
+
+			//	for (int n = 0; n < 9; n++)
+			//	{
+			//		//if (n !=4)
+			//		{
+			//			if ((n % 3) != 0)
+			//				ImGui::SameLine();
+			//			//ImGui::GetIO().Fonts->Fonts.push_back(font_);
+			//			//ImGui::PushFont(ImGui::GetIO().Fonts->Fonts.back());
+
+			//			if (ImGui::Button(namesdo[n], ImVec2(daxiao2_*36*daxiao_, daxiao2_*36 * daxiao_)))
+			//			{
+			//				if (n == 4)
+			//				{
+			//					showui = false;
+			//				}
+			//				else
+			//				{
+			//					ImGui::GetIO().KeysDown[96];
+			//				}
+			//			}
+			//			//ImGui::PopFont();
+			//			if (ImGui::IsItemHovered())
+			//			{
+			//				ImVec2 mix_(ImGui::GetItemRectMin().x, ImGui::GetItemRectMin().y);
+			//				ImVec2 max_(ImGui::GetItemRectMax().x, ImGui::GetItemRectMax().y);
+			//				ImGui::GetWindowDrawList()->AddRect(mix_, max_, IM_COL32(255, 255, 0, 255));
+			//			}
+			//			if (zidingyixuanzhe == n)
+			//			{
+			//				ImVec2 mix_(ImGui::GetItemRectMin().x, ImGui::GetItemRectMin().y);
+			//				ImVec2 max_(ImGui::GetItemRectMax().x, ImGui::GetItemRectMax().y);
+			//				ImGui::GetWindowDrawList()->AddRect(mix_, max_, IM_COL32(255, 255, 0, 255));
+			//			}
+			//			//ImGui::GetIO().Fonts->Fonts.pop_back();
+			//		}
+			//		//else
+			//		//{
+			//		//	ImGui::PushFont(ImGui::GetIO().Fonts->Fonts.back());
+			//		//	if (ImGui::Button(namesdo[n], ImVec2(60, 60)))
+			//		//	{
+			//		//		showui = false;
+			//		//	}
+			//		//	ImGui::PopFont();
+			//		//}
+			//	}
+			//}
+			
+
+
 			ImGui::SetWindowFontScale(daxiao_);
 
 			ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0.0f, 0.0f, 0.0f, 0.0f));
@@ -1500,7 +2091,7 @@ namespace GW2Radial
 						if (ImGui::IsItemHovered())
 						{
 							ImGui::BeginTooltip();
-							ImGui::TextUnformatted(u8"É¾³ı´ËÏî");
+							ImGui::TextUnformatted(u8"åˆ é™¤æ­¤é¡¹");
 							ImGui::EndTooltip();
 						}
 						ImGui::SameLine();
@@ -1524,7 +2115,7 @@ namespace GW2Radial
 							if (ImGui::IsItemHovered())
 							{
 								ImGui::BeginTooltip();
-								ImGui::TextUnformatted(u8"É¾³ı´ËÏî");
+								ImGui::TextUnformatted(u8"åˆ é™¤æ­¤é¡¹");
 								ImGui::EndTooltip();
 							}
 							ImGui::SameLine();
@@ -1550,7 +2141,7 @@ namespace GW2Radial
 					if (ImGui::IsItemHovered())
 					{
 						ImGui::BeginTooltip();
-						ImGui::TextUnformatted(u8"Ìí¼ÓÏîÄ¿");
+						ImGui::TextUnformatted(u8"æ·»åŠ é¡¹ç›®");
 						ImGui::EndTooltip();
 					}
 				}
@@ -1567,7 +2158,7 @@ namespace GW2Radial
 					if (ImGui::IsItemHovered())
 					{
 						ImGui::BeginTooltip();
-						ImGui::TextUnformatted(u8"Ìí¼Ó");
+						ImGui::TextUnformatted(u8"æ·»åŠ ");
 						ImGui::EndTooltip();
 					}
 					ImGui::SameLine();
@@ -1579,10 +2170,10 @@ namespace GW2Radial
 					if (ImGui::IsItemHovered())
 					{
 						ImGui::BeginTooltip();
-						ImGui::TextUnformatted(u8"È¡Ïû");
+						ImGui::TextUnformatted(u8"å–æ¶ˆ");
 						ImGui::EndTooltip();
 					}
-					ImGui::Text(u8"Çë×¢Òâ!²»ÒªÊäÈë\"|\"! ");
+					ImGui::Text(u8"è¯·æ³¨æ„!ä¸è¦è¾“å…¥\"|\"! ");
 				}
 				if (!iswantadd)
 				{
@@ -1599,7 +2190,7 @@ namespace GW2Radial
 					if (ImGui::IsItemHovered())
 					{
 						ImGui::BeginTooltip();
-						ImGui::TextUnformatted(u8"Çå³ıËùÓĞÏîÄ¿¹´Ñ¡");
+						ImGui::TextUnformatted(u8"æ¸…é™¤æ‰€æœ‰é¡¹ç›®å‹¾é€‰");
 						ImGui::EndTooltip();
 					}
 					ImGui::SameLine();
@@ -1609,14 +2200,14 @@ namespace GW2Radial
 			else
 			{
 				if (ImGui::ImageButton(Texture_edit, { 12 * daxiao_,12 * daxiao_ }))
-				//if (ImGui::SmallButton(u8"±à¼­##editmod"))
+				//if (ImGui::SmallButton(u8"ç¼–è¾‘##editmod"))
 				{
 					editmod = true;
 				}
 				if (ImGui::IsItemHovered())
 				{
 					ImGui::BeginTooltip();
-					ImGui::TextUnformatted(u8"±à¼­");
+					ImGui::TextUnformatted(u8"ç¼–è¾‘");
 					ImGui::EndTooltip();
 				}
 			}
@@ -1627,28 +2218,28 @@ namespace GW2Radial
 				{
 					ImGui::SameLine();
 					if (ImGui::ImageButton(Texture_cancel, { 12 * daxiao_,12 * daxiao_ }))
-					//if (ImGui::SmallButton(u8"È¡Ïû##editmod"))
+					//if (ImGui::SmallButton(u8"å–æ¶ˆ##editmod"))
 					{
 						editmod = false;
 					}
 					if (ImGui::IsItemHovered())
 					{
 						ImGui::BeginTooltip();
-						ImGui::TextUnformatted(u8"È¡Ïû");
+						ImGui::TextUnformatted(u8"å–æ¶ˆ");
 						ImGui::EndTooltip();
 					}
 				}
 
 				ImGui::SameLine();
 				if (ImGui::ImageButton(Texture_close, { 12 * daxiao_,12 * daxiao_ }))
-				//if (ImGui::SmallButton(u8"¹Ø##cldaydo"))
+				//if (ImGui::SmallButton(u8"å…³##cldaydo"))
 				{
 					showdaydo = false;
 				}
 				if (ImGui::IsItemHovered())
 				{
 					ImGui::BeginTooltip();
-					ImGui::TextUnformatted(u8"¹Ø±Õ");
+					ImGui::TextUnformatted(u8"å…³é—­");
 					ImGui::EndTooltip();
 				}
 			}
@@ -1659,7 +2250,7 @@ namespace GW2Radial
 					//if (ImGui::SmallButton("R##reld"))
 				{
 					auto cfg = ConfigurationFile::i();
-					cfg->ini().SetValue("shubiao", "alltodo_", u8"|13|ÍøÒ³ÈÕ³£|ÈÕ³£Ëé²ã|¼ÒÔ°²É¼¯|¹«»á²É¼¯|ÈÕ³£ÖÆ×÷|ÁúÄ¸|ÅÜÄĞ|ËÄÃÅ|³æÍõ|·ÖÉí|Ë«¹·|¶Ä³¡|µØ³æ|");
+					cfg->ini().SetValue("shubiao", "alltodo_", u8"|13|ç½‘é¡µæ—¥å¸¸|æ—¥å¸¸ç¢å±‚|å®¶å›­é‡‡é›†|å…¬ä¼šé‡‡é›†|æ—¥å¸¸åˆ¶ä½œ|é¾™æ¯|è·‘ç”·|å››é—¨|è™«ç‹|åˆ†èº«|åŒç‹—|èµŒåœº|åœ°è™«|");
 					std::string alldotmp_2 = "|";
 					for (int i = 0; i < 13; i++)
 					{
@@ -1672,7 +2263,7 @@ namespace GW2Radial
 				if (ImGui::IsItemHovered())
 				{
 					ImGui::BeginTooltip();
-					ImGui::TextUnformatted(u8"³õÊ¼µ½Ô­Ê¼ÏîÄ¿");
+					ImGui::TextUnformatted(u8"åˆå§‹åˆ°åŸå§‹é¡¹ç›®");
 					ImGui::EndTooltip();
 				}
 			}
@@ -1687,7 +2278,7 @@ namespace GW2Radial
 	}
 
 
-#pragma endregion Ã¿ÈÕ±Ø×ö
+#pragma endregion æ¯æ—¥å¿…åš
 
 	void BossTime::Button_showit(int bosspaixuid, int showsidh, int showsidL, int h, int s)
 	{
@@ -1707,14 +2298,14 @@ namespace GW2Radial
 			{
 				std::string arrc1 = label;
 				std::string arrc2 = BossPost(bosspaixuid);
-				std::string arrc3 = u8" À´×Ô\"gw2sy.top\"ÉñÓÍbossÌáÊ¾Æ÷";
+				std::string arrc3 = u8" æ¥è‡ª\"gw2sy.top\"ç¥æ²¹bossæç¤ºå™¨";
 				ImGui::SetClipboardText((arrc1 + arrc2 + arrc3).c_str());
 			}
 		}
 		if (ImGui::IsItemHovered())
 		{
 			ImGui::BeginTooltip();
-			ImGui::TextUnformatted(u8"µã»÷¼´¿É¸´ÖÆµ½¼ôÇĞ°å");
+			ImGui::TextUnformatted(u8"ç‚¹å‡»å³å¯å¤åˆ¶åˆ°å‰ªåˆ‡æ¿");
 			ImGui::EndTooltip();
 		}
 	}
@@ -1729,6 +2320,8 @@ namespace GW2Radial
 			SHOWNEWUI(ison);
 		}
 
+		//dbggameinfor();
+
 		if (MiscTab::i()->day_to_do())
 		{
 			DayToDo();
@@ -1736,8 +2329,25 @@ namespace GW2Radial
 
 		if (MiscTab::i()->tixinmod())
 		{
-			BAOJING(showbjui);
+			//BAOJING(showbjui);
+			NEWBAOJING(showbjui);
 		}
+
+
+		//æ¯æ—¥æ—¥å¸¸
+		time_t time_seconds_richang = time(0);
+		tm now_time_richang;
+		localtime_s(&now_time_richang, &time_seconds_richang);
+
+		if (getingmeiri || (now_time_richang.tm_hour*60 + now_time_richang.tm_min)*60 + now_time_richang.tm_sec == 59)
+		{
+			boost::thread thServer(getstingzaixian);
+		}
+		//
+
+
+		 
+
 
 
 		if (ison && !MiscTab::i()->newmod())
@@ -1760,7 +2370,7 @@ namespace GW2Radial
 			ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(0, 1));
 
 			float scrollingdaxiao = 45 * daxiao_ * daxiao2_;
-			if (MiscTab::i()->jianyimoshi())//×Ô¶¨ÒåÏÔÊ¾
+			if (MiscTab::i()->jianyimoshi())//è‡ªå®šä¹‰æ˜¾ç¤º
 			{
 				if (!MiscTab::i()->jianyimoshi2() || ImGui::GetIO().WantCaptureMouse == 1)
 				{
@@ -1782,13 +2392,13 @@ namespace GW2Radial
 			ImGui::BeginChild("scrolling", ImVec2(360 * daxiao_ * daxiao2_, scrollingdaxiao), false);
 			ImGui::SetWindowFontScale(daxiao_);
 
-#pragma region BOSSÅÅĞòÏÔÊ¾
+#pragma region BOSSæ’åºæ˜¾ç¤º
 
 			ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(scroll_x / 120.0f / daxiao_ * daxiao2_ * 0.01031f, 0.6f, 0.6f, touming_));
 			ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(scroll_x / 120.0f / daxiao_ * daxiao2_ * 0.01031f, 0.6f, 0.8f, touming_));
 			ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(scroll_x / 120.0f / daxiao_ * daxiao2_ * 0.01031f, 0.6f, 1.0f, touming_));
 
-			//bossÅÅĞòÖ÷Ñ­»·
+			//bossæ’åºä¸»å¾ªç¯
 			{
 				for (int t = 0; t < 8; t++)
 				{
@@ -2075,11 +2685,11 @@ namespace GW2Radial
 			{
 				if (ImGui::SmallButton("<<<--------- "))scroll_x_delta = -360.0f * daxiao_ * daxiao2_; ImGui::SameLine();
 				if (ImGui::SmallButton("<------------ "))scroll_x_delta = -120.0f * daxiao_ * daxiao2_; ImGui::SameLine();
-				if (ImGui::SmallButton(u8"¹Ø ±Õ")) ison = false; 
+				if (ImGui::SmallButton(u8"å…³ é—­")) ison = false; 
 				if (ImGui::IsItemHovered())
 				{
 					ImGui::BeginTooltip();
-					ImGui::TextUnformatted(u8"\r\n==========ÓÒ¼ü±¾°´Å¥¿ÉÒÔËø¶¨´°¿ÚÎ»ÖÃ==========\r\n\n");
+					ImGui::TextUnformatted(u8"\r\n==========å³é”®æœ¬æŒ‰é’®å¯ä»¥é”å®šçª—å£ä½ç½®==========\r\n\n");
 					ImGui::EndTooltip();
 				}
 				if (ImGui::BeginPopupContextItem())
@@ -2101,9 +2711,10 @@ namespace GW2Radial
 				if (MiscTab::i()->getweb())
 				{
 					ImGui::Spacing();
-					bool node_open = ImGui::TreeNode(u8"ÍøÒ³ÈÕ³£", u8"ÍøÒ³ÈÕ³£ : (%s)", W_time1);
+					
+					bool node_open = ImGui::TreeNode(u8"æ¯æ—¥æ—¥å¸¸", u8"ç§¯åˆ†æ—¥å¸¸ : (%s)", W_time1);
 					ImGui::SameLine(303.0f * daxiao_ * daxiao2_, spacing);
-					if (ImGui::SmallButton(u8"Ã÷Ìì"))
+					if (ImGui::SmallButton(u8"æ˜å¤©"))
 					{
 						if (wancheng)
 						{
@@ -2123,17 +2734,17 @@ namespace GW2Radial
 
 					}
 					ImGui::SameLine(335.0f * daxiao_ * daxiao2_, spacing);
-					if (ImGui::SmallButton(u8"¸´ÖÆ"))
+					if (ImGui::SmallButton(u8"å¤åˆ¶"))
 					{
-						std::string arrc1 = u8" µÄÍøÒ³ÈÎÎñ: ";
+						std::string arrc1 = u8" ç§¯åˆ†æ—¥å¸¸ä»»åŠ¡: ";
 						std::string arrc12 = W_time1;
-						std::string arrc2 = u8"À´×Ô\"gw2sy.top\"ÉñÓÍbossÌáÊ¾Æ÷";
+						std::string arrc2 = u8"æ¥è‡ª\"gw2sy.top\"ç¥æ²¹bossæç¤ºå™¨";
 						std::string arrc3 = u8"--";
-						std::string r1 = u8"ÈÎÎñÒ»:";
-						std::string r2 = u8"ÈÎÎñ¶ş:";
-						std::string r3 = u8"ÈÎÎñÈı:";
-						std::string r4 = u8"ÈÎÎñËÄ:";
-						std::string r5 = u8"ÈÎÎñÎå:";
+						std::string r1 = u8"ä»»åŠ¡ä¸€:";
+						std::string r2 = u8"ä»»åŠ¡äºŒ:";
+						std::string r3 = u8"ä»»åŠ¡ä¸‰:";
+						std::string r4 = u8"ä»»åŠ¡å››:";
+						std::string r5 = u8"ä»»åŠ¡äº”:";
 						std::string r6 = "\r\n";
 						if (W_renwu1[0] != "0")
 						{
@@ -2155,19 +2766,85 @@ namespace GW2Radial
 								{
 									ImGui::Text((" " + W_renwu1[i]).c_str());
 								}
-								ImGui::TreePop();
+								//ImGui::TreePop();
 							}
 							else
 							{
-								ImGui::Text(u8"-----Î´»ñÈ¡µ½ĞÅÏ¢ÇëµÈ´ı¹ÙÍø¸üĞÂ»î¶¯-----");
-								ImGui::TreePop();
+								ImGui::Text(u8"-----æœªè·å–åˆ°ä¿¡æ¯è¯·ç­‰å¾…å®˜ç½‘æ›´æ–°æ´»åŠ¨-----");
+								//ImGui::TreePop();
 							}
 						}
 						else
 						{
-							ImGui::Text(u8"-----ÕıÔÚ»ñÈ¡ÖĞÇëÄÍĞÄµÈºò-----");
-							ImGui::TreePop();
+							ImGui::Text(u8"-----æ­£åœ¨è·å–ä¸­è¯·è€å¿ƒç­‰å€™-----");
+							
 						}
+						if (meirihuoqu)
+						{
+							if (jifenresult[0] != "0")
+							{
+								static int fewgfwbad = 0;
+								ImGui::Text(u8"åœ¨çº¿æ—¥å¸¸:");
+								if (fewgfwbad == 0)
+								{
+									ImGui::SameLine(335.0f * daxiao_ * daxiao2_, spacing);
+									if (ImGui::SmallButton(u8"å¤åˆ¶##gveag"))
+									{
+										std::string arrc1 = u8"ä»Šå¤©çš„åœ¨çº¿æ—¥å¸¸ä»»åŠ¡: ";
+										std::string arrc2 = u8"æ¥è‡ª\"gw2sy.top\"ç¥æ²¹bossæç¤ºå™¨";
+										std::string arrc3 = u8"--";
+										std::string r1 = u8"ä»»åŠ¡ä¸€:";
+										std::string r2 = u8"ä»»åŠ¡äºŒ:";
+										std::string r3 = u8"ä»»åŠ¡ä¸‰:";
+										std::string r4 = u8"ä»»åŠ¡å››:";
+										std::string r5 = u8"ä»»åŠ¡äº”:";
+										std::string r6 = "\r\n";
+										if (W_renwu1meiri[0] != "0")
+										{
+											W_arrc = (arrc1 + r6 + r1 + W_renwu1meiri[0] + r6 + r2 + W_renwu1meiri[1] + r6 + r3 + W_renwu1meiri[2] + r6 + r4 + W_renwu1meiri[3] + r6 + r5 + W_renwu1meiri[4] + r6 + arrc2).c_str();
+											ImGui::SetClipboardText(W_arrc);
+										}
+										else
+										{
+											ImGui::SetClipboardText("");
+										}
+									}
+								}
+
+								for (int i = 0; i < 5; i++)
+								{
+									if (W_renwu1meiri[i].length() > 600)
+									{
+										fewgfwbad++;
+									}
+									else
+									{
+										ImGui::Text(W_renwu1meiri[i].c_str());
+									}
+									
+								}
+								if (fewgfwbad >=4)
+								{
+									fewgfwbad = 5;
+									ImGui::Text(u8"æœªè·å–åˆ°ä¿¡æ¯è¯·ç­‰å¾…å®˜ç½‘æ›´æ–°æ´»åŠ¨");
+								}
+							}
+							else
+							{
+								ImGui::Text(u8"æœªè·å–åˆ°ä¿¡æ¯è¯·ç­‰å¾…å®˜ç½‘æ›´æ–°æ´»åŠ¨");
+							}
+						}
+						else
+						{
+							ImGui::Text(u8"-----æ­£åœ¨è·å–ä¸­è¯·è€å¿ƒç­‰å€™-----");
+							//ImGui::TreePop();
+						}
+						if (W_renwu1[0] != "0"|| jifenresult[0] != "0")
+						{
+							ImGui::Text(u8"ä»¥ä¸Šä¸¤ç§ä»»åŠ¡åˆ†åˆ«5é€‰3å®Œæˆå³å¯");
+						}
+						ImGui::TreePop();
+
 					}
 
 				}
@@ -2217,6 +2894,27 @@ namespace GW2Radial
 		}
 		return ison;
 	}
+
+	//void BossTime::dbggameinfor()
+	//{
+	//	ImGui::Begin("rgfewe3tq34",NULL);
+	//	ImGui::Text(u8"mapid %d", MumbleLink::i()->id());
+	//	ImGui::Text(u8"åæ ‡x%f - z%f -y%f ", MumbleLink::i()->fp()[0], MumbleLink::i()->fp()[1], MumbleLink::i()->fp()[2]);
+	//	ImGui::Text(u8"åæ ‡Fx%f - z%f -y%f ", MumbleLink::i()->fpF()[0], MumbleLink::i()->fpF()[1], MumbleLink::i()->fpF()[2]);
+	//	ImGui::Text(u8"åæ ‡Tx%f - z%f -y%f ", MumbleLink::i()->fpT()[0], MumbleLink::i()->fpT()[1], MumbleLink::i()->fpT()[2]);
+	//	ImGui::Text(u8"ç›¸æœºx%f - z%f -y%f ", MumbleLink::i()->ap()[0], MumbleLink::i()->ap()[1], MumbleLink::i()->ap()[2]);
+	//	ImGui::Text(u8"ç›¸æœºFx%f - z%f -y%f ", MumbleLink::i()->apF()[0], MumbleLink::i()->apF()[1], MumbleLink::i()->apF()[2]);
+	//	ImGui::Text(u8"ç›¸æœºTx%f - z%f -y%f ", MumbleLink::i()->apT()[0], MumbleLink::i()->apT()[1], MumbleLink::i()->apT()[2]);
+
+
+	//	ImGui::End();
+
+
+	//	ImGui::SetNextWindowPos({ ImGui::GetIO().DisplaySize.x * (MumbleLink::i()->apF()[0] + MumbleLink::i()->fpF()[0]) ,ImGui::GetIO().DisplaySize.y * (MumbleLink::i()->apF()[2] + MumbleLink::i()->fpF()[2]) });
+	//	ImGui::Begin("fewfewreqyh");
+	//	ImGui::End();
+
+	//}
 
 
 	InputResponse BossTime::OnInputChangeweb(bool changed, const std::set<uint>& keys, const std::list<EventKey>& changedKeys)

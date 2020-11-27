@@ -908,7 +908,7 @@ namespace GW2Radial
 						if (i == anjiansunxu)
 						{
 							//font_
-							ImGui::PushFont(Core::i()->font());
+							ImGui::PushFont(Core::i()->fontBlack());
 							float tmpposx = 45.0f;
 							if (ImGui::CalcTextSize(tmp.c_str()).x + 10.0f > tmpposx)
 							{
@@ -923,6 +923,7 @@ namespace GW2Radial
 							{
 								ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0.53f, 0.53f, 0.53f, LoopPromptB_.value()));
 							}
+
 							ImGui::Button(tmp.c_str(), ImVec2(tmpposx, 45.0f));
 							//if (ImGui::Button(tmp.c_str(), ImVec2(tmpposx, 45.0f)))
 							//{

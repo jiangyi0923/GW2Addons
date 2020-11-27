@@ -15,6 +15,7 @@
 #define IDR_RECOVERY	255
 #define IDR_REMOVE		256
 #define IDR_DELETE		257
+#define IDR_NWBGDDS		258
 
 #define IDR_MOUNTS		211
 #define IDR_MOUNT1		211

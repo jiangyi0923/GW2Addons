@@ -25,6 +25,7 @@ void ImGuiConfigurationWrapper(F fct, GW2Radial::ConfigurationOption<T>& value, 
 	if (fct(value.displayName().c_str(), &value.value(), args, args2, "", 1.0f))
 		value.ForceSave();
 }
+
 template<typename F, typename T, typename... Args>
 void ImGuiConfigurationWrapper(F fct, const char* name, GW2Radial::ConfigurationOption<T>& value1, GW2Radial::ConfigurationOption<T>& value2, Args&& ... args)
 {
