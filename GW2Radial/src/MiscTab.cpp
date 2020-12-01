@@ -57,7 +57,7 @@ namespace GW2Radial
 
 	void MiscTab::DrawMenu()
 	{
-		ImGui::Text(u8"插件版本日期:2020-11-26");
+		ImGui::Text(u8"插件版本日期:2020-12-01");
 		ImGui::Text(u8"全局设置:");
 		if (auto i = Input::iNoInit(); i)
 			ImGuiConfigurationWrapper(ImGui::Checkbox, i->distinguishLeftRight_);

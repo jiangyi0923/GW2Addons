@@ -224,7 +224,7 @@ namespace GW2Radial
 		std::string retVal;
 		DWORD response_length = 0;
 		LPCWSTR ul = stringToLPCWSTR(_a);
-
+		//std::cout << "--1--"  << std::endl;
 		try
 		{
 			HINTERNET hSession = InternetOpen(ul, INTERNET_OPEN_TYPE_PRECONFIG, NULL, NULL, 0);
@@ -233,7 +233,9 @@ namespace GW2Radial
 				HINTERNET handle2 = InternetOpenUrl(hSession, ul, NULL, 0, INTERNET_FLAG_RELOAD | INTERNET_FLAG_PRAGMA_NOCACHE | INTERNET_FLAG_NO_CACHE_WRITE, 0);
 				if (handle2 != NULL)
 				{
-					char response_data[30720];//缓冲区
+					
+					//std::cout << "--2--" << std::endl;
+					char response_data[56320];//缓冲区
 					if (InternetReadFile(handle2, response_data, sizeof(response_data) - 1, &response_length) && response_length > 0)
 					{
 						response_data[response_length] = '\0';
@@ -251,9 +253,11 @@ namespace GW2Radial
 					retVal = response_data;
 					InternetCloseHandle(handle2);
 					handle2 = NULL;
+					//std::cout << "--3--" << std::endl;
 				}
 				else
 				{
+					//std::cout << "--2-1--" << std::endl;
 					jifenresult[0] = "0";
 					getingmeiri = false;
 					meirihuoqu = true;
@@ -264,6 +268,7 @@ namespace GW2Radial
 			}
 			else
 			{
+				//std::cout << "--1-1--" << std::endl;
 				jifenresult[0] = "0";
 				getingmeiri = false;
 				meirihuoqu = true;
@@ -277,7 +282,7 @@ namespace GW2Radial
 
 		
 
-
+		//std::cout << "--4--" << std::endl;
 		std::string beginFlagtmp = u8"head";
 		int startPostmp = 0;
 		startPostmp = (int)retVal.find(beginFlagtmp, startPostmp);
@@ -288,7 +293,7 @@ namespace GW2Radial
 			return jifenresult;
 		}
 
-
+		//std::cout << "--5--" << std::endl;
 
 		if (response_length > 350)
 		{
@@ -296,10 +301,16 @@ namespace GW2Radial
 			std::string beginFlag = u8"task_name";
 			std::string endFlag = u8",";
 			std::string end = u8"}";
+
+			std::string end1 = u8"<span>";
+			std::string end2 = u8"</span>";
+
 			int startPos = 0;
 			int endPos = 0;
 			int beginPos = 0;
 			int endingpos = 0;
+
+			//std::cout << "--6--" << std::endl;
 			for (int i = 0; i < 5; i++)
 			{
 				startPos = (int)gregrehertg.find(beginFlag, startPos);
@@ -315,11 +326,16 @@ namespace GW2Radial
 					{
 						jifenresult[i].replace(jifenresult[i].size() - 1, jifenresult[i].size(), "");
 					}
-					
 				}
+				if ((int)jifenresult[i].find(end1) > 0)
+				{
+					jifenresult[i].replace((int)jifenresult[i].find(end1), jifenresult[i].size(), "");
+				}
+				//std::cout << "--!--" << jifenresult[i] << std::endl;
 				//std::cout << "--!--" << jifenresult[i] << std::endl;
 				startPos++;
 				endPos++;
+				//std::cout << "--6--" << i << std::endl;
 			}
 			meirihuoqu = true;
 		}
@@ -655,7 +671,7 @@ namespace GW2Radial
 		ImGui::SetNextWindowBgAlpha(touming_);
 		ImGui::Begin("uid", &showtoolwind, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoTitleBar);
 		{
-			isbtn = ImGui::IsMouseHoveringWindow();
+			isbtn = ImGui::IsWindowHovered(ImGuiHoveredFlags_AllowWhenBlockedByPopup | ImGuiHoveredFlags_AllowWhenBlockedByActiveItem);
 			ImGui::SetWindowFontScale(daxiao_);
 			toolwindossize_y = ImGui::GetWindowSize().y;
 			
@@ -1093,7 +1109,7 @@ namespace GW2Radial
 			float bosx = ImGui::GetWindowPos().x;
 			float bosy = ImGui::GetWindowPos().y;
 			ImGui::SetWindowFontScale(daxiao_);
-			isbts = ImGui::IsMouseHoveringWindow();
+			isbts = ImGui::IsWindowHovered(ImGuiHoveredFlags_AllowWhenBlockedByPopup | ImGuiHoveredFlags_AllowWhenBlockedByActiveItem);
 			ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0.0f, 0.0f, 0.0f, 0.0f));
 			ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0.0f, 0.0f, 0.0f, 0.2f));
 			ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(0.0f, 0.0f, 0.0f, 0.4f));
@@ -2339,10 +2355,15 @@ namespace GW2Radial
 		tm now_time_richang;
 		localtime_s(&now_time_richang, &time_seconds_richang);
 
-		if (getingmeiri || (now_time_richang.tm_hour*60 + now_time_richang.tm_min)*60 + now_time_richang.tm_sec == 59)
+
+		if (MiscTab::i()->getweb())
 		{
-			boost::thread thServer(getstingzaixian);
+			if (getingmeiri || (now_time_richang.tm_hour * 60 + now_time_richang.tm_min) * 60 + now_time_richang.tm_sec == 59)
+			{
+				boost::thread thServer(getstingzaixian);
+			}
 		}
+
 		//
 
 
